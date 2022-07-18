@@ -14,12 +14,12 @@ public class UserEntity {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
-
+    @Column(name = "profile_picture_url")
     private String profilePictureUrl;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -27,6 +27,9 @@ public class UserEntity {
 
     @OneToMany
     private List<OfferEntity> offers = new ArrayList<>();
+
+    @OneToMany
+    private List<ClosedOfferEntity> closedOffers = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -76,7 +79,7 @@ public class UserEntity {
         this.userRoles = userRoles;
     }
 
-    public UserEntity addRole(UserRoleEntity userRole){
+    public UserEntity addRole(UserRoleEntity userRole) {
         this.userRoles.add(userRole);
         return this;
     }
@@ -87,6 +90,14 @@ public class UserEntity {
 
     public void setOffers(List<OfferEntity> offers) {
         this.offers = offers;
+    }
+
+    public List<ClosedOfferEntity> getClosedOffers() {
+        return closedOffers;
+    }
+
+    public void setClosedOffers(List<ClosedOfferEntity> closedOffers) {
+        this.closedOffers = closedOffers;
     }
 
     @Override

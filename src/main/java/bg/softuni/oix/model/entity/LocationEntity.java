@@ -1,6 +1,8 @@
 package bg.softuni.oix.model.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "locations")
@@ -10,14 +12,10 @@ public class LocationEntity {
     private long id;
 
     @Column(nullable = false)
-    private String country;
-
-    @Column(nullable = false)
     private String city;
 
-    private String street;
-
-    private int postalCode;
+    @OneToMany
+    private List<OfferEntity> offers = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -25,14 +23,6 @@ public class LocationEntity {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public String getCity() {
@@ -43,19 +33,11 @@ public class LocationEntity {
         this.city = city;
     }
 
-    public String getStreet() {
-        return street;
+    public List<OfferEntity> getOffers() {
+        return offers;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public int getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(int postalCode) {
-        this.postalCode = postalCode;
+    public void setOffers(List<OfferEntity> offers) {
+        this.offers = offers;
     }
 }
