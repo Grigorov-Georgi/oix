@@ -1,6 +1,6 @@
 package bg.softuni.oix.model.entity;
 
-import bg.softuni.oix.model.entity.enums.ConditionEnum;
+import bg.softuni.oix.model.enums.CategoryEnum;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -18,11 +18,16 @@ public class OfferEntity {
     @Column(nullable = false)
     private String title;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
+    @JoinColumn(name = "seller_id", referencedColumnName = "id")
     private UserEntity seller;
 
     @ManyToOne
+    @JoinColumn(name = "buyer_id", referencedColumnName = "id")
     private UserEntity buyer;
+
+    @ManyToOne
+    private LocationEntity location;
 
     @Column(name = "release_date")
     private LocalDate releaseDate;
@@ -35,17 +40,15 @@ public class OfferEntity {
 
     private String description;
 
-    private int quantity;
-
-    @ManyToOne
-    private LocationEntity location;
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private ConditionEnum condition;
+    private CategoryEnum category;
 
-    @OneToMany
-    private List<CommentEntity> comments = new ArrayList<>();
 
+    @OneToMany(
+            mappedBy = "offer",
+            cascade = CascadeType.ALL
+    )
+    private List<CommentEntity> comments = new ArrayList<>();;
 
     public long getId() {
         return id;
@@ -71,44 +74,12 @@ public class OfferEntity {
         this.seller = seller;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public UserEntity getBuyer() {
+        return buyer;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public ConditionEnum getCondition() {
-        return condition;
-    }
-
-    public void setCondition(ConditionEnum condition) {
-        this.condition = condition;
-    }
-
-    public List<CommentEntity> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<CommentEntity> comments) {
-        this.comments = comments;
+    public void setBuyer(UserEntity buyer) {
+        this.buyer = buyer;
     }
 
     public LocationEntity getLocation() {
@@ -117,14 +88,6 @@ public class OfferEntity {
 
     public void setLocation(LocationEntity location) {
         this.location = location;
-    }
-
-    public UserEntity getBuyer() {
-        return buyer;
-    }
-
-    public void setBuyer(UserEntity buyer) {
-        this.buyer = buyer;
     }
 
     public LocalDate getReleaseDate() {
@@ -141,5 +104,37 @@ public class OfferEntity {
 
     public void setSoldDate(LocalDate soldDate) {
         this.soldDate = soldDate;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public CategoryEnum getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEnum category) {
+        this.category = category;
+    }
+
+    public List<CommentEntity> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentEntity> comments) {
+        this.comments = comments;
     }
 }

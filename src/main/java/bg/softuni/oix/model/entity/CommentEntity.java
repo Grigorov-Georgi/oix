@@ -10,9 +10,12 @@ public class CommentEntity {
     private long id;
 
     @ManyToOne
-    private String sender;
+    private UserEntity sender;
 
     private String description;
+
+    @ManyToOne
+    private OfferEntity offer;
 
     public long getId() {
         return id;
@@ -22,11 +25,11 @@ public class CommentEntity {
         this.id = id;
     }
 
-    public String getSender() {
+    public UserEntity getSender() {
         return sender;
     }
 
-    public void setSender(String sender) {
+    public void setSender(UserEntity sender) {
         this.sender = sender;
     }
 
@@ -36,5 +39,13 @@ public class CommentEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public OfferEntity getOffer() {
+        return offer;
+    }
+
+    public void setOffer(OfferEntity offer) {
+        this.offer = offer;
     }
 }

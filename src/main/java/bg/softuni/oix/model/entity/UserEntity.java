@@ -19,17 +19,20 @@ public class UserEntity {
 
     @Column(name = "last_name", nullable = false)
     private String lastName;
+
+    //can be separate table in db
     @Column(name = "profile_picture_url")
     private String profilePictureUrl;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private List<UserRoleEntity> userRoles = new ArrayList<>();
 
-    @OneToMany
-    private List<OfferEntity> offers = new ArrayList<>();
+    @OneToMany(
+            mappedBy = "seller",
+            cascade = CascadeType.ALL
+    )
+    private List<OfferEntity> offers = new ArrayList<>();;
 
-    @OneToMany
-    private List<ClosedOfferEntity> closedOffers = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -79,36 +82,11 @@ public class UserEntity {
         this.userRoles = userRoles;
     }
 
-    public UserEntity addRole(UserRoleEntity userRole) {
-        this.userRoles.add(userRole);
-        return this;
-    }
-
     public List<OfferEntity> getOffers() {
         return offers;
     }
 
     public void setOffers(List<OfferEntity> offers) {
         this.offers = offers;
-    }
-
-    public List<ClosedOfferEntity> getClosedOffers() {
-        return closedOffers;
-    }
-
-    public void setClosedOffers(List<ClosedOfferEntity> closedOffers) {
-        this.closedOffers = closedOffers;
-    }
-
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", profilePictureUrl='" + profilePictureUrl + '\'' +
-                ", userRoles=" + userRoles +
-                '}';
     }
 }

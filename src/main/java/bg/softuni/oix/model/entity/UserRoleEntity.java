@@ -1,6 +1,6 @@
 package bg.softuni.oix.model.entity;
 
-import bg.softuni.oix.model.entity.enums.UserRoleEnum;
+import bg.softuni.oix.model.enums.UserRoleEnum;
 
 import javax.persistence.*;
 
@@ -29,13 +29,5 @@ public class UserRoleEntity {
 
     public void setUserRole(UserRoleEnum userRole) {
         this.userRole = userRole;
-    }
-
-    @Override
-    public String toString() {
-        return "UserRoleEntity{" +
-                "id=" + id +
-                ", userRole=" + userRole +
-                '}';
     }
 }

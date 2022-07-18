@@ -14,8 +14,11 @@ public class LocationEntity {
     @Column(nullable = false)
     private String city;
 
-    @OneToMany
-    private List<OfferEntity> offers = new ArrayList<>();
+    @OneToMany(
+            mappedBy = "location",
+            cascade = CascadeType.ALL
+    )
+    private List<OfferEntity> offers = new ArrayList<>();;
 
     public long getId() {
         return id;
