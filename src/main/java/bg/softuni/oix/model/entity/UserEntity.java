@@ -20,6 +20,8 @@ public class UserEntity {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    private String password;
+
     //can be separate table in db
     @Column(name = "profile_picture_url")
     private String profilePictureUrl;
@@ -88,5 +90,13 @@ public class UserEntity {
 
     public void setOffers(List<OfferEntity> offers) {
         this.offers = offers;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
