@@ -33,7 +33,7 @@ public class UserEntity {
             mappedBy = "seller",
             cascade = CascadeType.ALL
     )
-    private List<OfferEntity> offers = new ArrayList<>();;
+    private List<OfferEntity> offers = new ArrayList<>();
 
 
     public long getId() {

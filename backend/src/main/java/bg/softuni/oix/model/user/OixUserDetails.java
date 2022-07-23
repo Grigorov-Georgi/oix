@@ -40,7 +40,7 @@ public class OixUserDetails implements UserDetails {
             sb.append(getFirstName());
         }
         if (getLastName() != null){
-            if (!sb.isEmpty()){
+            if (sb.length() != 0){
                 sb.append(" ");
             }
             sb.append(getLastName());

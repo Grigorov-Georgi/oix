@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import java.util.stream.Collectors;
+
 public class OixUserDetailsService implements UserDetailsService {
     private UserRepository userRepository;
 
@@ -35,8 +37,9 @@ public class OixUserDetailsService implements UserDetailsService {
                 userEntity.getUserRoles()
                 .stream()
                 .map(this::map)
-                .toList()
+                .collect(Collectors.toList())
         );
+
     }
 
     private GrantedAuthority map(UserRoleEntity userRole){

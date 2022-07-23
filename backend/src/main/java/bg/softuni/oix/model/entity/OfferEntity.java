@@ -40,8 +40,8 @@ public class OfferEntity {
 
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    private CategoryEnum category;
+    @ManyToMany
+    private List<CategoryEntity> categories;
 
 
     @OneToMany(
@@ -122,19 +122,19 @@ public class OfferEntity {
         this.description = description;
     }
 
-    public CategoryEnum getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryEnum category) {
-        this.category = category;
-    }
-
     public List<CommentEntity> getComments() {
         return comments;
     }
 
     public void setComments(List<CommentEntity> comments) {
         this.comments = comments;
+    }
+
+    public void setCategories(List<CategoryEntity> categories) {
+        this.categories = categories;
+    }
+
+    public List<CategoryEntity> getCategories() {
+        return categories;
     }
 }
