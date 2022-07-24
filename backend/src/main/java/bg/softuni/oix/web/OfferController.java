@@ -20,7 +20,7 @@ public class OfferController {
     }
 
     @GetMapping("/offers")
-    public List<OfferDto> getAllOffers(){
-        return offerService.findAll();
+    public String getAllOffers(){
+        return "offers";
     }
 }

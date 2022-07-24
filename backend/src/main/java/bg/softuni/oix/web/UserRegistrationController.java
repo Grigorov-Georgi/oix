@@ -10,8 +10,15 @@ import javax.validation.Valid;
 @RequestMapping("/api")
 public class UserRegistrationController {
 
-    @PostMapping("/register")
-    public ResponseEntity<UserRegistrationDto> register(@Valid @RequestBody UserRegistrationDto userRegistrationDto){
-        return null;
+    @ModelAttribute("userModel")
+    public UserRegistrationDto initUserModel(){
+        return new UserRegistrationDto();
     }
+
+    @GetMapping("/register")
+    public String register(){
+        return "auth-register";
+    }
+
+
 }

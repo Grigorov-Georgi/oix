@@ -1,0 +1,31 @@
+
+.divider:after,
+
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+
+html, body {
+    height: 100%;
+}
+body {
+    margin:0px;
+    padding: 0px;
+}
+.container {
+    height: auto;
+    margin: 0 auto -80px; /* footer height + space */
+    min-height: 100%;
+    padding: 0 0 80px; /* footer height + space */
+    overflow: auto;
+}
+.footer {
+    height: 60px;  /* footer height */
+    padding-top: 20px;
+    margin-top: 20px; /* space between content and footer */
+    position: relative;
+    width: 100%;
+}
