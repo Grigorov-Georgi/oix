@@ -31,3 +31,11 @@ body {
     bottom: 0;
 }
 
+.registerBtn {
+    margin: -5% 0 0 36%;
+}
+
+#loginBtn {
+    margin: 0 0 0 41%;
+}
+

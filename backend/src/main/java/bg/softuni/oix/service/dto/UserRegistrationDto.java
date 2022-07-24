@@ -18,8 +18,6 @@ public class UserRegistrationDto {
     private String password;
     private String confirmPassword;
 
-//    @NotBlank
-//    private String profilePictureUrl;
 
     public String getEmail() {
         return email;
