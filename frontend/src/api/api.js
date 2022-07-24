@@ -1,7 +1,7 @@
 
 import { getUserData, setUserData, clearUserData } from "../util.js";
 
-const hostname = 'http://localhost:3030'
+const hostname = 'http://localhost:8080/api'
 
 async function request(url, options) {
     try {

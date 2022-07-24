@@ -1,0 +1,102 @@
+package bg.softuni.oix.service.mapper;
+
+import bg.softuni.oix.model.entity.UserEntity;
+import bg.softuni.oix.service.dto.UserRegistrationDto;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2022-07-23T17:01:53+0300",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
+)
+@Component
+public class UserMapperImpl implements UserMapper {
+
+    @Override
+    public UserRegistrationDto toDto(UserEntity entity) {
+        if ( entity == null ) {
+            return null;
+        }
+
+        UserRegistrationDto userRegistrationDto = new UserRegistrationDto();
+
+        userRegistrationDto.setEmail( entity.getEmail() );
+        userRegistrationDto.setFirstName( entity.getFirstName() );
+        userRegistrationDto.setLastName( entity.getLastName() );
+        userRegistrationDto.setPassword( entity.getPassword() );
+        userRegistrationDto.setProfilePictureUrl( entity.getProfilePictureUrl() );
+
+        return userRegistrationDto;
+    }
+
+    @Override
+    public List<UserEntity> toEntity(List<UserRegistrationDto> dtoList) {
+        if ( dtoList == null ) {
+            return null;
+        }
+
+        List<UserEntity> list = new ArrayList<UserEntity>( dtoList.size() );
+        for ( UserRegistrationDto userRegistrationDto : dtoList ) {
+            list.add( toEntity( userRegistrationDto ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<UserRegistrationDto> toDto(List<UserEntity> entityList) {
+        if ( entityList == null ) {
+            return null;
+        }
+
+        List<UserRegistrationDto> list = new ArrayList<UserRegistrationDto>( entityList.size() );
+        for ( UserEntity userEntity : entityList ) {
+            list.add( toDto( userEntity ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public void partialUpdate(UserEntity entity, UserRegistrationDto dto) {
+        if ( dto == null ) {
+            return;
+        }
+
+        if ( dto.getEmail() != null ) {
+            entity.setEmail( dto.getEmail() );
+        }
+        if ( dto.getFirstName() != null ) {
+            entity.setFirstName( dto.getFirstName() );
+        }
+        if ( dto.getLastName() != null ) {
+            entity.setLastName( dto.getLastName() );
+        }
+        if ( dto.getProfilePictureUrl() != null ) {
+            entity.setProfilePictureUrl( dto.getProfilePictureUrl() );
+        }
+        if ( dto.getPassword() != null ) {
+            entity.setPassword( dto.getPassword() );
+        }
+    }
+
+    @Override
+    public UserEntity toEntity(UserRegistrationDto userRegistrationDto) {
+        if ( userRegistrationDto == null ) {
+            return null;
+        }
+
+        UserEntity userEntity = new UserEntity();
+
+        userEntity.setEmail( userRegistrationDto.getEmail() );
+        userEntity.setFirstName( userRegistrationDto.getFirstName() );
+        userEntity.setLastName( userRegistrationDto.getLastName() );
+        userEntity.setProfilePictureUrl( userRegistrationDto.getProfilePictureUrl() );
+        userEntity.setPassword( userRegistrationDto.getPassword() );
+
+        return userEntity;
+    }
+}

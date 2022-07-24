@@ -9,7 +9,6 @@ import org.mapstruct.Mapping;
         componentModel = "spring"
 )
 public interface OfferMapper extends EntityMapper<OfferDto, OfferEntity>{
-//    @Mapping(target = "title", source = "title")
 //    @Mapping(target = "sellerName", source = "seller.firstName")
 //    @Mapping(target = "city", source = "location.city")
 //    @Mapping(target = "categoryName", source = "category")
