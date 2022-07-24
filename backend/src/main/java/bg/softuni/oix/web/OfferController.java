@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/offers")
 public class OfferController {
     private OfferService offerService;
 
@@ -19,7 +19,7 @@ public class OfferController {
         this.offerService = offerService;
     }
 
-    @GetMapping("/offers")
+    @GetMapping
     public String getAllOffers(){
         return "offers";
     }
