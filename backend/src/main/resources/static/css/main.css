@@ -39,3 +39,22 @@ body {
     margin: 0 0 0 41%;
 }
 
+#carouselExampleCaptions {
+    margin: 5% 30% 0 30%;
+}
+
+.homeGreyBox{
+    background-color: grey;
+    opacity: 0.95;
+    border-radius: 10%;
+}
+
+.homeHeader{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.carouselTextBlack{
+    color: black;
+}
+
