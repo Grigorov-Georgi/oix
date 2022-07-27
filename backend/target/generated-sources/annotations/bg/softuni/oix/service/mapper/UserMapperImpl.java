@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-07-23T17:01:53+0300",
+    date = "2022-07-27T21:41:51+0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -27,7 +27,6 @@ public class UserMapperImpl implements UserMapper {
         userRegistrationDto.setFirstName( entity.getFirstName() );
         userRegistrationDto.setLastName( entity.getLastName() );
         userRegistrationDto.setPassword( entity.getPassword() );
-        userRegistrationDto.setProfilePictureUrl( entity.getProfilePictureUrl() );
 
         return userRegistrationDto;
     }
@@ -75,9 +74,6 @@ public class UserMapperImpl implements UserMapper {
         if ( dto.getLastName() != null ) {
             entity.setLastName( dto.getLastName() );
         }
-        if ( dto.getProfilePictureUrl() != null ) {
-            entity.setProfilePictureUrl( dto.getProfilePictureUrl() );
-        }
         if ( dto.getPassword() != null ) {
             entity.setPassword( dto.getPassword() );
         }
@@ -94,7 +90,6 @@ public class UserMapperImpl implements UserMapper {
         userEntity.setEmail( userRegistrationDto.getEmail() );
         userEntity.setFirstName( userRegistrationDto.getFirstName() );
         userEntity.setLastName( userRegistrationDto.getLastName() );
-        userEntity.setProfilePictureUrl( userRegistrationDto.getProfilePictureUrl() );
         userEntity.setPassword( userRegistrationDto.getPassword() );
 
         return userEntity;

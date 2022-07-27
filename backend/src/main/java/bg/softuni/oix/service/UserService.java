@@ -1,7 +1,10 @@
 package bg.softuni.oix.service;
 
 import bg.softuni.oix.model.entity.UserEntity;
+import bg.softuni.oix.model.entity.UserRoleEntity;
+import bg.softuni.oix.model.enums.UserRoleEnum;
 import bg.softuni.oix.repository.UserRepository;
+import bg.softuni.oix.repository.UserRoleRepository;
 import bg.softuni.oix.service.dto.UserRegistrationDto;
 import bg.softuni.oix.service.mapper.UserMapper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,22 +15,40 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private UserDetailsService userDetailsService;
     private UserMapper userMapper;
+    private UserRoleRepository userRoleRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService, UserMapper userMapper) {
+    private static boolean firstUser = true;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService, UserMapper userMapper, UserRoleRepository userRoleRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
         this.userMapper = userMapper;
+        this.userRoleRepository = userRoleRepository;
     }
 
     public void registerAndLogin(UserRegistrationDto userRegistrationDto){
         UserEntity newUser = userMapper.toEntity(userRegistrationDto);
+        if (firstUser){
+            UserRoleEntity admin = userRoleRepository.findById(1L).get();
+            UserRoleEntity moderator = userRoleRepository.findById(2L).get();
+            UserRoleEntity user = userRoleRepository.findById(3L).get();
+
+            List<UserRoleEntity> userRoleEntityList = new ArrayList<>();
+            userRoleEntityList.add(admin);
+            userRoleEntityList.add(moderator);
+            userRoleEntityList.add(user);
+            newUser.setUserRoles(userRoleEntityList);
+        }
         newUser.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
 
         this.userRepository.save(newUser);

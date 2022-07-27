@@ -1,23 +1,36 @@
 package bg.softuni.oix.service.dto;
 
+import bg.softuni.oix.service.dto.validation.FieldMatch;
+import bg.softuni.oix.service.dto.validation.UniqueUserEmail;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
+@FieldMatch(
+        first = "password",
+        second = "confirmPassword",
+        message = "Passwords should match!"
+)
 public class UserRegistrationDto {
-    @Email
     @NotBlank
-    private String email;
-
-    @NotBlank
+    @Size(min = 4, max = 20)
     private String firstName;
 
     @NotBlank
+    @Size(min = 4, max = 20)
     private String lastName;
 
+    @NotEmpty(message = "User email should be provided.")
+    @Email(message = "User email should be valid.")
+    @UniqueUserEmail(message = "User email should be unique.")
+    private String email;
+
     @NotBlank
+    @Size(min = 5)
     private String password;
     private String confirmPassword;
-
 
     public String getEmail() {
         return email;
