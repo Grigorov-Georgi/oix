@@ -23,7 +23,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Admin
                         </a>
@@ -35,7 +35,7 @@
                             <li><a class="dropdown-item" href="#">Add Moderator</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" sec:authorize="hasRole('MODERATOR')">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Moderator
                         </a>
@@ -49,20 +49,22 @@
                         <a class="nav-link" href="#">Offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">My Offers</a>
+                        <a class="nav-link" href="#" sec:authorize="hasRole('USER')">My Offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Create Offer</a>
+                        <a class="nav-link" href="#" sec:authorize="hasRole('USER')">Create Offer</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/users/login">Login</a>
+                        <a class="nav-link" sec:authorize="!isAuthenticated()" href="/users/login">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/users/register">Register</a>
+                        <a class="nav-link" sec:authorize="!isAuthenticated()" href="/users/register">Register</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Logout</a>
-                    </li>
+                    <form th:action="@{users/logout}" th:method="post" class="nav-item">
+                        <input class="btn btn-link nav-link" type="submit"
+                               sec:authorize="isAuthenticated()" value="Logout">
+                    </form>
+
                 </ul>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
