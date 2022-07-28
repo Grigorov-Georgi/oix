@@ -26,7 +26,16 @@
 
 <div id="container">
     <div class="homeHeader">
-        <h2>Buy new things, sell old ones!</h2>
+        <h2>
+            <span
+                    sec:authorize="isAuthenticated()"
+                    th:text="${#authentication.principal.fullName}">
+            </span>
+            <span
+                    sec:authorize="!isAuthenticated()"
+                    >Hey Buddy
+            </span>
+            , are you ready to buy new things and sell old ones?</h2>
     </div>
     <div class="homeButtonForOffers">
         <a class="btn btn-primary" href="/offers" role="button">Shop now!</a>
