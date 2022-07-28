@@ -26,7 +26,7 @@ public class UserEntity {
     @Column(name = "profile_picture_url")
     private String profilePictureUrl;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> userRoles = new ArrayList<>();
 
     @OneToMany(
