@@ -5,7 +5,9 @@ import bg.softuni.oix.service.dto.AddLocationDTO;
 import bg.softuni.oix.service.views.LocationView;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -37,8 +39,16 @@ public class AdminController {
     }
 
     @PostMapping("/location/add")
-    public String addLocation(@Valid AddLocationDTO locationDTO){
-        this.locationService.save(locationDTO);
+    public String addLocation(@Valid AddLocationDTO addLocationModel,
+                              BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes){
+        if (bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("addLocationModel", addLocationModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addLocationModel",
+                    bindingResult);
+            return "redirect:/admin";
+        }
+        this.locationService.save(addLocationModel);
         return "redirect:/admin";
     }
 

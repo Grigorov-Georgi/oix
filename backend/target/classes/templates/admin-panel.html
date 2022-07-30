@@ -54,8 +54,8 @@
                             </p>
                         </div>
 
-                        <div class="registerBtn">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block" value="Register">Add city
+                        <div class="addLocationBtn">
+                            <button type="submit" class="btn btn-success btn-lg btn-block" value="add-location">Add city
                             </button>
                         </div>
                     </form>
@@ -66,12 +66,9 @@
                             <label th:text="${location.city}"></label>
                             <a class="btn btn-danger delete-btn-admin-panel" th:href="@{/admin/location/delete(id = ${location.id})}"
                                role="button">DELETE</a>
-<!--                            <form th:action="@{/admin/location/delete/{id}(id = ${location.id})}" th:method="delete">-->
-<!--                                <button type="submit" class="btn btn-primary btn-lg btn-block" value="delete">DELETE-->
-<!--                                </button>-->
-<!--                            </form>-->
                         </li>
                     </ul>
+                    <h3 th:if="${locations != null && locations.size == 0}" class="text-info">There are no location added!</h3>
                 </div>
             </div>
         </div>

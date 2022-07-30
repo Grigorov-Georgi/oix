@@ -54,8 +54,8 @@
                             </p>
                         </div>
 
-                        <div class="registerBtn">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block" value="Register">Add city
+                        <div class="addLocationBtn">
+                            <button type="submit" class="btn btn-success btn-lg btn-block" value="add-location">Add city
                             </button>
                         </div>
                     </form>
@@ -68,6 +68,7 @@
                                role="button">DELETE</a>
                         </li>
                     </ul>
+                    <h5 th:if="${locations != null && locations.size == 0}">There are no location added!</h5>
                 </div>
             </div>
         </div>
