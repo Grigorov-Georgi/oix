@@ -59,7 +59,9 @@
                             </button>
                         </div>
                     </form>
+
                     <hr/>
+
                     <h2>All cities</h2>
                     <ul class="list-group" th:each="location: ${locations}">
                         <li class="list-group-item">
@@ -69,6 +71,18 @@
                         </li>
                     </ul>
                     <h5 th:if="${locations != null && locations.size == 0}">There are no location added!</h5>
+
+                    <hr/>
+
+                    <h2>All users</h2>
+                    <ul class="list-group" th:each="user: ${users}">
+                        <li class="list-group-item">
+                            <label th:text="${user.getFullName()}"></label>
+                            <a class="btn btn-danger delete-btn-admin-panel" th:href="@{/admin/user/delete(id = ${user.id})}"
+                               role="button">DELETE</a>
+                        </li>
+                    </ul>
+                    <h5 th:if="${users != null && users.size == 0}">There are no users!</h5>
                 </div>
             </div>
         </div>

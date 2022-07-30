@@ -7,6 +7,7 @@ import bg.softuni.oix.repository.UserRepository;
 import bg.softuni.oix.repository.UserRoleRepository;
 import bg.softuni.oix.service.dto.UserRegistrationDto;
 import bg.softuni.oix.service.mapper.UserMapper;
+import bg.softuni.oix.service.views.UserView;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -66,5 +68,15 @@ public class UserService {
                 );
 
         SecurityContextHolder.getContext().setAuthentication(auth);
+    }
+
+    public List<UserView> getAllUsersForAdminPanel(){
+        return this.userRepository.findAll().stream()
+                .map(u -> new UserView(u.getId(), u.getFirstName(), u.getLastName()))
+                .collect(Collectors.toList());
+    }
+
+    public void delete(Long id) {
+        this.userRepository.deleteById(id);
     }
 }

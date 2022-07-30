@@ -1,8 +1,10 @@
 package bg.softuni.oix.web;
 
 import bg.softuni.oix.service.LocationService;
+import bg.softuni.oix.service.UserService;
 import bg.softuni.oix.service.dto.AddLocationDTO;
 import bg.softuni.oix.service.views.LocationView;
+import bg.softuni.oix.service.views.UserView;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,9 +19,11 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
     private LocationService locationService;
+    private UserService userService;
 
-    public AdminController(LocationService locationService) {
+    public AdminController(LocationService locationService, UserService userService) {
         this.locationService = locationService;
+        this.userService = userService;
     }
 
     @ModelAttribute("addLocationModel")
@@ -32,9 +36,15 @@ public class AdminController {
         return new ArrayList<>();
     }
 
+    @ModelAttribute("users")
+    public List<UserView> initUsers(){
+        return new ArrayList<>();
+    }
+
     @GetMapping
     public String adminPanel(Model model){
         model.addAttribute("locations", locationService.getAllLocations());
+        model.addAttribute("users", userService.getAllUsersForAdminPanel());
         return "admin-panel";
     }
 
@@ -55,6 +65,12 @@ public class AdminController {
     @GetMapping("/location/delete")
     public String deleteLocation(@RequestParam Long id){
         this.locationService.delete(id);
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/user/delete")
+    public String deleteUser(@RequestParam Long id){
+        this.userService.delete(id);
         return "redirect:/admin";
     }
 
