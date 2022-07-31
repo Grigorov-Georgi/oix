@@ -7,12 +7,14 @@ public class OfferView {
     private String title;
     private BigDecimal price;
     private String description;
+    private String location;
 
-    public OfferView(Long id, String title, BigDecimal price, String description) {
+    public OfferView(Long id, String title, BigDecimal price, String description, String location) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.description = description;
+        this.location = location;
     }
 
     public OfferView() {
@@ -48,5 +50,13 @@ public class OfferView {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

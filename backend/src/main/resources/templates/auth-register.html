@@ -36,9 +36,9 @@
                     <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
                     <form
-                        th:action="@{/users/register}"
-                        th:method="post"
-                        th:object="${userModel}">
+                            th:action="@{/users/register}"
+                            th:method="post"
+                            th:object="${userModel}">
 
                         <div class="form-outline mb-4">
                             <input
@@ -75,8 +75,8 @@
                             <label class="form-label" for="email">Email</label>
                             <div class="invalid-feedback errors alert alert-danger">
                                 <div
-                                    th:each="err: ${#fields.errors('email')}"
-                                    th:text="${err}"
+                                        th:each="err: ${#fields.errors('email')}"
+                                        th:text="${err}"
                                 ></div>
                             </div>
                         </div>

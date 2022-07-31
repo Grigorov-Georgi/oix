@@ -25,25 +25,6 @@
 
 <div id="container">
     <h2 class="text-center text-black mt-5">All Offers</h2>
-<!--    <div>-->
-<!--        <div class="card" style="width: 18rem;">-->
-<!--            <img src="/images/enduro.png" class="card-img-top" alt="...">-->
-<!--            <div class="card-body">-->
-<!--                <h5 class="card-title">Card title</h5>-->
-<!--                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the-->
-<!--                    card's content.</p>-->
-<!--                <a href="#" class="btn btn-primary">Go somewhere</a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="card" style="width: 18rem;">-->
-<!--            <img src="/images/enduro.png" class="card-img-top" alt="...">-->
-<!--            <div class="card-body">-->
-<!--                <h5 class="card-title">Card title</h5>-->
-<!--                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the-->
-<!--                    card's content.</p>-->
-<!--                <a href="#" class="btn btn-primary">Go somewhere</a>-->
-<!--            </div>-->
-<!--        </div>-->
         <div
              class="offers row mx-auto d-flex flex-row justify-content-center">
             <div th:each="offer : ${offers}"
@@ -51,7 +32,7 @@
                  class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
                 <div class="card-img-top-wrapper">
 <!--                    <img class="card-img-top" th:src="*{imageUrl}" alt="Car image">-->
-                    <img class="card-img-top" src="/images/enduro.png" alt="Car image">
+                    <img class="card-img-top" src="/images/no-image-icon.png" alt="Car image">
                 </div>
                 <div class="card-body pb-1">
                     <h5 class="card-title">
@@ -60,8 +41,9 @@
                 </div>
                 <ul class="offer-details list-group list-group-flush">
                     <li class="list-group-item">
-                        <div class="card-text"><span>• Price <th:block th:text="*{price}"></th:block></span></div>
-                        <div class="card-text"><span>• Description <th:block th:text="*{description}"></th:block></span></div>
+                        <div class="card-text"><span><b>• Price </b><th:block th:text="*{price}"></th:block></span></div>
+                        <div class="card-text"><span><b>• Location </b><th:block th:text="*{location}"></th:block></span></div>
+                        <div class="card-text"><span><b>• Description </b><th:block th:text="*{description}"></th:block></span></div>
                     </li>
                 </ul>
                 <div class="card-body">
@@ -69,6 +51,7 @@
                 </div>
             </div>
         </div>
+    <h5 th:if="${offers != null && offers.size == 0}" class="text-center text-black mt-5">There are no offers added!</h5>
     </div>
 </div>
 
