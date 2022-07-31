@@ -26,7 +26,14 @@ VALUES  (1, 'CAR'),
 
 INSERT INTO offers (id, description, price, release_date, sold_date, title, buyer_id, seller_id, location_id)
 VALUES  (1, 'Very good condition', 100, '2018-11-01', null, 'Stol na dva kraka', 1, null, 1),
-        (2, 'Old but gold', 2.5, '2018-11-01', '2019-11-01', 'Masa bez stolove', 1, null, 2);
+        (2, 'Old but gold', 2.5, '2018-11-01', '2019-11-01', 'Masa bez stolove', 1, null, 2),
+        (3, 'Very good condition', 100, '2018-11-01', null, 'Stol na dva kraka', 1, null, 1),
+        (4, 'Old but gold', 2.5, '2018-11-01', '2019-11-01', 'Masa bez stolove', 1, null, 2),
+        (5, 'Very good condition', 100, '2018-11-01', null, 'Stol na dva kraka', 1, null, 1),
+        (6, 'Old but gold', 2.5, '2018-11-01', '2019-11-01', 'Masa bez stolove', 1, null, 2),
+        (7, 'Very good condition Very good condition Very good condition Very good condition Very good condition Very good condition Very good condition Very good condition',
+         100, '2018-11-01', null, 'Stol na dva kraka', 1, null, 1),
+        (8, 'Old but gold', 2.5, '2018-11-01', '2019-11-01', 'Masa bez stolove', 1, null, 2);
 
 INSERT INTO users_user_roles(user_entity_id, user_roles_id)
 VALUES  (1, 1),

@@ -7,11 +7,13 @@ import bg.softuni.oix.repository.OfferRepository;
 import bg.softuni.oix.service.dto.AddOfferDTO;
 import bg.softuni.oix.service.dto.OfferDto;
 import bg.softuni.oix.service.mapper.OfferMapper;
+import bg.softuni.oix.service.views.OfferView;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class OfferService {
@@ -43,5 +45,12 @@ public class OfferService {
         offerEntity.setReleaseDate(LocalDate.now());
 
         this.offerRepository.save(offerEntity);
+    }
+
+    public List<OfferView> getAllOffers() {
+        return this.offerRepository.findAll().stream().map(o ->
+                new OfferView(o.getId(), o.getTitle(), o.getPrice(),
+                        o.getDescription().length() >= 30 ? o.getDescription().substring(0, 30) + "..." : o.getDescription()))
+                .collect(Collectors.toList());
     }
 }

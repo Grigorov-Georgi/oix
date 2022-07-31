@@ -4,6 +4,7 @@ import bg.softuni.oix.service.LocationService;
 import bg.softuni.oix.service.OfferService;
 import bg.softuni.oix.service.dto.AddOfferDTO;
 import bg.softuni.oix.service.views.LocationView;
+import bg.softuni.oix.service.views.OfferView;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,6 +34,11 @@ public class OfferController {
     @ModelAttribute("locations")
     public List<LocationView> initLocations(){
         return new ArrayList<>();
+    }
+
+    @ModelAttribute("offers")
+    public List<OfferView> initAllOffers(){
+        return this.offerService.getAllOffers();
     }
 
     @GetMapping
