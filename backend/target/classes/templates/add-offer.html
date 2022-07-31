@@ -27,19 +27,14 @@
     <section class="h-100">
         <div class="container py-5 h-100">
             <div class="row d-flex align-items-center justify-content-center h-100">
-                <div class="col-md-8 col-lg-7 col-xl-6">
-                    <img src="/images/create-offer.png"
-                         class="img-fluid" alt="Login image" height="500" width="500">
-                </div>
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
 
-                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Make offer</p>
 
                     <form
                             th:action="@{/offers/add}"
                             th:method="post"
-                            th:object="${addOfferModel}"
-                    >
+                            th:object="${addOfferDTO}">
 
                         <div class="form-outline mb-4">
                             <input
@@ -54,68 +49,72 @@
                             </p>
                         </div>
 
+<!--                        -->
                         <div class="form-outline mb-4">
-                            <input
+                            <select
                                     id="location"
-                                    th:field="*{location}"
+                                    name="location"
                                     th:errorclass="is-invalid"
-                                    type="text"
-                                    class="form-control form-control-lg"/>
+                                    class="form-control form-control-lg">
+                                <option value="">- Select City -</option>
+                                <option th:each="location : ${locations}"
+                                        th:text="${location.city}"
+                                        th:value="${location.city}"
+                                        th:selected="${location.city} == *{location}">
+                                    City
+                                </option>
+                            </select>
                             <label class="form-label" for="location">Location</label>
                             <p class="invalid-feedback errors alert alert-danger">
-                                Location is required and should be between 4 and 20 symbols.
+                                Location is required!
                             </p>
                         </div>
 
+<!--                        -->
+
+<!--                        <div class="form-outline mb-4">-->
+<!--                            <input-->
+<!--                                    id="location"-->
+<!--                                    th:field="*{location}"-->
+<!--                                    th:errorclass="is-invalid"-->
+<!--                                    type="text"-->
+<!--                                    class="form-control form-control-lg"/>-->
+<!--                            <label class="form-label" for="location">Location</label>-->
+<!--                            <p class="invalid-feedback errors alert alert-danger">-->
+<!--                                Location is required and should be between 4 and 20 symbols.-->
+<!--                            </p>-->
+<!--                        </div>-->
+
                         <div class="form-outline mb-4">
-                            <input id=""
-                                   th:field="*{email}"
+                            <input id="description"
+                                   th:field="*{description}"
                                    th:errorclass="is-invalid"
                                    type="text"
                                    class="form-control form-control-lg"/>
-                            <label class="form-label" for="email">Email</label>
-                            <div class="invalid-feedback errors alert alert-danger">
-                                <div
-                                        th:each="err: ${#fields.errors('email')}"
-                                        th:text="${err}"
-                                ></div>
-                            </div>
+                            <label class="form-label" for="description">Description</label>
+                            <p class="invalid-feedback errors alert alert-danger">
+                                Description is required and should be between 4 and 200 symbols.
+                            </p>
                         </div>
 
-
                         <div class="form-outline mb-4">
-                            <input id="password"
-                                   th:field="*{password}"
+                            <input id="price"
+                                   th:field="*{price}"
                                    th:errorclass="is-invalid"
-                                   type="password"
+                                   type="number"
+                                   min="0.00"
+                                   step="1"
+                                   value="10"
                                    class="form-control form-control-lg"/>
-                            <label class="form-label" for="password">Password</label>
+                            <label class="form-label" for="price">Price (BGN)</label>
                             <p class="invalid-feedback errors alert alert-danger">
-                                Password is required and should be at least 5 symbols.
+                                Price is required and should be positive number.
                             </p>
                         </div>
 
-                        <div class="form-outline mb-4">
-                            <input  id="confirmPassword"
-                                    th:field="*{confirmPassword}"
-                                    th:errorclass="is-invalid"
-                                    type="password"
-                                    class="form-control form-control-lg"/>
-                            <label class="form-label" for="confirmPassword">Confirm Password</label>
-                            <p class="invalid-feedback errors alert alert-danger">
-                                Passwords should match.
-                            </p>
-                        </div>
-
-                        <div class="form-check d-flex mb-5 justify-content-center">
-                            <input class="form-check-input me-2" type="checkbox" value=""
-                                   id="checkBox"/>
-                            <label class="form-check-label" for="checkBox">
-                                I will respect others!
-                            </label>
-                        </div>
                         <div class="registerBtn">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block" value="Register">Register</button>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" value="Register">Add offer
+                            </button>
                         </div>
 
                     </form>
