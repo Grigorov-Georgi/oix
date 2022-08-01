@@ -7,6 +7,7 @@ import bg.softuni.oix.repository.OfferRepository;
 import bg.softuni.oix.service.dto.AddOfferDTO;
 import bg.softuni.oix.service.dto.OfferDto;
 import bg.softuni.oix.service.mapper.OfferMapper;
+import bg.softuni.oix.service.mapper.OfferViewMapper;
 import bg.softuni.oix.service.views.OfferView;
 import org.springframework.stereotype.Service;
 
@@ -14,19 +15,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
 public class OfferService {
     private final OfferRepository offerRepository;
     private LocationRepository locationRepository;
-//    private OfferMapper offerMapper;
+    private OfferViewMapper offerViewMapper;
 
-    public OfferService(OfferRepository offerRepository, OfferMapper offerMapper, LocationRepository locationRepository) {
+    public OfferService(OfferRepository offerRepository, OfferMapper offerMapper, LocationRepository locationRepository, OfferViewMapper offerViewMapper) {
         this.offerRepository = offerRepository;
-//        this.offerMapper = offerMapper;
         this.locationRepository = locationRepository;
+        this.offerViewMapper = offerViewMapper;
     }
 
     public List<OfferDto> findAll() {
@@ -51,9 +51,7 @@ public class OfferService {
 
     public List<OfferView> getAllOffers() {
         return this.offerRepository.findAll().stream().map(o ->
-                new OfferView(o.getId(), o.getTitle(), o.getPrice(),
-                        o.getDescription().length() >= 30 ? o.getDescription().substring(0, 30) + "..." : o.getDescription(),
-                        o.getLocation().getCity()))
+                offerViewMapper.toDto(o))
                 .collect(Collectors.toList());
     }
 
@@ -64,11 +62,7 @@ public class OfferService {
 
         for (long i = repoCount; i > repoCount - 3; i--) {
             OfferEntity offerEntity = this.offerRepository.findById(i).get();
-
-            OfferView offerView = new OfferView(offerEntity.getId(), offerEntity.getTitle(), offerEntity.getPrice(),
-                    offerEntity.getDescription().length() >= 30 ? offerEntity.getDescription().substring(0, 30) + "..." : offerEntity.getDescription(),
-                    offerEntity.getLocation().getCity());
-            offersForHomePage.add(offerView);
+            offersForHomePage.add(offerViewMapper.toDto(offerEntity));
         }
         return offersForHomePage;
     }

@@ -9,35 +9,35 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-01T21:08:47+0300",
+    date = "2022-08-01T21:38:12+0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
 public class UserViewMapperImpl implements UserViewMapper {
 
     @Override
-    public UserEntity toEntity(UserView arg0) {
-        if ( arg0 == null ) {
+    public UserEntity toEntity(UserView dto) {
+        if ( dto == null ) {
             return null;
         }
 
         UserEntity userEntity = new UserEntity();
 
-        userEntity.setId( arg0.getId() );
-        userEntity.setFirstName( arg0.getFirstName() );
-        userEntity.setLastName( arg0.getLastName() );
+        userEntity.setId( dto.getId() );
+        userEntity.setFirstName( dto.getFirstName() );
+        userEntity.setLastName( dto.getLastName() );
 
         return userEntity;
     }
 
     @Override
-    public List<UserEntity> toEntity(List<UserView> arg0) {
-        if ( arg0 == null ) {
+    public List<UserEntity> toEntity(List<UserView> dtoList) {
+        if ( dtoList == null ) {
             return null;
         }
 
-        List<UserEntity> list = new ArrayList<UserEntity>( arg0.size() );
-        for ( UserView userView : arg0 ) {
+        List<UserEntity> list = new ArrayList<UserEntity>( dtoList.size() );
+        for ( UserView userView : dtoList ) {
             list.add( toEntity( userView ) );
         }
 
@@ -45,13 +45,13 @@ public class UserViewMapperImpl implements UserViewMapper {
     }
 
     @Override
-    public List<UserView> toDto(List<UserEntity> arg0) {
-        if ( arg0 == null ) {
+    public List<UserView> toDto(List<UserEntity> entityList) {
+        if ( entityList == null ) {
             return null;
         }
 
-        List<UserView> list = new ArrayList<UserView>( arg0.size() );
-        for ( UserEntity userEntity : arg0 ) {
+        List<UserView> list = new ArrayList<UserView>( entityList.size() );
+        for ( UserEntity userEntity : entityList ) {
             list.add( toDto( userEntity ) );
         }
 
@@ -59,17 +59,17 @@ public class UserViewMapperImpl implements UserViewMapper {
     }
 
     @Override
-    public void partialUpdate(UserEntity arg0, UserView arg1) {
-        if ( arg1 == null ) {
+    public void partialUpdate(UserEntity entity, UserView dto) {
+        if ( dto == null ) {
             return;
         }
 
-        arg0.setId( arg1.getId() );
-        if ( arg1.getFirstName() != null ) {
-            arg0.setFirstName( arg1.getFirstName() );
+        entity.setId( dto.getId() );
+        if ( dto.getFirstName() != null ) {
+            entity.setFirstName( dto.getFirstName() );
         }
-        if ( arg1.getLastName() != null ) {
-            arg0.setLastName( arg1.getLastName() );
+        if ( dto.getLastName() != null ) {
+            entity.setLastName( dto.getLastName() );
         }
     }
 
