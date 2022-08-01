@@ -3,6 +3,8 @@ package bg.softuni.oix.service;
 import bg.softuni.oix.model.entity.LocationEntity;
 import bg.softuni.oix.repository.LocationRepository;
 import bg.softuni.oix.service.dto.AddLocationDTO;
+import bg.softuni.oix.service.mapper.AddLocationDtoMapper;
+import bg.softuni.oix.service.mapper.LocationViewMapper;
 import bg.softuni.oix.service.views.LocationView;
 import org.springframework.stereotype.Service;
 
@@ -12,21 +14,22 @@ import java.util.stream.Collectors;
 @Service
 public class LocationService {
     private LocationRepository locationRepository;
+    private LocationViewMapper locationViewMapper;
+    private AddLocationDtoMapper addLocationDtoMapper;
 
-    public LocationService(LocationRepository locationRepository) {
+    public LocationService(LocationRepository locationRepository, LocationViewMapper locationViewMapper, AddLocationDtoMapper addLocationDtoMapper) {
         this.locationRepository = locationRepository;
+        this.locationViewMapper = locationViewMapper;
+        this.addLocationDtoMapper = addLocationDtoMapper;
     }
 
     public List<LocationView> getAllLocations(){
         List<LocationEntity> locationEntities = locationRepository.findAll();
-        return locationEntities.stream().map(l -> new LocationView(l.getId(), l.getCity())).collect(Collectors.toList());
+        return locationEntities.stream().map(l -> locationViewMapper.toDto(l)).collect(Collectors.toList());
     }
 
     public void save(AddLocationDTO locationDTO) {
-        LocationEntity locationEntity = new LocationEntity();
-        locationEntity.setCity(locationDTO.getCity());
-
-        this.locationRepository.save(locationEntity);
+        this.locationRepository.save(addLocationDtoMapper.toEntity(locationDTO));
     }
 
     public void delete(Long id) {

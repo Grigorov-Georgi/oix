@@ -2,11 +2,11 @@ package bg.softuni.oix.service;
 
 import bg.softuni.oix.model.entity.UserEntity;
 import bg.softuni.oix.model.entity.UserRoleEntity;
-import bg.softuni.oix.model.enums.UserRoleEnum;
 import bg.softuni.oix.repository.UserRepository;
 import bg.softuni.oix.repository.UserRoleRepository;
 import bg.softuni.oix.service.dto.UserRegistrationDto;
 import bg.softuni.oix.service.mapper.UserMapper;
+import bg.softuni.oix.service.mapper.UserViewMapper;
 import bg.softuni.oix.service.views.UserView;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,13 +29,15 @@ public class UserService {
     private UserRoleRepository userRoleRepository;
 
     private static boolean firstUser = true;
+    private UserViewMapper userViewMapper;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService, UserMapper userMapper, UserRoleRepository userRoleRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService, UserMapper userMapper, UserRoleRepository userRoleRepository, UserViewMapper userViewMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
         this.userMapper = userMapper;
         this.userRoleRepository = userRoleRepository;
+        this.userViewMapper = userViewMapper;
     }
 
     public void registerAndLogin(UserRegistrationDto userRegistrationDto){
@@ -72,7 +74,7 @@ public class UserService {
 
     public List<UserView> getAllUsersForAdminPanel(){
         return this.userRepository.findAll().stream()
-                .map(u -> new UserView(u.getId(), u.getFirstName(), u.getLastName()))
+                .map(u -> userViewMapper.toDto(u))
                 .collect(Collectors.toList());
     }
 
