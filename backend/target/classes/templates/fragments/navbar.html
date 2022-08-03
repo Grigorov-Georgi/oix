@@ -15,61 +15,79 @@
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">OIX</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link active" th:text="#{nav_home}" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false" th:text="#{nav_admin}">
                             Admin
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Make Special Offer</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/admin">Admin Panel</a></li>
+                            <li><a class="dropdown-item" href="#" th:text="#{nav_make_special_offer}">Make Special Offer</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/admin" th:text="#{nav_admin_panel}">Admin Panel</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown" sec:authorize="hasRole('MODERATOR')">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                           aria-expanded="false"  th:text="#{nav_moderator}">
                             Moderator
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Make Special Offer</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" th:text="#{nav_my_offers}">Make Special Offer</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li><a class="dropdown-item" href="#">Delete Offer</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/offers">Offers</a>
+                        <a class="nav-link" href="/offers" th:text="#{nav_offers}">Offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" sec:authorize="hasRole('USER')">My Offers</a>
+                        <a class="nav-link" href="#" sec:authorize="hasRole('USER')" th:text="#{nav_my_offers}">My Offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" sec:authorize="hasRole('USER')">My Profile</a>
+                        <a class="nav-link" href="#" sec:authorize="hasRole('USER')" th:text="#{nav_my_profile}">My Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/offers/add" sec:authorize="hasRole('USER')">Create Offer</a>
+                        <a class="nav-link" href="/offers/add" sec:authorize="hasRole('USER')" th:text="#{nav_create_offer}">Create Offer</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="!isAuthenticated()" href="/users/login">Login</a>
+                        <a class="nav-link" sec:authorize="!isAuthenticated()" href="/users/login" th:text="#{nav_login}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" sec:authorize="!isAuthenticated()" href="/users/register">Register</a>
+                        <a class="nav-link" sec:authorize="!isAuthenticated()" href="/users/register" th:text="#{nav_register}">Register</a>
                     </li>
                     <form th:action="@{users/logout}" th:method="post" class="nav-item">
                         <input class="btn btn-link nav-link" type="submit"
-                               sec:authorize="isAuthenticated()" value="Logout">
+                               sec:authorize="isAuthenticated()" th:value="#{nav_logout}">
                     </form>
 
                 </ul>
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                    <input class="form-control me-2" type="search" th:placeholder="#{nav_search}" aria-label="Search">
+                    <button class="btn btn-outline-primary" type="submit" th:text="#{nav_search}">Search</button>
+                </form>
+
+                <form th:method="get">
+                    <select
+                            onchange="this.form.submit()"
+                            id="lang"
+                            name="lang">
+                        <option value="en_US" th:selected="${#locale.toString()} == 'en_US'">English</option>
+                        <option value="bg_BG" th:selected="${#locale.toString()} == 'bg_BG'">Български</option>
+                    </select>
                 </form>
             </div>
         </div>

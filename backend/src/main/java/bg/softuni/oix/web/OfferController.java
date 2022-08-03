@@ -1,5 +1,6 @@
 package bg.softuni.oix.web;
 
+import bg.softuni.oix.exception.ObjectNotFoundException;
 import bg.softuni.oix.service.LocationService;
 import bg.softuni.oix.service.OfferService;
 import bg.softuni.oix.service.dto.AddOfferDTO;
@@ -27,27 +28,27 @@ public class OfferController {
     }
 
     @ModelAttribute("addOfferDTO")
-    public AddOfferDTO initAddOfferDTO(){
+    public AddOfferDTO initAddOfferDTO() {
         return new AddOfferDTO();
     }
 
     @ModelAttribute("locations")
-    public List<LocationView> initLocations(){
+    public List<LocationView> initLocations() {
         return new ArrayList<>();
     }
 
     @ModelAttribute("offers")
-    public List<OfferView> initAllOffers(){
+    public List<OfferView> initAllOffers() {
         return this.offerService.getAllOffers();
     }
 
     @GetMapping
-    public String allOffers(){
+    public String allOffers() {
         return "offers";
     }
 
     @GetMapping("/add")
-    public String addOfferPage(Model model){
+    public String addOfferPage(Model model) {
         model.addAttribute("locations", locationService.getAllLocations());
         return "add-offer";
     }
@@ -55,8 +56,8 @@ public class OfferController {
     @PostMapping("/add")
     public String addOffer(@Valid AddOfferDTO addOfferDTO,
                            BindingResult bindingResult,
-                           RedirectAttributes redirectAttributes){
-        if (bindingResult.hasErrors()){
+                           RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("addOfferDTO", addOfferDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addOfferDTO",
                     bindingResult);
@@ -65,5 +66,16 @@ public class OfferController {
         this.offerService.save(addOfferDTO);
         return "/";
     }
+
+//    @GetMapping("/offers/{id}")
+//    public String getOfferDetails(@PathVariable("id") long id, Model model) {
+//        var offerDto = offerService.findById(id)
+//                .orElseThrow(() -> new ObjectNotFoundException("Offer with id " +
+//                        id + " not found!"));
+//
+//        model.addAttribute("offer", offerDto);
+//
+//        return "offer-details";
+//    }
 
 }
