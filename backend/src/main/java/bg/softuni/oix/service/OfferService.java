@@ -1,5 +1,6 @@
 package bg.softuni.oix.service;
 
+import bg.softuni.oix.exception.ObjectNotFoundException;
 import bg.softuni.oix.model.entity.LocationEntity;
 import bg.softuni.oix.model.entity.OfferEntity;
 import bg.softuni.oix.repository.LocationRepository;
@@ -65,5 +66,11 @@ public class OfferService {
             offersForHomePage.add(offerViewMapper.toDto(offerEntity));
         }
         return offersForHomePage;
+    }
+
+    public OfferView findById(long id) {
+        OfferEntity offerEntity = this.offerRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Offer with id " + id + " not found!"));
+        return offerViewMapper.toDto(offerEntity);
     }
 }

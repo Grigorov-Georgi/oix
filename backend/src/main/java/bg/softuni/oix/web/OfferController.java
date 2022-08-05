@@ -1,6 +1,7 @@
 package bg.softuni.oix.web;
 
 import bg.softuni.oix.exception.ObjectNotFoundException;
+import bg.softuni.oix.model.entity.OfferEntity;
 import bg.softuni.oix.service.LocationService;
 import bg.softuni.oix.service.OfferService;
 import bg.softuni.oix.service.dto.AddOfferDTO;
@@ -42,6 +43,11 @@ public class OfferController {
         return this.offerService.getAllOffers();
     }
 
+    @ModelAttribute("offer")
+    public OfferView initOfferDetails() {
+        return new OfferView();
+    }
+
     @GetMapping
     public String allOffers() {
         return "offers";
@@ -67,15 +73,13 @@ public class OfferController {
         return "/";
     }
 
-//    @GetMapping("/offers/{id}")
-//    public String getOfferDetails(@PathVariable("id") long id, Model model) {
-//        var offerDto = offerService.findById(id)
-//                .orElseThrow(() -> new ObjectNotFoundException("Offer with id " +
-//                        id + " not found!"));
-//
-//        model.addAttribute("offer", offerDto);
-//
-//        return "offer-details";
-//    }
+    @GetMapping("/details/{id}")
+    public String getOfferDetails(@PathVariable("id") long id, Model model) {
+        OfferView offerView = offerService.findById(id);
+
+        model.addAttribute("offer", offerView);
+
+        return "offer-details";
+    }
 
 }
