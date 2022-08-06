@@ -22,7 +22,4 @@ public interface EntityMapper<D, E>{
     @BeanMapping(nullValuePropertyMappingStrategy =  NullValuePropertyMappingStrategy.IGNORE)
     void partialUpdate(@MappingTarget E entity, D dto);
 
-    LocationEntity location(String value);
-    CategoryEntity category(String value);
-
 }

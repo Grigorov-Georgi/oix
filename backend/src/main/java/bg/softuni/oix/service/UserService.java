@@ -26,12 +26,12 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private UserDetailsService userDetailsService;
-    private UserMapper userMapper;
-    private UserRoleRepository userRoleRepository;
+    private final UserDetailsService userDetailsService;
+    private final UserMapper userMapper;
+    private final UserRoleRepository userRoleRepository;
+    private final UserViewMapper userViewMapper;
 
-    private static boolean firstUser = true;
-    private UserViewMapper userViewMapper;
+    private static final boolean firstUser = true;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService, UserMapper userMapper, UserRoleRepository userRoleRepository, UserViewMapper userViewMapper) {
         this.userRepository = userRepository;

@@ -8,6 +8,8 @@ import org.mapstruct.Mapper;
 @Mapper(
         componentModel = "spring"
 )
-public interface AddLocationDtoMapper extends EntityMapper<AddLocationDTO, LocationEntity>{
-    LocationEntity toEntity(AddLocationDTO addLocationDTO);
+public interface LocationMapper {
+    LocationEntity addLocationDtoToEntity(AddLocationDTO addLocationDTO);
+
+    LocationView locationEntityToLocationView(LocationEntity locationEntity);
 }

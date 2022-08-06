@@ -7,16 +7,21 @@ import bg.softuni.oix.service.CategoryService;
 import bg.softuni.oix.service.LocationService;
 import bg.softuni.oix.service.UserService;
 import bg.softuni.oix.service.dto.AddOfferDTO;
+import bg.softuni.oix.service.views.OfferView;
 import org.mapstruct.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import java.time.LocalDate;
 
-@Mapper(componentModel = "spring", uses = {CategoryService.class, LocationService.class})
+@Mapper(componentModel = "spring",
+        uses = {CategoryService.class, LocationService.class})
 public interface OfferMapper {
     @Mapping(target = "category", source = "category")
     @Mapping(target = "location", source = "location")
     OfferEntity addOfferDtoToOfferEntity(AddOfferDTO addOfferDTO);
+
+    @Mapping(target = "location", source = "location.city")
+    OfferView offerEntityToOfferView(OfferEntity offerEntity);
 
     @BeforeMapping
     default void  setReleaseDate(@MappingTarget OfferEntity offerEntity){

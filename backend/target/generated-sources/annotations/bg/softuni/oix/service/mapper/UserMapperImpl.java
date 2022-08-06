@@ -1,7 +1,5 @@
 package bg.softuni.oix.service.mapper;
 
-import bg.softuni.oix.model.entity.CategoryEntity;
-import bg.softuni.oix.model.entity.LocationEntity;
 import bg.softuni.oix.model.entity.UserEntity;
 import bg.softuni.oix.service.dto.UserRegistrationDto;
 import java.util.ArrayList;
@@ -11,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-06T23:59:28+0300",
+    date = "2022-08-07T00:33:44+0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -79,28 +77,6 @@ public class UserMapperImpl implements UserMapper {
         if ( dto.getPassword() != null ) {
             entity.setPassword( dto.getPassword() );
         }
-    }
-
-    @Override
-    public LocationEntity location(String value) {
-        if ( value == null ) {
-            return null;
-        }
-
-        LocationEntity locationEntity = new LocationEntity();
-
-        return locationEntity;
-    }
-
-    @Override
-    public CategoryEntity category(String value) {
-        if ( value == null ) {
-            return null;
-        }
-
-        CategoryEntity categoryEntity = new CategoryEntity();
-
-        return categoryEntity;
     }
 
     @Override

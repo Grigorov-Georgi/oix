@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.stream.Collectors;
 
 public class OixUserDetailsService implements UserDetailsService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public OixUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
