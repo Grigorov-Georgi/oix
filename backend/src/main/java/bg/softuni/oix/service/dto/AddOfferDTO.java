@@ -24,6 +24,8 @@ public class AddOfferDTO {
     @Positive
     private BigDecimal price;
 
+    private String urlPicture;
+
     public String getTitle() {
         return title;
     }
@@ -54,5 +56,13 @@ public class AddOfferDTO {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getUrlPicture() {
+        return urlPicture;
+    }
+
+    public void setUrlPicture(String urlPicture) {
+        this.urlPicture = urlPicture;
     }
 }

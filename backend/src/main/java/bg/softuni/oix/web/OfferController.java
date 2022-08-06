@@ -33,23 +33,9 @@ public class OfferController {
         return new AddOfferDTO();
     }
 
-    @ModelAttribute("locations")
-    public List<LocationView> initLocations() {
-        return new ArrayList<>();
-    }
-
-    @ModelAttribute("offers")
-    public List<OfferView> initAllOffers() {
-        return this.offerService.getAllOffers();
-    }
-
-    @ModelAttribute("offer")
-    public OfferView initOfferDetails() {
-        return new OfferView();
-    }
-
     @GetMapping
-    public String allOffers() {
+    public String allOffers(Model model) {
+        model.addAttribute("offers", this.offerService.getAllOffers());
         return "offers";
     }
 
@@ -70,7 +56,7 @@ public class OfferController {
             return "redirect:/offers/add";
         }
         this.offerService.save(addOfferDTO);
-        return "/";
+        return "redirect:/offers";
     }
 
     @GetMapping("/details/{id}")

@@ -8,13 +8,15 @@ public class OfferView {
     private BigDecimal price;
     private String description;
     private String location;
+    private String urlPicture;
 
-    public OfferView(Long id, String title, BigDecimal price, String description, String location) {
+    public OfferView(Long id, String title, BigDecimal price, String description, String location, String urlPicture) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.description = description;
         this.location = location;
+        this.urlPicture = urlPicture;
     }
 
     public OfferView() {
@@ -58,5 +60,13 @@ public class OfferView {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getUrlPicture() {
+        return urlPicture;
+    }
+
+    public void setUrlPicture(String urlPicture) {
+        this.urlPicture = urlPicture;
     }
 }

@@ -40,9 +40,12 @@ public class OfferEntity {
 
     private String description;
 
-    @ManyToMany
-    private List<CategoryEntity> categories;
+    @Column(name = "url_picture")
+    private String urlPicture;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private CategoryEntity category;
 
     @OneToMany(
             mappedBy = "offer",
@@ -130,11 +133,19 @@ public class OfferEntity {
         this.comments = comments;
     }
 
-    public void setCategories(List<CategoryEntity> categories) {
-        this.categories = categories;
+    public String getUrlPicture() {
+        return urlPicture;
     }
 
-    public List<CategoryEntity> getCategories() {
-        return categories;
+    public void setUrlPicture(String urlPicture) {
+        this.urlPicture = urlPicture;
+    }
+
+    public CategoryEntity getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
     }
 }

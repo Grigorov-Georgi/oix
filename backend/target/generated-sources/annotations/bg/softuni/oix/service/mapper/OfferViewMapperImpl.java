@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-01T21:38:12+0300",
+    date = "2022-08-06T11:33:21+0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -65,6 +65,9 @@ public class OfferViewMapperImpl implements OfferViewMapper {
         if ( dto.getDescription() != null ) {
             entity.setDescription( dto.getDescription() );
         }
+        if ( dto.getUrlPicture() != null ) {
+            entity.setUrlPicture( dto.getUrlPicture() );
+        }
     }
 
     @Override
@@ -80,6 +83,7 @@ public class OfferViewMapperImpl implements OfferViewMapper {
         offerView.setPrice( offerEntity.getPrice() );
         offerView.setDescription( offerEntity.getDescription() );
         offerView.setId( offerEntity.getId() );
+        offerView.setUrlPicture( offerEntity.getUrlPicture() );
 
         return offerView;
     }
@@ -99,6 +103,7 @@ public class OfferViewMapperImpl implements OfferViewMapper {
         offerEntity.setTitle( offerView.getTitle() );
         offerEntity.setPrice( offerView.getPrice() );
         offerEntity.setDescription( offerView.getDescription() );
+        offerEntity.setUrlPicture( offerView.getUrlPicture() );
 
         return offerEntity;
     }

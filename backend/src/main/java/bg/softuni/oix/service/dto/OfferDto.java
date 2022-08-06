@@ -31,7 +31,7 @@ public class OfferDto {
 
     @NotBlank
     @Size(min = 4, max = 20)
-    private List<String> categories;
+    private String category;
 
     //private List<CommentDto> comments;
 
