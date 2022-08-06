@@ -22,10 +22,6 @@ public class UserEntity {
 
     private String password;
 
-    //can be separate table in db
-    @Column(name = "profile_picture_url")
-    private String profilePictureUrl;
-
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> userRoles = new ArrayList<>();
 
@@ -66,14 +62,6 @@ public class UserEntity {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getProfilePictureUrl() {
-        return profilePictureUrl;
-    }
-
-    public void setProfilePictureUrl(String profilePictureUrl) {
-        this.profilePictureUrl = profilePictureUrl;
     }
 
     public List<UserRoleEntity> getUserRoles() {

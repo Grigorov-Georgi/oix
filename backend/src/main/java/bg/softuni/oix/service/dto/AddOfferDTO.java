@@ -26,6 +26,8 @@ public class AddOfferDTO {
 
     private String urlPicture;
 
+    private String category;
+
     public String getTitle() {
         return title;
     }
@@ -64,5 +66,13 @@ public class AddOfferDTO {
 
     public void setUrlPicture(String urlPicture) {
         this.urlPicture = urlPicture;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

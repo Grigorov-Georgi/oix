@@ -1,11 +1,9 @@
 package bg.softuni.oix.web;
 
-import bg.softuni.oix.exception.ObjectNotFoundException;
-import bg.softuni.oix.model.entity.OfferEntity;
+import bg.softuni.oix.service.CategoryService;
 import bg.softuni.oix.service.LocationService;
 import bg.softuni.oix.service.OfferService;
 import bg.softuni.oix.service.dto.AddOfferDTO;
-import bg.softuni.oix.service.views.LocationView;
 import bg.softuni.oix.service.views.OfferView;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,18 +12,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/offers")
 public class OfferController {
     private OfferService offerService;
     private LocationService locationService;
+    private CategoryService categoryService;
 
-    public OfferController(OfferService offerService, LocationService locationService) {
+    public OfferController(OfferService offerService, LocationService locationService, CategoryService categoryService) {
         this.offerService = offerService;
         this.locationService = locationService;
+        this.categoryService = categoryService;
     }
 
     @ModelAttribute("addOfferDTO")
@@ -42,6 +40,7 @@ public class OfferController {
     @GetMapping("/add")
     public String addOfferPage(Model model) {
         model.addAttribute("locations", locationService.getAllLocations());
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "add-offer";
     }
 
