@@ -41,10 +41,8 @@ bg\softuni\oix\service\views\UserView.class
 bg\softuni\oix\repository\UserRoleRepository.class
 bg\softuni\oix\service\mapper\UserMapper.class
 bg\softuni\oix\service\dto\OfferDto.class
-bg\softuni\oix\service\mapper\UserViewMapper.class
 bg\softuni\oix\service\dto\validation\UniqueUserEmail.class
 bg\softuni\oix\service\mapper\UserMapperImpl.class
 bg\softuni\oix\web\UserRegistrationController.class
-bg\softuni\oix\service\mapper\UserViewMapperImpl.class
 bg\softuni\oix\model\user\OixUserDetails.class
 bg\softuni\oix\service\mapper\LocationMapper.class

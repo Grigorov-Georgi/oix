@@ -27,7 +27,6 @@ C:\oix\backend\src\main\java\bg\softuni\oix\service\UserService.java
 C:\oix\backend\src\main\java\bg\softuni\oix\web\UserController.java
 C:\oix\backend\src\main\java\bg\softuni\oix\model\enums\CategoryEnum.java
 C:\oix\backend\src\main\java\bg\softuni\oix\web\AdminController.java
-C:\oix\backend\src\main\java\bg\softuni\oix\service\mapper\UserViewMapper.java
 C:\oix\backend\src\main\java\bg\softuni\oix\model\enums\UserRoleEnum.java
 C:\oix\backend\src\main\java\bg\softuni\oix\repository\UserRoleRepository.java
 C:\oix\backend\src\main\java\bg\softuni\oix\repository\CommentRepository.java
