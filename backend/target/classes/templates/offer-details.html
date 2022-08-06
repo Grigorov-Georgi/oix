@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MobiLeLeLe</title>
+    <title>OIX</title>
     <!--Favicon-->
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
@@ -28,14 +28,6 @@
     <div class="card" th:object="${offer}">
         <div th:text="*{title}" style="font-weight: bold"></div>
         <img src="@{*{offer.urlPicture}}" class="card-img-top" alt="image">
-<!--        <div class="card-body">-->
-<!--            <p class="card-text"></p>-->
-<!--            <p class="card-text">• Price: </p>-->
-<!--            <p class="card-text">• Seller: </p>-->
-<!--            <p class="card-text">• Location: </p>-->
-<!--            <p class="card-text">• Category: </p>-->
-<!--            <p class="card-text">• Seller: </p>-->
-<!--        </div>-->
         <li class="list-group-item">
             <div class="card-text"><span><b>• Price: </b><th:block th:text="*{price}"></th:block></span></div>
             <div class="card-text"><span><b>• Seller: </b><th:block th:text="*{price}"></th:block></span></div>

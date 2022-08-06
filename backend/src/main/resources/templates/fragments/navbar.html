@@ -55,10 +55,10 @@
                         <a class="nav-link" href="/offers" th:text="#{nav_offers}">Offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" sec:authorize="hasRole('USER')" th:text="#{nav_my_offers}">My Offers</a>
+                        <a class="nav-link" href="/offers/my" sec:authorize="hasRole('USER')" th:text="#{nav_my_offers}">My Offers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" sec:authorize="hasRole('USER')" th:text="#{nav_my_profile}">My Profile</a>
+                        <a class="nav-link" href="/users/profile" sec:authorize="hasRole('USER')" th:text="#{nav_my_profile}">My Profile</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/offers/add" sec:authorize="hasRole('USER')" th:text="#{nav_create_offer}">Create Offer</a>
@@ -68,6 +68,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" sec:authorize="!isAuthenticated()" href="/users/register" th:text="#{nav_register}">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about" th:text="#{nav_about}">About</a>
                     </li>
                     <form th:action="@{users/logout}" th:method="post" class="nav-item">
                         <input class="btn btn-link nav-link" type="submit"
