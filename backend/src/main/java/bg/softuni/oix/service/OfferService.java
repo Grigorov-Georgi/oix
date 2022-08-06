@@ -5,11 +5,10 @@ import bg.softuni.oix.model.entity.OfferEntity;
 import bg.softuni.oix.model.entity.UserEntity;
 import bg.softuni.oix.model.enums.CategoryEnum;
 import bg.softuni.oix.model.user.OixUserDetails;
-import bg.softuni.oix.repository.LocationRepository;
 import bg.softuni.oix.repository.OfferRepository;
 import bg.softuni.oix.service.dto.AddOfferDTO;
-import bg.softuni.oix.service.dto.OfferDto;
 import bg.softuni.oix.service.mapper.AddOfferMapper;
+import bg.softuni.oix.service.mapper.OfferMapper;
 import bg.softuni.oix.service.mapper.OfferViewMapper;
 import bg.softuni.oix.service.views.OfferView;
 import org.springframework.stereotype.Service;
@@ -27,24 +26,29 @@ public class OfferService {
     private UserService userService;
     private LocationService locationService;
     private CategoryService categoryService;
+    private OfferMapper offerMapper;
 
-    public OfferService(OfferRepository offerRepository, OfferViewMapper offerViewMapper, AddOfferMapper addOfferMapper, UserService userService, LocationService locationService, CategoryService categoryService) {
+    public OfferService(OfferRepository offerRepository, OfferViewMapper offerViewMapper, AddOfferMapper addOfferMapper, UserService userService, LocationService locationService, CategoryService categoryService, OfferMapper offerMapper) {
         this.offerRepository = offerRepository;
         this.offerViewMapper = offerViewMapper;
         this.addOfferMapper = addOfferMapper;
         this.userService = userService;
         this.locationService = locationService;
         this.categoryService = categoryService;
+        this.offerMapper = offerMapper;
     }
 
     public void save(AddOfferDTO addOfferDTO, OixUserDetails userDetails) {
         //TODO: Fix the mapper
-        OfferEntity newOffer = addOfferMapper.toEntity(addOfferDTO);
-        newOffer.setReleaseDate(LocalDate.now());
+//        OfferEntity newOffer = addOfferMapper.toEntity(addOfferDTO);
+//        newOffer.setReleaseDate(LocalDate.now());
+
+//        newOffer.setLocation(locationService.findByCity(addOfferDTO.getLocation()));
+//        newOffer.setCategory(categoryService.findByName(CategoryEnum.valueOf(addOfferDTO.getCategory())));
+
+        OfferEntity newOffer = offerMapper.addOfferDtoToOfferEntity(addOfferDTO);
         UserEntity loggedUser = userService.findById(userDetails.getId());
         newOffer.setSeller(loggedUser);
-        newOffer.setLocation(locationService.findByCity(addOfferDTO.getLocation()));
-        newOffer.setCategory(categoryService.findByName(CategoryEnum.valueOf(addOfferDTO.getCategory())));
 
         this.offerRepository.save(newOffer);
     }
