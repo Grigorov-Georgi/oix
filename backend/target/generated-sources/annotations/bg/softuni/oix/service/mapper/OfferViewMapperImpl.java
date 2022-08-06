@@ -1,5 +1,6 @@
 package bg.softuni.oix.service.mapper;
 
+import bg.softuni.oix.model.entity.CategoryEntity;
 import bg.softuni.oix.model.entity.LocationEntity;
 import bg.softuni.oix.model.entity.OfferEntity;
 import bg.softuni.oix.service.views.OfferView;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-06T11:33:21+0300",
+    date = "2022-08-06T16:01:14+0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -57,7 +58,7 @@ public class OfferViewMapperImpl implements OfferViewMapper {
             entity.setTitle( dto.getTitle() );
         }
         if ( dto.getLocation() != null ) {
-            entity.setLocation( map( dto.getLocation() ) );
+            entity.setLocation( location( dto.getLocation() ) );
         }
         if ( dto.getPrice() != null ) {
             entity.setPrice( dto.getPrice() );
@@ -68,6 +69,28 @@ public class OfferViewMapperImpl implements OfferViewMapper {
         if ( dto.getUrlPicture() != null ) {
             entity.setUrlPicture( dto.getUrlPicture() );
         }
+    }
+
+    @Override
+    public LocationEntity location(String value) {
+        if ( value == null ) {
+            return null;
+        }
+
+        LocationEntity locationEntity = new LocationEntity();
+
+        return locationEntity;
+    }
+
+    @Override
+    public CategoryEntity category(String value) {
+        if ( value == null ) {
+            return null;
+        }
+
+        CategoryEntity categoryEntity = new CategoryEntity();
+
+        return categoryEntity;
     }
 
     @Override
@@ -106,17 +129,6 @@ public class OfferViewMapperImpl implements OfferViewMapper {
         offerEntity.setUrlPicture( offerView.getUrlPicture() );
 
         return offerEntity;
-    }
-
-    @Override
-    public LocationEntity map(String value) {
-        if ( value == null ) {
-            return null;
-        }
-
-        LocationEntity locationEntity = new LocationEntity();
-
-        return locationEntity;
     }
 
     private String offerEntityLocationCity(OfferEntity offerEntity) {

@@ -1,5 +1,7 @@
 package bg.softuni.oix.service.mapper;
 
+import bg.softuni.oix.model.entity.CategoryEntity;
+import bg.softuni.oix.model.entity.LocationEntity;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
@@ -19,4 +21,8 @@ public interface EntityMapper<D, E>{
     @Named("partialUpdate")
     @BeanMapping(nullValuePropertyMappingStrategy =  NullValuePropertyMappingStrategy.IGNORE)
     void partialUpdate(@MappingTarget E entity, D dto);
+
+    LocationEntity location(String value);
+    CategoryEntity category(String value);
+
 }

@@ -1,10 +1,12 @@
 package bg.softuni.oix.web;
 
+import bg.softuni.oix.model.user.OixUserDetails;
 import bg.softuni.oix.service.CategoryService;
 import bg.softuni.oix.service.LocationService;
 import bg.softuni.oix.service.OfferService;
 import bg.softuni.oix.service.dto.AddOfferDTO;
 import bg.softuni.oix.service.views.OfferView;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,14 +49,15 @@ public class OfferController {
     @PostMapping("/add")
     public String addOffer(@Valid AddOfferDTO addOfferDTO,
                            BindingResult bindingResult,
-                           RedirectAttributes redirectAttributes) {
+                           RedirectAttributes redirectAttributes,
+                           @AuthenticationPrincipal OixUserDetails userDetails) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("addOfferDTO", addOfferDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addOfferDTO",
                     bindingResult);
             return "redirect:/offers/add";
         }
-        this.offerService.save(addOfferDTO);
+        this.offerService.save(addOfferDTO, userDetails);
         return "redirect:/offers";
     }
 

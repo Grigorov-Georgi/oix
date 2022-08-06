@@ -1,5 +1,6 @@
 package bg.softuni.oix.service.mapper;
 
+import bg.softuni.oix.model.entity.CategoryEntity;
 import bg.softuni.oix.model.entity.LocationEntity;
 import bg.softuni.oix.service.dto.AddLocationDTO;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-01T21:38:13+0300",
+    date = "2022-08-06T16:01:15+0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -65,6 +66,28 @@ public class AddLocationDtoMapperImpl implements AddLocationDtoMapper {
         if ( dto.getCity() != null ) {
             entity.setCity( dto.getCity() );
         }
+    }
+
+    @Override
+    public LocationEntity location(String value) {
+        if ( value == null ) {
+            return null;
+        }
+
+        LocationEntity locationEntity = new LocationEntity();
+
+        return locationEntity;
+    }
+
+    @Override
+    public CategoryEntity category(String value) {
+        if ( value == null ) {
+            return null;
+        }
+
+        CategoryEntity categoryEntity = new CategoryEntity();
+
+        return categoryEntity;
     }
 
     @Override

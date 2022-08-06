@@ -1,5 +1,6 @@
 package bg.softuni.oix.service;
 
+import bg.softuni.oix.exception.ObjectNotFoundException;
 import bg.softuni.oix.model.entity.LocationEntity;
 import bg.softuni.oix.repository.LocationRepository;
 import bg.softuni.oix.service.dto.AddLocationDTO;
@@ -34,5 +35,9 @@ public class LocationService {
 
     public void delete(Long id) {
         this.locationRepository.deleteById(id);
+    }
+
+    public LocationEntity findByCity(String city){
+        return this.locationRepository.findByCity(city).orElseThrow(() -> new ObjectNotFoundException("Location with city:" + city + "not found!"));
     }
 }

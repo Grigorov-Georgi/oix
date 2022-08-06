@@ -15,4 +15,20 @@ public class CategoryEntity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private CategoryEnum name;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public CategoryEnum getName() {
+        return name;
+    }
+
+    public void setName(CategoryEnum name) {
+        this.name = name;
+    }
 }

@@ -13,7 +13,6 @@ public class AddOfferDTO {
     private String title;
 
     @NotBlank
-    @Size(min = 4, max = 20)
     private String location;
 
     @NotBlank
@@ -26,6 +25,7 @@ public class AddOfferDTO {
 
     private String urlPicture;
 
+    @NotBlank
     private String category;
 
     public String getTitle() {

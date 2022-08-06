@@ -1,13 +1,15 @@
 package bg.softuni.oix.service;
 
 import bg.softuni.oix.exception.ObjectNotFoundException;
-import bg.softuni.oix.model.entity.LocationEntity;
 import bg.softuni.oix.model.entity.OfferEntity;
+import bg.softuni.oix.model.entity.UserEntity;
+import bg.softuni.oix.model.enums.CategoryEnum;
+import bg.softuni.oix.model.user.OixUserDetails;
 import bg.softuni.oix.repository.LocationRepository;
 import bg.softuni.oix.repository.OfferRepository;
 import bg.softuni.oix.service.dto.AddOfferDTO;
 import bg.softuni.oix.service.dto.OfferDto;
-import bg.softuni.oix.service.mapper.OfferMapper;
+import bg.softuni.oix.service.mapper.AddOfferMapper;
 import bg.softuni.oix.service.mapper.OfferViewMapper;
 import bg.softuni.oix.service.views.OfferView;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,11 +24,19 @@ public class OfferService {
     private final OfferRepository offerRepository;
     private LocationRepository locationRepository;
     private OfferViewMapper offerViewMapper;
+    private AddOfferMapper addOfferMapper;
+    private UserService userService;
+    private LocationService locationService;
+    private CategoryService categoryService;
 
-    public OfferService(OfferRepository offerRepository, OfferMapper offerMapper, LocationRepository locationRepository, OfferViewMapper offerViewMapper) {
+    public OfferService(OfferRepository offerRepository, LocationRepository locationRepository, OfferViewMapper offerViewMapper, AddOfferMapper addOfferMapper, UserService userService, LocationService locationService, CategoryService categoryService) {
         this.offerRepository = offerRepository;
         this.locationRepository = locationRepository;
         this.offerViewMapper = offerViewMapper;
+        this.addOfferMapper = addOfferMapper;
+        this.userService = userService;
+        this.locationService = locationService;
+        this.categoryService = categoryService;
     }
 
     public List<OfferDto> findAll() {
@@ -38,16 +47,15 @@ public class OfferService {
         return null;
     }
 
-    public void save(AddOfferDTO addOfferDTO) {
-        OfferEntity offerEntity = new OfferEntity();
-        offerEntity.setTitle(addOfferDTO.getTitle());
-        Optional<LocationEntity> optLocation = this.locationRepository.findByCity(addOfferDTO.getLocation());
-        offerEntity.setLocation(optLocation.orElse(null));
-        offerEntity.setDescription(addOfferDTO.getDescription());
-        offerEntity.setPrice(addOfferDTO.getPrice());
-        offerEntity.setReleaseDate(LocalDate.now());
+    public void save(AddOfferDTO addOfferDTO, OixUserDetails userDetails) {
+        OfferEntity newOffer = addOfferMapper.toEntity(addOfferDTO);
+        newOffer.setReleaseDate(LocalDate.now());
+        UserEntity loggedUser = userService.findById(userDetails.getId());
+        newOffer.setSeller(loggedUser);
+        newOffer.setLocation(locationService.findByCity(addOfferDTO.getLocation()));
+        newOffer.setCategory(categoryService.findByName(CategoryEnum.valueOf(addOfferDTO.getCategory())));
 
-        this.offerRepository.save(offerEntity);
+        this.offerRepository.save(newOffer);
     }
 
     public List<OfferView> getAllOffers() {

@@ -15,6 +15,4 @@ public interface OfferViewMapper extends EntityMapper<OfferView, OfferEntity> {
 
     @Mapping(target = "location.city", source = "location")
     OfferEntity toEntity(OfferView offerView);
-
-    LocationEntity map(String value);
 }

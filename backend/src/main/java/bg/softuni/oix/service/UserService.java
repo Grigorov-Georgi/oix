@@ -1,5 +1,6 @@
 package bg.softuni.oix.service;
 
+import bg.softuni.oix.exception.ObjectNotFoundException;
 import bg.softuni.oix.model.entity.UserEntity;
 import bg.softuni.oix.model.entity.UserRoleEntity;
 import bg.softuni.oix.repository.UserRepository;
@@ -81,5 +82,9 @@ public class UserService {
 
     public void delete(Long id) {
         this.userRepository.deleteById(id);
+    }
+
+    public UserEntity findById(Long id) {
+        return this.userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Logged user not found!"));
     }
 }
