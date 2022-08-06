@@ -25,36 +25,43 @@
 
 
 <div id="container">
-<!--    <div th:object="${offer}">-->
-<!--        <table style="border: 1px solid black">-->
-<!--            <tr style="border: 1px solid black">-->
-<!--                <td colspan="2" style="border: 1px solid black" th:text="*{title}"></td>-->
-<!--            </tr >-->
-<!--            <tr style="border: 1px solid black">-->
-<!--                <td rowspan="3">picture</td>-->
-<!--                <td>Price</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td>Seller name</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td>Location</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td>Description</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td>-->
-<!--                    Comments-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--        </table>-->
-<!--    </div>-->
-    <div class="card" style="width: 18rem;" th:object="${offer}">
-        <div th:text="*{title}"></div>
-        <img src="/images/no-image-icon.png" class="card-img-top" alt="image">
-        <div class="card-body">
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <div class="card" th:object="${offer}">
+        <div th:text="*{title}" style="font-weight: bold"></div>
+        <img src="@{*{offer.urlPicture}}" class="card-img-top" alt="image">
+<!--        <div class="card-body">-->
+<!--            <p class="card-text"></p>-->
+<!--            <p class="card-text">• Price: </p>-->
+<!--            <p class="card-text">• Seller: </p>-->
+<!--            <p class="card-text">• Location: </p>-->
+<!--            <p class="card-text">• Category: </p>-->
+<!--            <p class="card-text">• Seller: </p>-->
+<!--        </div>-->
+        <li class="list-group-item">
+            <div class="card-text"><span><b>• Price: </b><th:block th:text="*{price}"></th:block></span></div>
+            <div class="card-text"><span><b>• Seller: </b><th:block th:text="*{price}"></th:block></span></div>
+            <div class="card-text"><span><b>• Location: </b><th:block th:text="*{location}"></th:block></span></div>
+            <div class="card-text"><span><b>• Category: </b><th:block th:text="*{location}"></th:block></span></div>
+            <div class="card-text"><span><b>• Description: </b><th:block th:text="*{description}"></th:block></span></div>
+        </li>
+        <div>
+            <a class="btn btn-success" th:href="@{/offers/buy}" role="button">Buy</a>
+            <a class="btn btn-primary" th:href="@{/offers/{offerId}/edit(offerId=*{id})}" role="button">Edit</a>
+            <a class="btn btn-danger" th:href="@{/offers/{offerId}/delete(offerId=*{id})}" role="button">Delete</a>
+        </div>
+<!--        <div class="form-group green-border-focus">-->
+<!--            <label for="exampleFormControlTextarea5">Colorful border on :focus state</label>-->
+<!--            <textarea class="form-control" id="exampleFormControlTextarea5" rows="3"></textarea>-->
+<!--            <a class="btn btn-primary" th:href="@{/offers/{offerId}/comment}" role="button">Comment!</a>-->
+<!--        </div>-->
+        <div class="container justify-content-center mt-5 border-left border-right">
+            <div class="d-flex justify-content-center pt-3 pb-2"> <input type="text" name="text" placeholder="+ Add a comment" class="form-control addtxt"> </div>
+            <div class="d-flex justify-content-center py-2">
+                <div class="second py-2 px-2"> <span class="text1">Comment 1</span>
+                    <div class="d-flex justify-content-between py-1 pt-2">
+                        <div><span class="text2">Martha</span></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

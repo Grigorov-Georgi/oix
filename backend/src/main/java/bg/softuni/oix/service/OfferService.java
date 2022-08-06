@@ -22,16 +22,14 @@ import java.util.stream.Collectors;
 @Service
 public class OfferService {
     private final OfferRepository offerRepository;
-    private LocationRepository locationRepository;
     private OfferViewMapper offerViewMapper;
     private AddOfferMapper addOfferMapper;
     private UserService userService;
     private LocationService locationService;
     private CategoryService categoryService;
 
-    public OfferService(OfferRepository offerRepository, LocationRepository locationRepository, OfferViewMapper offerViewMapper, AddOfferMapper addOfferMapper, UserService userService, LocationService locationService, CategoryService categoryService) {
+    public OfferService(OfferRepository offerRepository, OfferViewMapper offerViewMapper, AddOfferMapper addOfferMapper, UserService userService, LocationService locationService, CategoryService categoryService) {
         this.offerRepository = offerRepository;
-        this.locationRepository = locationRepository;
         this.offerViewMapper = offerViewMapper;
         this.addOfferMapper = addOfferMapper;
         this.userService = userService;
@@ -39,15 +37,8 @@ public class OfferService {
         this.categoryService = categoryService;
     }
 
-    public List<OfferDto> findAll() {
-//        return offerRepository.findAll()
-//                .stream()
-//                .map(offerMapper::toDto)
-//                .collect(Collectors.toList());
-        return null;
-    }
-
     public void save(AddOfferDTO addOfferDTO, OixUserDetails userDetails) {
+        //TODO: Fix the mapper
         OfferEntity newOffer = addOfferMapper.toEntity(addOfferDTO);
         newOffer.setReleaseDate(LocalDate.now());
         UserEntity loggedUser = userService.findById(userDetails.getId());

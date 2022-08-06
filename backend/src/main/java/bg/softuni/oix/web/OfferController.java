@@ -61,7 +61,7 @@ public class OfferController {
         return "redirect:/offers";
     }
 
-    @GetMapping("/details/{id}")
+    @GetMapping("/{id}/details")
     public String getOfferDetails(@PathVariable("id") long id, Model model) {
         OfferView offerView = offerService.findById(id);
 
