@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/offers")
@@ -113,6 +114,13 @@ public class OfferController {
                            @AuthenticationPrincipal OixUserDetails userDetails){
         offerService.buyOffer(id, userDetails.getId());
         return "redirect:/offers";
+    }
+
+    @GetMapping("/my")
+    public String getMyOffers(@AuthenticationPrincipal OixUserDetails userDetails, Model model){
+        List<OfferView> myOffers = offerService.getMyOffers(userDetails.getId());
+        model.addAttribute("offers", myOffers);
+        return "my-offers";
     }
 
 }

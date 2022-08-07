@@ -43,6 +43,11 @@ public class OfferService {
                 .collect(Collectors.toList());
     }
 
+    public List<OfferView> getMyOffers(long id) {
+        return this.offerRepository.findAllBySellerIdEquals(id).stream().map(offerMapper::offerEntityToOfferView)
+                .collect(Collectors.toList());
+    }
+
     public List<OfferView> getListWithLastThreeOffers() {
         List<OfferView> offersForHomePage = new ArrayList<>();
 
