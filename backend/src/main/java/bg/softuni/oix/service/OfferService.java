@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,5 +65,11 @@ public class OfferService {
         OfferEntity offerEntity = this.offerRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Offer with id " + id + " not found!"));
         return offerMapper.offerEntityToAddOfferDto(offerEntity);
+    }
+
+    public boolean deleteOffer(long id){
+        Optional<OfferEntity> byId = offerRepository.findById(id);
+        offerRepository.deleteById(id);
+        return true;
     }
 }

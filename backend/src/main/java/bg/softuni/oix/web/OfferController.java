@@ -6,6 +6,7 @@ import bg.softuni.oix.service.LocationService;
 import bg.softuni.oix.service.OfferService;
 import bg.softuni.oix.service.dto.AddOfferDTO;
 import bg.softuni.oix.service.views.OfferView;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -97,6 +98,13 @@ public class OfferController {
         offerService.save(addOfferDTO, userDetails);
 
         //TODO: Redirect to offer details
+        return "redirect:/offers";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/{id}/delete")
+    public String deleteOffer(@PathVariable long id){
+        offerService.deleteOffer(id);
         return "redirect:/offers";
     }
 
