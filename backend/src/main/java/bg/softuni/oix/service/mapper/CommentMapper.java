@@ -2,6 +2,7 @@ package bg.softuni.oix.service.mapper;
 
 import bg.softuni.oix.model.entity.CommentEntity;
 import bg.softuni.oix.service.UserService;
+import bg.softuni.oix.service.dto.CommentDTO;
 import bg.softuni.oix.service.views.CommentView;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
@@ -13,6 +14,8 @@ import org.mapstruct.MappingTarget;
 )
 public interface CommentMapper {
     CommentView commentEntityToCommentView(CommentEntity commentEntity);
+
+    CommentEntity commentDTOToCommentEntity(CommentDTO commentDTO);
 
     @AfterMapping
     default void setSenderFullName(@MappingTarget CommentView commentView,

@@ -2,9 +2,11 @@ package bg.softuni.oix.web;
 
 import bg.softuni.oix.model.user.OixUserDetails;
 import bg.softuni.oix.service.CategoryService;
+import bg.softuni.oix.service.CommentService;
 import bg.softuni.oix.service.LocationService;
 import bg.softuni.oix.service.OfferService;
 import bg.softuni.oix.service.dto.AddOfferDTO;
+import bg.softuni.oix.service.dto.CommentDTO;
 import bg.softuni.oix.service.views.OfferView;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,20 +22,25 @@ import java.util.List;
 @Controller
 @RequestMapping("/offers")
 public class OfferController {
-    private OfferService offerService;
-    private LocationService locationService;
-    private CategoryService categoryService;
+    private final OfferService offerService;
+    private final LocationService locationService;
+    private final CategoryService categoryService;
+    private final CommentService commentService;
 
-    public OfferController(OfferService offerService, LocationService locationService, CategoryService categoryService) {
+    public OfferController(OfferService offerService, LocationService locationService, CategoryService categoryService, CommentService commentService) {
         this.offerService = offerService;
         this.locationService = locationService;
         this.categoryService = categoryService;
+        this.commentService = commentService;
     }
 
     @ModelAttribute("addOfferDTO")
     public AddOfferDTO initAddOfferDTO() {
         return new AddOfferDTO();
     }
+
+    @ModelAttribute("commentDTO")
+    public CommentDTO initCommentDTO() { return new CommentDTO();}
 
     @GetMapping
     public String allOffers(Model model) {
@@ -128,6 +135,12 @@ public class OfferController {
         List<OfferView> boughtItems = offerService.getBoughtItems(userDetails.getId());
         model.addAttribute("offers", boughtItems);
         return "bought-items";
+    }
+
+    @PostMapping("/{id}/comment")
+    public String comment(@Valid CommentDTO commentDTO, @PathVariable Long id, @AuthenticationPrincipal OixUserDetails userDetails){
+        this.commentService.save(commentDTO, userDetails.getId(), id);
+        return "redirect:/offers/" + id + "/details";
     }
 
 }
