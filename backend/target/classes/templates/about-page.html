@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OIX</title>
+    <!--Favicon-->
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <!--Fav icon-->
+
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <!--Bootstrap-->
+</head>
+
+<body>
+<div th:replace="fragments/navbar">Navbar</div>
+
+<div id="container">
+    <section class="h-100">
+
+        <div class="jumbotron">
+            <h1 class="display-4">About Us</h1>
+            <p class="lead">Our site was created to help people sell their old unwanted items and buy new ones they need.</p>
+            <div class="col-md-8 col-lg-7 col-xl-6">
+                <img src="/images/team.png"
+                     class="img-fluid" alt="Login image" height="500" width="500">
+            </div>
+            <hr class="my-4">
+            <p>Need help? Contact us!</p>
+            <p>Telephone: 089-999-7878</p>
+            <p>Email: contact@oix.com</p>
+            <a class="btn btn-primary btn-lg" href="/offers" role="button">Go Back To Offers</a>
+        </div>
+
+    </section>
+</div>
+
+<div th:replace="fragments/footer">Footer</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+</body>
+</html>

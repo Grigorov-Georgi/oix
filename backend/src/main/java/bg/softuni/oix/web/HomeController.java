@@ -29,4 +29,9 @@ public class HomeController {
         model.addAttribute("firstThreeOffers", this.offerService.getListWithLastThreeOffers());
         return "index";
     }
+
+    @GetMapping("/about")
+    public String about(){
+        return "about-page";
+    }
 }
