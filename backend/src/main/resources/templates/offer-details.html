@@ -27,18 +27,24 @@
 <div id="container">
     <div class="card" th:object="${offer}">
         <div th:text="*{title}" style="font-weight: bold"></div>
-        <img src="@{*{offer.urlPicture}}" class="card-img-top" alt="image">
+        <img th:src="@{*{urlPicture}}" class="card-img-top" alt="image">
+
         <li class="list-group-item">
             <div class="card-text"><span><b>• Price: </b><th:block th:text="*{price}"></th:block></span></div>
-            <div class="card-text"><span><b>• Seller: </b><th:block th:text="*{price}"></th:block></span></div>
+            <div class="card-text"><span><b>• Seller: </b><th:block th:text="*{sellerFullName}"></th:block></span></div>
             <div class="card-text"><span><b>• Location: </b><th:block th:text="*{location}"></th:block></span></div>
-            <div class="card-text"><span><b>• Category: </b><th:block th:text="*{location}"></th:block></span></div>
+            <div class="card-text"><span><b>• Category: </b><th:block th:text="*{category}"></th:block></span></div>
             <div class="card-text"><span><b>• Description: </b><th:block th:text="*{description}"></th:block></span></div>
         </li>
+
         <div>
-            <a class="btn btn-success" th:href="@{/offers/buy}" role="button">Buy</a>
-            <a class="btn btn-primary" th:href="@{/offers/{offerId}/edit(offerId=*{id})}" role="button">Edit</a>
-            <a class="btn btn-danger" th:href="@{/offers/{offerId}/delete(offerId=*{id})}" role="button">Delete</a>
+            <span th:if="*{sellerId} == ${#authentication.principal.id}">
+                <a class="btn btn-primary" th:href="@{/offers/{offerId}/edit(offerId=*{id})}" role="button">Edit</a>
+                <a class="btn btn-danger" th:href="@{/offers/{offerId}/delete(offerId=*{id})}" role="button">Delete</a>
+            </span>
+            <span th:unless="*{sellerId} == ${#authentication.principal.id}">
+                <a class="btn btn-success" th:href="@{/offers/buy}" role="button">Buy</a>
+            </span>
         </div>
 
         <div class="container justify-content-center mt-5 border-left border-right">

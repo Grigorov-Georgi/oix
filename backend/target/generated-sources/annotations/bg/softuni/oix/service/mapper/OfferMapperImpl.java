@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-07T17:04:36+0300",
+    date = "2022-08-07T18:02:51+0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -79,11 +79,17 @@ public class OfferMapperImpl implements OfferMapper {
         OfferView offerView = new OfferView();
 
         offerView.setLocation( offerEntityLocationCity( offerEntity ) );
+        CategoryEnum name = offerEntityCategoryName( offerEntity );
+        if ( name != null ) {
+            offerView.setCategory( name.name() );
+        }
         offerView.setTitle( offerEntity.getTitle() );
         offerView.setPrice( offerEntity.getPrice() );
         offerView.setDescription( offerEntity.getDescription() );
         offerView.setId( offerEntity.getId() );
         offerView.setUrlPicture( offerEntity.getUrlPicture() );
+
+        setAdditionalFieldsForView( offerView, offerEntity );
 
         return offerView;
     }

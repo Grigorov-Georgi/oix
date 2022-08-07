@@ -8,15 +8,20 @@ public class OfferView {
     private BigDecimal price;
     private String description;
     private String location;
+    private String category;
     private String urlPicture;
+    private String sellerFullName;
+    private long sellerId;
 
-    public OfferView(Long id, String title, BigDecimal price, String description, String location, String urlPicture) {
+    public OfferView(Long id, String title, BigDecimal price, String description, String location, String urlPicture, String sellerFullName, long sellerId) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.description = description;
         this.location = location;
         this.urlPicture = urlPicture;
+        this.sellerFullName = sellerFullName;
+        this.sellerId = sellerId;
     }
 
     public OfferView() {
@@ -68,5 +73,29 @@ public class OfferView {
 
     public void setUrlPicture(String urlPicture) {
         this.urlPicture = urlPicture;
+    }
+
+    public String getSellerFullName() {
+        return sellerFullName;
+    }
+
+    public void setSellerFullName(String sellerFullName) {
+        this.sellerFullName = sellerFullName;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(long sellerId) {
+        this.sellerId = sellerId;
     }
 }
