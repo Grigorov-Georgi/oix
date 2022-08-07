@@ -1,6 +1,8 @@
 package bg.softuni.oix.service.views;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OfferView {
     private Long id;
@@ -12,20 +14,7 @@ public class OfferView {
     private String urlPicture;
     private String sellerFullName;
     private long sellerId;
-
-    public OfferView(Long id, String title, BigDecimal price, String description, String location, String urlPicture, String sellerFullName, long sellerId) {
-        this.id = id;
-        this.title = title;
-        this.price = price;
-        this.description = description;
-        this.location = location;
-        this.urlPicture = urlPicture;
-        this.sellerFullName = sellerFullName;
-        this.sellerId = sellerId;
-    }
-
-    public OfferView() {
-    }
+    private List<CommentView> comments = new ArrayList<>();
 
     public String getTitle() {
         return title;
@@ -97,5 +86,13 @@ public class OfferView {
 
     public void setSellerId(long sellerId) {
         this.sellerId = sellerId;
+    }
+
+    public List<CommentView> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentView> comments) {
+        this.comments = comments;
     }
 }

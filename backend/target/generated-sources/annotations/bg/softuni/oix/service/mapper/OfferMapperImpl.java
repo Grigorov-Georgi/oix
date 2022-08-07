@@ -1,20 +1,24 @@
 package bg.softuni.oix.service.mapper;
 
 import bg.softuni.oix.model.entity.CategoryEntity;
+import bg.softuni.oix.model.entity.CommentEntity;
 import bg.softuni.oix.model.entity.LocationEntity;
 import bg.softuni.oix.model.entity.OfferEntity;
 import bg.softuni.oix.model.enums.CategoryEnum;
 import bg.softuni.oix.service.CategoryService;
 import bg.softuni.oix.service.LocationService;
 import bg.softuni.oix.service.dto.AddOfferDTO;
+import bg.softuni.oix.service.views.CommentView;
 import bg.softuni.oix.service.views.OfferView;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-07T18:02:51+0300",
+    date = "2022-08-07T21:01:55+0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -24,6 +28,8 @@ public class OfferMapperImpl implements OfferMapper {
     private CategoryService categoryService;
     @Autowired
     private LocationService locationService;
+    @Autowired
+    private CommentMapper commentMapper;
 
     @Override
     public OfferEntity addOfferDtoToOfferEntity(AddOfferDTO addOfferDTO) {
@@ -83,6 +89,7 @@ public class OfferMapperImpl implements OfferMapper {
         if ( name != null ) {
             offerView.setCategory( name.name() );
         }
+        offerView.setComments( commentEntityListToCommentViewList( offerEntity.getComments() ) );
         offerView.setTitle( offerEntity.getTitle() );
         offerView.setPrice( offerEntity.getPrice() );
         offerView.setDescription( offerEntity.getDescription() );
@@ -122,5 +129,18 @@ public class OfferMapperImpl implements OfferMapper {
             return null;
         }
         return city;
+    }
+
+    protected List<CommentView> commentEntityListToCommentViewList(List<CommentEntity> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<CommentView> list1 = new ArrayList<CommentView>( list.size() );
+        for ( CommentEntity commentEntity : list ) {
+            list1.add( commentMapper.commentEntityToCommentView( commentEntity ) );
+        }
+
+        return list1;
     }
 }

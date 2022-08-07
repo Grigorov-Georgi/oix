@@ -12,7 +12,10 @@ import org.mapstruct.*;
 import java.time.LocalDate;
 
 @Mapper(componentModel = "spring",
-        uses = {CategoryService.class, LocationService.class, UserService.class})
+        uses = {CategoryService.class,
+                LocationService.class,
+                UserService.class,
+                CommentMapper.class})
 public interface OfferMapper {
     @Mapping(target = "category", source = "category")
     @Mapping(target = "location", source = "location")
@@ -24,6 +27,7 @@ public interface OfferMapper {
 
     @Mapping(target = "location", source = "location.city")
     @Mapping(target = "category", source = "category.name")
+    @Mapping(target = "comments", source = "comments")
     OfferView offerEntityToOfferView(OfferEntity offerEntity);
 
     @BeforeMapping

@@ -49,10 +49,15 @@
 
         <div class="container justify-content-center mt-5 border-left border-right">
             <div class="d-flex justify-content-center pt-3 pb-2"> <input type="text" name="text" placeholder="+ Add a comment" class="form-control addtxt"> </div>
-            <div class="d-flex justify-content-center py-2">
-                <div class="second py-2 px-2"> <span class="text1">Comment 1</span>
+            <div th:each="comment : *{comments}"
+                 th:object="${comment}"
+                    class="d-flex justify-content-center py-2">
+                <div class="second py-2 px-2">
+                    <span class="text1" th:text="*{description}">Comment 1</span>
                     <div class="d-flex justify-content-between py-1 pt-2">
-                        <div><span class="text2">Martha</span></div>
+                        <div>
+                            <span class="text2" th:text = "*{senderFullName}">Martha</span>
+                        </div>
                     </div>
                 </div>
             </div>

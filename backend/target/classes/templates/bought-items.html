@@ -24,7 +24,7 @@
 <div th:replace="fragments/navbar">Navbar</div>
 
 <div id="container">
-    <h2 class="text-center text-black mt-5">My Offers</h2>
+    <h2 class="text-center text-black mt-5">Bought Items</h2>
     <div
             class="offers row mx-auto d-flex flex-row justify-content-center">
         <div th:each="offer : ${offers}"
@@ -50,7 +50,7 @@
             </div>
         </div>
     </div>
-    <h5 th:if="${offers != null && offers.size == 0}" class="text-center text-black mt-5">There are no bought items yet!</h5>
+    <h5 th:if="${offers != null && offers.size == 0}" class="text-center text-black mt-5">No items purchased yet!</h5>
 </div>
 </div>
 
