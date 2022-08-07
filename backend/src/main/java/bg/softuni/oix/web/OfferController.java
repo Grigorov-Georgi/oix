@@ -123,4 +123,11 @@ public class OfferController {
         return "my-offers";
     }
 
+    @GetMapping("/bought-items")
+    public String getBoughtItems(@AuthenticationPrincipal OixUserDetails userDetails, Model model){
+        List<OfferView> boughtItems = offerService.getBoughtItems(userDetails.getId());
+        model.addAttribute("offers", boughtItems);
+        return "bought-items";
+    }
+
 }

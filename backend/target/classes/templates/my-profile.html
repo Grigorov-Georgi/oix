@@ -27,7 +27,7 @@
 <div id="container">
     <div class="card" th:object="${user}">
         <div style="font-weight: bold">My profile</div>
-        <img src="/images/no-user-icon.png" class="card-img-top" alt="image">
+        <img src="/images/no-user-icon.png" class="card-img-top" alt="image" height="500px" width="500px">
         <li class="list-group-item">
             <div class="card-text"><span><b>• Email: </b><th:block th:text="*{email}"></th:block></span></div>
             <div class="card-text"><span><b>• First Name: </b><th:block th:text="*{firstName}"></th:block></span></div>
@@ -35,6 +35,8 @@
         </li>
         <div>
             <a class="btn btn-success" th:href="@{/offers/buy}" role="button">Edit Profile</a>
+            <a class="btn btn-primary btn-lg" href="/offers/my" role="button">My Offers</a>
+            <a class="btn btn-primary btn-lg" href="/offers/bought-items" role="button">Bought Items</a>
         </div>
     </div>
 </div>
