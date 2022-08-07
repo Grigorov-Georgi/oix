@@ -31,7 +31,6 @@ C:\oix\backend\src\main\java\bg\softuni\oix\model\enums\UserRoleEnum.java
 C:\oix\backend\src\main\java\bg\softuni\oix\repository\UserRoleRepository.java
 C:\oix\backend\src\main\java\bg\softuni\oix\repository\CommentRepository.java
 C:\oix\backend\src\main\java\bg\softuni\oix\service\dto\UserRegistrationDto.java
-C:\oix\backend\src\main\java\bg\softuni\oix\service\mapper\EntityMapper.java
 C:\oix\backend\src\main\java\bg\softuni\oix\model\entity\CommentEntity.java
 C:\oix\backend\src\main\java\bg\softuni\oix\service\views\UserView.java
 C:\oix\backend\src\main\java\bg\softuni\oix\model\entity\UserRoleEntity.java

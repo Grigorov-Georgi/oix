@@ -5,9 +5,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.List;
 
 public class AddOfferDTO {
+
+    private long id;
+
     @NotBlank
     @Size(min = 4, max = 20)
     private String title;
@@ -74,5 +76,13 @@ public class AddOfferDTO {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

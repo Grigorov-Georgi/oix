@@ -63,11 +63,41 @@ public class OfferController {
 
     @GetMapping("/{id}/details")
     public String getOfferDetails(@PathVariable("id") long id, Model model) {
-        OfferView offerView = offerService.findById(id);
+        OfferView offerView = offerService.findViewById(id);
 
         model.addAttribute("offer", offerView);
 
         return "offer-details";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String updateOfferView(@PathVariable long id, Model model){
+        AddOfferDTO addOfferDTO = offerService.findDtoById(id);
+        model.addAttribute("updateOfferDTO", addOfferDTO);
+        model.addAttribute("locations", locationService.getAllLocations());
+        model.addAttribute("categories", categoryService.getAllCategories());
+        return "edit-offer";
+    }
+
+    @PostMapping("/{id}/edit")
+    public String updateOffer(@Valid AddOfferDTO addOfferDTO,
+                              BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes,
+                              @PathVariable long id,
+                              @AuthenticationPrincipal OixUserDetails userDetails){
+
+        //TODO: RedirectAttributes doesn't work!
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("updateOfferDTO", addOfferDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.updateOfferDTO",
+                    bindingResult);
+            return String.format("redirect:/offers/%d/edit", id);
+        }
+        addOfferDTO.setId(id);
+        offerService.save(addOfferDTO, userDetails);
+
+        //TODO: Redirect to offer details
+        return "redirect:/offers";
     }
 
 }

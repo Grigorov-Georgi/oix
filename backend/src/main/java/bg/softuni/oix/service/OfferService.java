@@ -6,6 +6,7 @@ import bg.softuni.oix.model.entity.UserEntity;
 import bg.softuni.oix.model.user.OixUserDetails;
 import bg.softuni.oix.repository.OfferRepository;
 import bg.softuni.oix.service.dto.AddOfferDTO;
+import bg.softuni.oix.service.dto.OfferDto;
 import bg.softuni.oix.service.mapper.OfferMapper;
 import bg.softuni.oix.service.views.OfferView;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ public class OfferService {
 
     public void save(AddOfferDTO addOfferDTO, OixUserDetails userDetails) {
         OfferEntity newOffer = offerMapper.addOfferDtoToOfferEntity(addOfferDTO);
+
         UserEntity loggedUser = userService.findById(userDetails.getId());
         newOffer.setSeller(loggedUser);
 
@@ -52,9 +54,15 @@ public class OfferService {
         return offersForHomePage;
     }
 
-    public OfferView findById(long id) {
+    public OfferView findViewById(long id) {
         OfferEntity offerEntity = this.offerRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Offer with id " + id + " not found!"));
         return offerMapper.offerEntityToOfferView(offerEntity);
+    }
+
+    public AddOfferDTO findDtoById(long id){
+        OfferEntity offerEntity = this.offerRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Offer with id " + id + " not found!"));
+        return offerMapper.offerEntityToAddOfferDto(offerEntity);
     }
 }

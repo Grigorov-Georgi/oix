@@ -1,5 +1,6 @@
 package bg.softuni.oix.service.mapper;
 
+import bg.softuni.oix.model.entity.CategoryEntity;
 import bg.softuni.oix.model.entity.LocationEntity;
 import bg.softuni.oix.model.entity.OfferEntity;
 import bg.softuni.oix.model.enums.CategoryEnum;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-07T00:40:54+0300",
+    date = "2022-08-07T13:13:41+0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -38,12 +39,35 @@ public class OfferMapperImpl implements OfferMapper {
             offerEntity.setCategory( categoryService.findByName( Enum.valueOf( CategoryEnum.class, addOfferDTO.getCategory() ) ) );
         }
         offerEntity.setLocation( locationService.findByCity( addOfferDTO.getLocation() ) );
+        offerEntity.setId( addOfferDTO.getId() );
         offerEntity.setTitle( addOfferDTO.getTitle() );
         offerEntity.setPrice( addOfferDTO.getPrice() );
         offerEntity.setDescription( addOfferDTO.getDescription() );
         offerEntity.setUrlPicture( addOfferDTO.getUrlPicture() );
 
         return offerEntity;
+    }
+
+    @Override
+    public AddOfferDTO offerEntityToAddOfferDto(OfferEntity offerEntity) {
+        if ( offerEntity == null ) {
+            return null;
+        }
+
+        AddOfferDTO addOfferDTO = new AddOfferDTO();
+
+        CategoryEnum name = offerEntityCategoryName( offerEntity );
+        if ( name != null ) {
+            addOfferDTO.setCategory( name.name() );
+        }
+        addOfferDTO.setLocation( offerEntityLocationCity( offerEntity ) );
+        addOfferDTO.setTitle( offerEntity.getTitle() );
+        addOfferDTO.setDescription( offerEntity.getDescription() );
+        addOfferDTO.setPrice( offerEntity.getPrice() );
+        addOfferDTO.setUrlPicture( offerEntity.getUrlPicture() );
+        addOfferDTO.setId( offerEntity.getId() );
+
+        return addOfferDTO;
     }
 
     @Override
@@ -62,6 +86,21 @@ public class OfferMapperImpl implements OfferMapper {
         offerView.setUrlPicture( offerEntity.getUrlPicture() );
 
         return offerView;
+    }
+
+    private CategoryEnum offerEntityCategoryName(OfferEntity offerEntity) {
+        if ( offerEntity == null ) {
+            return null;
+        }
+        CategoryEntity category = offerEntity.getCategory();
+        if ( category == null ) {
+            return null;
+        }
+        CategoryEnum name = category.getName();
+        if ( name == null ) {
+            return null;
+        }
+        return name;
     }
 
     private String offerEntityLocationCity(OfferEntity offerEntity) {

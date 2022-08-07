@@ -1,7 +1,4 @@
 package bg.softuni.oix.model.entity;
-
-import bg.softuni.oix.model.enums.CategoryEnum;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;

@@ -7,16 +7,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class OfferDto {
-
     private Long id;
 
     @NotBlank
     @Size(min = 4, max = 20)
     private String title;
-
-    @NotBlank
-    @Size(min = 4, max = 20)
-    private String sellerName;
 
     @NotBlank
     @Size(min = 4, max = 20)
@@ -33,6 +28,51 @@ public class OfferDto {
     @Size(min = 4, max = 20)
     private String category;
 
-    //private List<CommentDto> comments;
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public LocalDate getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(LocalDate releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 }

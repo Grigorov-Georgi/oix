@@ -7,6 +7,7 @@ import bg.softuni.oix.service.CategoryService;
 import bg.softuni.oix.service.LocationService;
 import bg.softuni.oix.service.UserService;
 import bg.softuni.oix.service.dto.AddOfferDTO;
+import bg.softuni.oix.service.dto.OfferDto;
 import bg.softuni.oix.service.views.OfferView;
 import org.mapstruct.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,6 +20,10 @@ public interface OfferMapper {
     @Mapping(target = "category", source = "category")
     @Mapping(target = "location", source = "location")
     OfferEntity addOfferDtoToOfferEntity(AddOfferDTO addOfferDTO);
+
+    @Mapping(target = "category", source = "category.name")
+    @Mapping(target = "location", source = "location.city")
+    AddOfferDTO offerEntityToAddOfferDto(OfferEntity offerEntity);
 
     @Mapping(target = "location", source = "location.city")
     OfferView offerEntityToOfferView(OfferEntity offerEntity);
