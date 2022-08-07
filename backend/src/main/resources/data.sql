@@ -25,19 +25,11 @@ VALUES  (1, 'CAR'),
         (6, 'OTHER');
 
 INSERT INTO offers (id, description, price, release_date, sold_date, title, url_picture, buyer_id, category_id, location_id, seller_id)
-VALUES  (1, '1Very good condition', 100, '2018-11-01', null, 'Stol na edin krak', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', 1, 1, 1, 1),
-        (2, '2Very good condition', 101, '2018-11-02', null, 'Stol na dva kraka', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', 1, 2, 2, 1),
-        (3, '3Very good condition', 102, '2018-11-03', null, 'Stol na tri kraka', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', 1, 3, 3, 1),
-        (4, '4Very good condition', 103, '2018-11-04', null, 'Stol na 4etiri kraka', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', 1, 4, 4, 1),
-        (5, '5Very good condition', 104, '2018-11-05', null, 'Stol na pet kraka', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', 1, 5, 5, 1);
---        (2, '2Old but gold', 2.5, '2018-11-01', '2019-11-01', 'Masa bez stolove', 1, null, 2, https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg, 2),
---        (3, '3Very good condition', 100, '2018-11-01', null, 'Stol na dva kraka', 1, null, 1, https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg, 3),
---        (4, '4Old but gold', 2.5, '2018-11-01', '2019-11-01', 'Masa bez stolove', 1, null, 2, https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg, 4),
---        (5, '5Very good condition', 100, '2018-11-01', null, 'Stol na dva kraka', 1, null, 1, https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg, 5),
---        (6, '6Old but gold', 2.5, '2018-11-01', '2019-11-01', 'Masa bez stolove', 1, null, 2, https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg, 6),
---        (7, '7Very good condition Very good condition Very good condition Very good condition Very good condition Very good condition Very good condition Very good condition',
---         100, '2018-11-01', null, 'Stol na dva kraka', 1, null, 1, https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg, 6),
---        (8, '8Old but gold', 2.5, '2018-11-01', '2019-11-01', 'Masa bez stolove', 1, null, 2, https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg, 1);
+VALUES  (1, '1Very good condition', 100, '2018-11-01', null, 'Stol na edin krak', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 1, 1, 1),
+        (2, '2Very good condition', 101, '2018-11-02', null, 'Stol na dva kraka', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 2, 2, 1),
+        (3, '3Very good condition', 102, '2018-11-03', null, 'Stol na tri kraka', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 3, 3, 1),
+        (4, '4Very good condition', 103, '2018-11-04', null, 'Stol na 4etiri kraka', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 4, 4, 1),
+        (5, '5Very good condition', 104, '2018-11-05', null, 'Stol na pet kraka', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 5, 5, 1);
 
 INSERT INTO users_user_roles(user_entity_id, user_roles_id)
 VALUES  (1, 1),

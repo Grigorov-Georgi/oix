@@ -5,6 +5,7 @@ import bg.softuni.oix.model.entity.OfferEntity;
 import bg.softuni.oix.model.entity.UserEntity;
 import bg.softuni.oix.model.user.OixUserDetails;
 import bg.softuni.oix.repository.OfferRepository;
+import bg.softuni.oix.repository.UserRepository;
 import bg.softuni.oix.service.dto.AddOfferDTO;
 import bg.softuni.oix.service.dto.OfferDto;
 import bg.softuni.oix.service.mapper.OfferMapper;
@@ -38,7 +39,7 @@ public class OfferService {
     }
 
     public List<OfferView> getAllOffers() {
-        return this.offerRepository.findAll().stream().map(offerMapper::offerEntityToOfferView)
+        return this.offerRepository.findAllByBuyerIsNull().stream().map(offerMapper::offerEntityToOfferView)
                 .collect(Collectors.toList());
     }
 
@@ -61,15 +62,23 @@ public class OfferService {
         return offerMapper.offerEntityToOfferView(offerEntity);
     }
 
-    public AddOfferDTO findDtoById(long id){
+    public AddOfferDTO findDtoById(long id) {
         OfferEntity offerEntity = this.offerRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("Offer with id " + id + " not found!"));
         return offerMapper.offerEntityToAddOfferDto(offerEntity);
     }
 
-    public boolean deleteOffer(long id){
+    public void deleteOffer(long id) {
         Optional<OfferEntity> byId = offerRepository.findById(id);
         offerRepository.deleteById(id);
-        return true;
+    }
+
+    public void buyOffer(long id, Long userDetailsId) {
+        OfferEntity wantedOffer = offerRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Offer with id " + id + " not found!"));
+
+        UserEntity buyer = userService.findById(userDetailsId);
+        wantedOffer.setBuyer(buyer);
+        offerRepository.save(wantedOffer);
     }
 }

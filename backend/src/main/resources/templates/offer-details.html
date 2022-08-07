@@ -43,7 +43,7 @@
                 <a class="btn btn-danger" th:href="@{/offers/{offerId}/delete(offerId=*{id})}" role="button">Delete</a>
             </span>
             <span th:unless="*{sellerId} == ${#authentication.principal.id}">
-                <a class="btn btn-success" th:href="@{/offers/buy}" role="button">Buy</a>
+                <a class="btn btn-success" th:href="@{/offers/{offerId}/buy(offerId=*{id})}" role="button">Buy</a>
             </span>
         </div>
 

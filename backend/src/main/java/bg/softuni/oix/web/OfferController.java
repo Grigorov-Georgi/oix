@@ -108,4 +108,11 @@ public class OfferController {
         return "redirect:/offers";
     }
 
+    @GetMapping("/{id}/buy")
+    public String buyOffer(@PathVariable long id,
+                           @AuthenticationPrincipal OixUserDetails userDetails){
+        offerService.buyOffer(id, userDetails.getId());
+        return "redirect:/offers";
+    }
+
 }
