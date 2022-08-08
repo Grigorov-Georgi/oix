@@ -25,33 +25,84 @@
 
 <div id="container">
     <h2 class="text-center text-black mt-5">All Offers</h2>
-        <div
-             class="offers row mx-auto d-flex flex-row justify-content-center">
-            <div th:each="offer : ${offers}"
-                 th:object="${offer}"
-                 class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
-                <div class="card-img-top-wrapper">
-                    <img class="card-img-top" th:src="@{*{urlPicture}}" alt="Offer image">
-                </div>
-                <div class="card-body pb-1">
-                    <h5 class="card-title">
-                        <th:block th:text="*{title}"></th:block>
-                    </h5>
-                </div>
-                <ul class="offer-details list-group list-group-flush">
-                    <li class="list-group-item">
-                        <div class="card-text"><span><b>• Price </b><th:block th:text="*{price}"></th:block></span></div>
-                        <div class="card-text"><span><b>• Location </b><th:block th:text="*{location}"></th:block></span></div>
-                        <div class="card-text"><span><b>• Description </b><th:block th:text="*{description}"></th:block></span></div>
-                    </li>
-                </ul>
-                <div class="card-body">
-                    <a class="card-link" th:href="@{/offers/{offerId}/details(offerId=*{id})}">Details</a>
-                </div>
+    <div
+            class="offers row mx-auto d-flex flex-row justify-content-center">
+        <div th:each="offer : ${offers}"
+             th:object="${offer}"
+             class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
+            <div class="card-img-top-wrapper">
+                <img class="card-img-top" th:src="@{*{urlPicture}}" alt="Offer image">
+            </div>
+            <div class="card-body pb-1">
+                <h5 class="card-title">
+                    <th:block th:text="*{title}"></th:block>
+                </h5>
+            </div>
+            <ul class="offer-details list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="card-text"><span><b>• Price </b><th:block th:text="*{price}"></th:block></span></div>
+                    <div class="card-text"><span><b>• Location </b><th:block th:text="*{location}"></th:block></span>
+                    </div>
+                    <div class="card-text"><span><b>• Description </b><th:block
+                            th:text="*{description}"></th:block></span></div>
+                </li>
+            </ul>
+            <div class="card-body">
+                <a class="card-link" th:href="@{/offers/{offerId}/details(offerId=*{id})}">Details</a>
             </div>
         </div>
-    <h5 th:if="${offers != null && offers.size == 0}" class="text-center text-black mt-5">There are no offers added!</h5>
     </div>
+
+    <h5 th:if="${offers != null && offers.size == 0}" class="text-center text-black mt-5">There are no offers
+        added!</h5>
+
+    <div class="row justify-content-center">
+        <nav>
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${offers.isFirst()} ? 'disabled' : ''">
+                    <a th:unless="${offers.isFirst()}"
+                       th:href="@{/offers(size=${offers.getSize()},page=0)}"
+                       class="page-link">First</a>
+                    <a th:if="${offers.isFirst()}"
+                       class="page-link">First</a>
+                </li>
+            </ul>
+        </nav>
+        <nav>
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${offers.hasPrevious() ? '' : 'disabled'}">
+                    <a th:if="${offers.hasPrevious()}"
+                       th:href="@{/offers(size=${offers.getSize()},page=${offers.getNumber() - 1})}"
+                       class="page-link">Previous</a>
+                    <a th:unless="${offers.hasPrevious()}"
+                       class="page-link">Previous</a>
+                </li>
+            </ul>
+        </nav>
+        <nav>
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${offers.hasNext() ? '' : 'disabled'}">
+                    <a th:if="${offers.hasNext()}"
+                       th:href="@{/offers(size=${offers.getSize()},page=${offers.getNumber() + 1})}"
+                       class="page-link">Next</a>
+                    <a th:unless="${offers.hasNext()}"
+                       class="page-link">Next</a>
+                </li>
+            </ul>
+        </nav>
+        <nav>
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${offers.isLast()} ? 'disabled' : ''">
+                    <a th:unless="${offers.isLast()}"
+                       th:href="@{/offers(size=${offers.getSize()},page=${offers.getTotalPages() - 1})}"
+                       class="page-link">Last</a>
+                    <a th:if="${offers.isLast()}"
+                       class="page-link">Last</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
 </div>
 
 <div th:replace="fragments/footer">Footer</div>

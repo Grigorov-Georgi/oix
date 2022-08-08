@@ -25,11 +25,16 @@ VALUES  (1, 'CAR'),
         (6, 'OTHER');
 
 INSERT INTO offers (id, description, price, release_date, sold_date, title, url_picture, buyer_id, category_id, location_id, seller_id)
-VALUES  (1, '1Very good condition', 100, '2018-11-01', null, 'Stol na edin krak', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 1, 1, 1),
-        (2, '2Very good condition', 101, '2018-11-02', null, 'Stol na dva kraka', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 2, 2, 1),
-        (3, '3Very good condition', 102, '2018-11-03', null, 'Stol na tri kraka', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 3, 3, 1),
-        (4, '4Very good condition', 103, '2018-11-04', null, 'Stol na 4etiri kraka', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 4, 4, 1),
-        (5, '5Very good condition', 104, '2018-11-05', null, 'Stol na pet kraka', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 5, 5, 1);
+VALUES  (1, '1Very good condition', 100, '2018-11-01', null, 'Offer1', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 1, 1, 1),
+        (2, '2Very good condition', 101, '2018-11-02', null, 'Offer2', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 2, 2, 1),
+        (3, '3Very good condition', 102, '2018-11-03', null, 'Offer3', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 3, 3, 1),
+        (4, '4Very good condition', 103, '2018-11-04', null, 'Offer4', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 4, 4, 1),
+        (5, '5Very good condition', 104, '2018-11-05', null, 'Offer5', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 5, 5, 1),
+        (6, '6Very good condition', 105, '2018-11-01', null, 'Offer6', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 1, 1, 1),
+        (7, '7Very good condition', 106, '2018-11-02', null, 'Offer7', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 2, 2, 1),
+        (8, '8Very good condition', 107, '2018-11-03', null, 'Offer8', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 3, 3, 1),
+        (9, '9Very good condition', 108, '2018-11-04', null, 'Offer9', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 4, 4, 1),
+        (10, '10Very good condition', 109, '2018-11-05', null, 'Offer10', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 5, 5, 1);
 
 INSERT INTO users_user_roles(user_entity_id, user_roles_id)
 VALUES  (1, 1),
@@ -37,8 +42,8 @@ VALUES  (1, 1),
         (1, 3);
 
 INSERT INTO comments(id, description, offer_id, sender_id)
-VALUES  (1, "CENA?", 1, 1),
-        (2, "Vzimam vednaga", 1, 1),
-        (3, "Nqkoi saka li go?", 1, 1);
+VALUES  (1, "CENA1?", 1, 1),
+        (2, "CENA2?", 1, 1),
+        (3, "CENA3?", 1, 1);
 
 

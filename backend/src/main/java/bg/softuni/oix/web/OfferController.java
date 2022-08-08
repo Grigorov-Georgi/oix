@@ -8,6 +8,9 @@ import bg.softuni.oix.service.OfferService;
 import bg.softuni.oix.service.dto.AddOfferDTO;
 import bg.softuni.oix.service.dto.CommentDTO;
 import bg.softuni.oix.service.views.OfferView;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -40,11 +43,20 @@ public class OfferController {
     }
 
     @ModelAttribute("commentDTO")
-    public CommentDTO initCommentDTO() { return new CommentDTO();}
+    public CommentDTO initCommentDTO() {
+        return new CommentDTO();
+    }
 
     @GetMapping
-    public String allOffers(Model model) {
-        model.addAttribute("offers", this.offerService.getAllOffers());
+    public String allOffers(Model model,
+                            @PageableDefault(
+                                    sort = "price",
+                                    direction = Sort.Direction.ASC,
+                                    page = 0,
+                                    size = 5
+                            ) Pageable pageable) {
+        model.addAttribute("offers", this.offerService.getAllOffers(pageable));
+
         return "offers";
     }
 
@@ -80,7 +92,7 @@ public class OfferController {
     }
 
     @GetMapping("/{id}/edit")
-    public String updateOfferView(@PathVariable long id, Model model){
+    public String updateOfferView(@PathVariable long id, Model model) {
         AddOfferDTO addOfferDTO = offerService.findDtoById(id);
         model.addAttribute("updateOfferDTO", addOfferDTO);
         model.addAttribute("locations", locationService.getAllLocations());
@@ -93,7 +105,7 @@ public class OfferController {
                               BindingResult bindingResult,
                               RedirectAttributes redirectAttributes,
                               @PathVariable long id,
-                              @AuthenticationPrincipal OixUserDetails userDetails){
+                              @AuthenticationPrincipal OixUserDetails userDetails) {
 
         //TODO: RedirectAttributes doesn't work!
         if (bindingResult.hasErrors()) {
@@ -111,34 +123,34 @@ public class OfferController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}/delete")
-    public String deleteOffer(@PathVariable long id){
+    public String deleteOffer(@PathVariable long id) {
         offerService.deleteOffer(id);
         return "redirect:/offers";
     }
 
     @GetMapping("/{id}/buy")
     public String buyOffer(@PathVariable long id,
-                           @AuthenticationPrincipal OixUserDetails userDetails){
+                           @AuthenticationPrincipal OixUserDetails userDetails) {
         offerService.buyOffer(id, userDetails.getId());
         return "redirect:/offers";
     }
 
     @GetMapping("/my")
-    public String getMyOffers(@AuthenticationPrincipal OixUserDetails userDetails, Model model){
+    public String getMyOffers(@AuthenticationPrincipal OixUserDetails userDetails, Model model) {
         List<OfferView> myOffers = offerService.getMyOffers(userDetails.getId());
         model.addAttribute("offers", myOffers);
         return "my-offers";
     }
 
     @GetMapping("/bought-items")
-    public String getBoughtItems(@AuthenticationPrincipal OixUserDetails userDetails, Model model){
+    public String getBoughtItems(@AuthenticationPrincipal OixUserDetails userDetails, Model model) {
         List<OfferView> boughtItems = offerService.getBoughtItems(userDetails.getId());
         model.addAttribute("offers", boughtItems);
         return "bought-items";
     }
 
     @PostMapping("/{id}/comment")
-    public String comment(@Valid CommentDTO commentDTO, @PathVariable Long id, @AuthenticationPrincipal OixUserDetails userDetails){
+    public String comment(@Valid CommentDTO commentDTO, @PathVariable Long id, @AuthenticationPrincipal OixUserDetails userDetails) {
         this.commentService.save(commentDTO, userDetails.getId(), id);
         return "redirect:/offers/" + id + "/details";
     }

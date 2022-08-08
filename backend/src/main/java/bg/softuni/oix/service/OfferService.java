@@ -10,6 +10,8 @@ import bg.softuni.oix.service.dto.AddOfferDTO;
 import bg.softuni.oix.service.dto.OfferDto;
 import bg.softuni.oix.service.mapper.OfferMapper;
 import bg.softuni.oix.service.views.OfferView;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -38,9 +40,8 @@ public class OfferService {
         this.offerRepository.save(newOffer);
     }
 
-    public List<OfferView> getAllOffers() {
-        return this.offerRepository.findAllByBuyerIsNull().stream().map(offerMapper::offerEntityToOfferView)
-                .collect(Collectors.toList());
+    public Page<OfferView> getAllOffers(Pageable pageable) {
+        return this.offerRepository.findAllByBuyerIsNull(pageable).map(offerMapper::offerEntityToOfferView);
     }
 
     public List<OfferView> getMyOffers(long id) {
