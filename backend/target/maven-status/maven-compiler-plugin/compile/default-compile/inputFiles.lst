@@ -11,6 +11,7 @@ C:\oix\backend\src\main\java\bg\softuni\oix\service\CategoryService.java
 C:\oix\backend\src\main\java\bg\softuni\oix\model\entity\CategoryEntity.java
 C:\oix\backend\src\main\java\bg\softuni\oix\service\OixUserDetailsService.java
 C:\oix\backend\src\main\java\bg\softuni\oix\repository\OfferRepository.java
+C:\oix\backend\src\main\java\bg\softuni\oix\service\mapper\CommentMapper.java
 C:\oix\backend\src\main\java\bg\softuni\oix\service\views\LocationView.java
 C:\oix\backend\src\main\java\bg\softuni\oix\config\SecurityConfig.java
 C:\oix\backend\src\main\java\bg\softuni\oix\web\HomeController.java
@@ -20,13 +21,16 @@ C:\oix\backend\src\main\java\bg\softuni\oix\repository\UserRepository.java
 C:\oix\backend\src\main\java\bg\softuni\oix\service\dto\AddOfferDTO.java
 C:\oix\backend\src\main\java\bg\softuni\oix\model\entity\UserEntity.java
 C:\oix\backend\src\main\java\bg\softuni\oix\service\dto\validation\FieldMatchValidator.java
+C:\oix\backend\src\main\java\bg\softuni\oix\service\CommentService.java
 C:\oix\backend\src\main\java\bg\softuni\oix\OixApplication.java
 C:\oix\backend\src\main\java\bg\softuni\oix\service\dto\validation\FieldMatch.java
+C:\oix\backend\src\main\java\bg\softuni\oix\service\views\CommentView.java
 C:\oix\backend\src\main\java\bg\softuni\oix\service\mapper\LocationMapper.java
 C:\oix\backend\src\main\java\bg\softuni\oix\service\UserService.java
 C:\oix\backend\src\main\java\bg\softuni\oix\web\UserController.java
 C:\oix\backend\src\main\java\bg\softuni\oix\model\enums\CategoryEnum.java
 C:\oix\backend\src\main\java\bg\softuni\oix\web\AdminController.java
+C:\oix\backend\src\main\java\bg\softuni\oix\service\dto\CommentDTO.java
 C:\oix\backend\src\main\java\bg\softuni\oix\model\enums\UserRoleEnum.java
 C:\oix\backend\src\main\java\bg\softuni\oix\repository\UserRoleRepository.java
 C:\oix\backend\src\main\java\bg\softuni\oix\repository\CommentRepository.java

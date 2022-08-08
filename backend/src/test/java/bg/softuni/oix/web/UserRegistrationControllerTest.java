@@ -30,11 +30,11 @@ class UserRegistrationControllerTest {
     void testUserRegistration() throws Exception {
         MockHttpServletRequestBuilder createRequest =
                 post("/users/register").
-                        param("firstName", "Anna").
-                        param("lastName", "Petrova").
-                        param("email", "anna@example.com").
-                        param("password", "topsecret").
-                        param("confirmPassword", "topsecret").
+                        param("firstName", "Asen").
+                        param("lastName", "Asenov").
+                        param("email", "asen@asen.com").
+                        param("password", "12345").
+                        param("confirmPassword", "12345").
                         with(csrf());
         mockMvc.perform(createRequest)
                 .andExpect(status().is3xxRedirection())
@@ -45,11 +45,11 @@ class UserRegistrationControllerTest {
     void testUserRegistrationWithBindingErrors() throws Exception {
         MockHttpServletRequestBuilder createRequest =
                 post("/users/register").
-                        param("firstName", "Anna").
-                        param("lastName", "Petrova").
+                        param("firstName", "Asen").
+                        param("lastName", "Asenov").
                         param("email", "").
-                        param("password", "topsecret").
-                        param("confirmPassword", "topsecret").
+                        param("password", "12345").
+                        param("confirmPassword", "12345").
                         with(csrf());
 
         mockMvc.perform(createRequest)

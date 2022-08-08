@@ -1,0 +1,4 @@
+bg\softuni\oix\service\OixUserDetailsServiceTest.class
+bg\softuni\oix\web\UserRegistrationControllerTest.class
+bg\softuni\oix\web\AdminControllerTest.class
+bg\softuni\oix\OixApplicationTests.class

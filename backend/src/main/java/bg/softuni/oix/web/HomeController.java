@@ -20,18 +20,18 @@ public class HomeController {
     }
 
     @ModelAttribute("firstThreeOffers")
-    public List<OfferView> initThreeOffers(){
-        return new ArrayList<>();
+    public List<OfferView> initThreeOffers() {
+        return this.offerService.getListWithLastThreeOffers();
     }
 
     @GetMapping("/")
-    public String home(Model model){
-        model.addAttribute("firstThreeOffers", this.offerService.getListWithLastThreeOffers());
+    public String home() {
+//        model.addAttribute("firstThreeOffers", this.offerService.getListWithLastThreeOffers());
         return "index";
     }
 
     @GetMapping("/about")
-    public String about(){
+    public String about() {
         return "about-page";
     }
 }
