@@ -41,17 +41,17 @@ public class UserService {
 
     public void registerAndLogin(UserRegistrationDto userRegistrationDto){
         UserEntity newUser = userMapper.userRegisterDtoToUserEntity(userRegistrationDto);
-        if (firstUser){
-            UserRoleEntity admin = userRoleRepository.findById(1L).get();
-            UserRoleEntity moderator = userRoleRepository.findById(2L).get();
-            UserRoleEntity user = userRoleRepository.findById(3L).get();
-
-            List<UserRoleEntity> userRoleEntityList = new ArrayList<>();
-            userRoleEntityList.add(admin);
-            userRoleEntityList.add(moderator);
-            userRoleEntityList.add(user);
-            newUser.setUserRoles(userRoleEntityList);
-        }
+//        if (firstUser){
+//            UserRoleEntity admin = userRoleRepository.findById(1L).get();
+//            UserRoleEntity moderator = userRoleRepository.findById(2L).get();
+//            UserRoleEntity user = userRoleRepository.findById(3L).get();
+//
+//            List<UserRoleEntity> userRoleEntityList = new ArrayList<>();
+//            userRoleEntityList.add(admin);
+//            userRoleEntityList.add(moderator);
+//            userRoleEntityList.add(user);
+//            newUser.setUserRoles(userRoleEntityList);
+//        }
         newUser.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
 
         this.userRepository.save(newUser);
