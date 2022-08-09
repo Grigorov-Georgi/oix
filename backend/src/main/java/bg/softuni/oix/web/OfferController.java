@@ -121,6 +121,7 @@ public class OfferController {
         return "redirect:/offers";
     }
 
+    //TODO: May be a problem - additional annotation may be needed
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}/delete")
     public String deleteOffer(@PathVariable long id) {
