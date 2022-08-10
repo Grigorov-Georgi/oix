@@ -26,12 +26,13 @@ public class LocationService {
         return locationEntities.stream().map(locationMapper::locationEntityToLocationView).collect(Collectors.toList());
     }
 
-    public void save(AddLocationDTO locationDTO) {
-        this.locationRepository.save(locationMapper.addLocationDtoToEntity(locationDTO));
+    public LocationEntity save(AddLocationDTO locationDTO) {
+        return this.locationRepository.save(locationMapper.addLocationDtoToEntity(locationDTO));
     }
 
-    public void delete(Long id) {
+    public boolean delete(Long id) {
         this.locationRepository.deleteById(id);
+        return true;
     }
 
     public LocationEntity findByCity(String city){

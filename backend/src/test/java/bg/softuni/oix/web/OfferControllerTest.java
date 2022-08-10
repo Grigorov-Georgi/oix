@@ -257,6 +257,8 @@ class OfferControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("bought-items"))
                 .andExpect(model().attributeExists("offers"));
+
+        verify(offerService, times(1)).getBoughtItems(1);
     }
 
     List<OfferView> initOfferViewList(){
@@ -285,5 +287,15 @@ class OfferControllerTest {
         offers.add(offerView);
         offers.add(offerView);
         return offers;
+    }
+
+    @Test
+    @WithMockCustomUser
+    void postCommentTest() throws Exception {
+        mockMvc.perform(post("/offers/1/comment")
+        .param("description", "ADSASDASD")
+        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/offers/1/details"));
     }
 }
