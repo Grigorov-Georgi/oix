@@ -134,4 +134,10 @@ body {
 	color: #17a2b8;
 }
 
+.adminOffer{
+    border-style: solid;
+    border-color: red;
+    border-width: medium;
+}
+
 

@@ -27,8 +27,12 @@
 <div id="container">
     <div class="card" th:object="${offer}">
         <div th:text="*{title}" style="font-weight: bold"></div>
-        <img th:src="@{*{urlPicture}}" class="card-img-top" alt="image">
-
+        <div th:if="*{urlPicture} != null">
+            <img class="card-img-top" th:src="@{*{urlPicture}}" alt="Offer image">
+        </div>
+        <div th:if="*{urlPicture} == null">
+            <img class="card-img-top" src="/images/no-image-icon.png">
+        </div>
         <li class="list-group-item">
             <div class="card-text"><span><b>• Price: </b><th:block th:text="*{price}"></th:block></span></div>
             <div class="card-text"><span><b>• Seller: </b><th:block th:text="*{sellerFullName}"></th:block></span></div>

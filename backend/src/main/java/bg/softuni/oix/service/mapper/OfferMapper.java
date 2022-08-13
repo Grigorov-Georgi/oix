@@ -31,7 +31,7 @@ public interface OfferMapper {
     OfferView offerEntityToOfferView(OfferEntity offerEntity);
 
     @BeforeMapping
-    default void  setReleaseDate(@MappingTarget OfferEntity offerEntity){
+    default void setReleaseDate(@MappingTarget OfferEntity offerEntity) {
         offerEntity.setReleaseDate(LocalDate.now());
     }
 
@@ -39,14 +39,14 @@ public interface OfferMapper {
     default void setAdditionalFields(@MappingTarget OfferEntity offerEntity,
                                      CategoryService categoryService,
                                      LocationService locationService,
-                                     AddOfferDTO addOfferDTO){
+                                     AddOfferDTO addOfferDTO) {
         offerEntity.setCategory(categoryService.findByName(CategoryEnum.valueOf(addOfferDTO.getCategory())));
         offerEntity.setLocation(locationService.findByCity(addOfferDTO.getLocation()));
     }
 
     @AfterMapping
     default void setAdditionalFieldsForView(@MappingTarget OfferView offerView,
-                                     OfferEntity offerEntity){
+                                            OfferEntity offerEntity) {
         offerView.setCategory(offerEntity.getCategory().getName().name());
         offerView.setLocation(offerEntity.getLocation().getCity());
         String fullName = offerEntity.getSeller().getFirstName() + " " + offerEntity.getSeller().getLastName();

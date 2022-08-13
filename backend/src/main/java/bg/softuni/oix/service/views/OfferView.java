@@ -14,6 +14,7 @@ public class OfferView {
     private String urlPicture;
     private String sellerFullName;
     private long sellerId;
+    private boolean adminOffer;
     private List<CommentView> comments = new ArrayList<>();
 
     public String getTitle() {
@@ -94,5 +95,13 @@ public class OfferView {
 
     public void setComments(List<CommentView> comments) {
         this.comments = comments;
+    }
+
+    public boolean isAdminOffer() {
+        return adminOffer;
+    }
+
+    public void setAdminOffer(boolean adminOffer) {
+        this.adminOffer = adminOffer;
     }
 }

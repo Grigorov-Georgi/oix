@@ -3,6 +3,7 @@ package bg.softuni.oix.service;
 import bg.softuni.oix.exception.ObjectNotFoundException;
 import bg.softuni.oix.model.entity.UserEntity;
 import bg.softuni.oix.model.entity.UserRoleEntity;
+import bg.softuni.oix.model.enums.UserRoleEnum;
 import bg.softuni.oix.repository.UserRepository;
 import bg.softuni.oix.repository.UserRoleRepository;
 import bg.softuni.oix.service.dto.UserRegistrationDto;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,6 +54,11 @@ public class UserService {
 //            userRoleEntityList.add(user);
 //            newUser.setUserRoles(userRoleEntityList);
 //        }
+        UserRoleEntity byUserRole = userRoleRepository.findByUserRole(UserRoleEnum.USER);
+        List<UserRoleEntity> userRoleEntityList = new ArrayList<>();
+        userRoleEntityList.add(byUserRole);
+        newUser.setUserRoles(userRoleEntityList);
+
         newUser.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword()));
 
         this.userRepository.save(newUser);
@@ -83,5 +90,11 @@ public class UserService {
 
     public UserEntity findById(Long id) {
         return this.userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Logged user not found!"));
+    }
+
+    public boolean isAdmin(UserEntity userEntity){
+        Optional<UserEntity> byId = userRepository.findById(userEntity.getId());
+        UserRoleEntity byUserRole = userRoleRepository.findByUserRole(UserRoleEnum.ADMIN);
+        return byId.get().getUserRoles().contains(byUserRole);
     }
 }

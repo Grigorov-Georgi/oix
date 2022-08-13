@@ -41,7 +41,11 @@ public class OfferService {
     }
 
     public Page<OfferView> getAllOffers(Pageable pageable) {
-        return this.offerRepository.findAllByBuyerIsNull(pageable).map(offerMapper::offerEntityToOfferView);
+        return this.offerRepository.findAllByBuyerIsNull(pageable).map(o -> {
+            OfferView offerView = offerMapper.offerEntityToOfferView(o);
+            offerView.setAdminOffer(userService.isAdmin(o.getSeller()));
+            return offerView;
+        });
     }
 
     public List<OfferView> getMyOffers(long id) {
