@@ -33,7 +33,7 @@ VALUES  (1, '1Very good condition', 100, '2018-11-01', null, 'Offer1', 'https://
         (6, '6Very good condition', 105, '2018-11-01', null, 'Offer6', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 1, 1, 1),
         (7, '7Very good condition', 106, '2018-11-02', null, 'Offer7', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 2, 2, 1),
         (8, '8Very good condition', 107, '2018-11-03', null, 'Offer8', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 3, 3, 1),
-        (9, '9Very good condition', 108, '2018-11-04', null, 'Offer9', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 4, 4, 1),
+        (9, '9Very good condition', 108, '2018-11-04', null, 'Offer9', null, null, 4, 4, 1),
         (10, '10Very good condition', 109, '2018-11-05', null, 'Offer10', 'https://www.collinsdictionary.com/images/full/table_588358070_1000.jpg', null, 5, 5, 1);
 
 INSERT INTO users_user_roles(user_entity_id, user_roles_id)

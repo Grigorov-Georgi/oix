@@ -33,14 +33,15 @@
             </span>
             <span
                     sec:authorize="!isAuthenticated()"
-                    >Hey Buddy
+            >Hey Buddy
             </span>
             , are you ready to buy new things and sell old ones?</h2>
     </div>
     <div class="homeButtonForOffers">
         <a class="btn btn-primary" href="/offers" role="button">Shop now!</a>
     </div>
-    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false" th:if="${firstThreeOffers!=null and !firstThreeOffers.empty}">
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false"
+         th:if="${firstThreeOffers!=null and !firstThreeOffers.empty}">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
                     aria-current="true" aria-label="Slide 1"></button>
@@ -51,10 +52,16 @@
         </div>
         <div class="carousel-inner">
 
-            <div th:each="offer : ${firstThreeOffers}"
+            <div th:each="offer, stat : ${firstThreeOffers}"
                  th:object="${offer}"
-                 class="carousel-item active">
-                <img src="/images/no-image-icon.png" class="d-block w-100">
+                 class="carousel-item"
+                 th:classappend="${stat.first} ? active">
+                <div th:if="*{urlPicture} != null">
+                    <img th:src="@{*{urlPicture}}" class="d-block w-100">
+                </div>
+                <div th:if="*{urlPicture} == null">
+                    <img src="/images/no-image-icon.png" class="d-block w-100">
+                </div>
                 <div class="homeGreyBox carousel-caption d-none d-md-block">
                     <h5 class="carouselTextBlack" th:text="*{title}"></h5>
                     <p class="carouselTextBlack" th:text="*{description}"></p>
