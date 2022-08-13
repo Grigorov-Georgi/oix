@@ -1,16 +1,18 @@
 package bg.softuni.oix.web;
 
-import bg.softuni.oix.config.SecurityConfig;
+import bg.softuni.oix.exception.ObjectNotFoundException;
+import bg.softuni.oix.model.entity.OfferEntity;
+import bg.softuni.oix.repository.*;
 import bg.softuni.oix.service.OfferService;
 import bg.softuni.oix.service.views.OfferView;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
@@ -27,22 +29,41 @@ class HomeControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private OfferRepository offerRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private LocationRepository locationRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private UserRoleRepository userRoleRepository;
+
     @MockBean
     private OfferService offerService;
 
+    private HomeControllerTestData testData;
+
     @BeforeEach
     void setUp() {
-        List<OfferView> offers;
-        OfferView offerView = new OfferView();
-        offerView.setTitle("Title");
-        offerView.setDescription("Description");
+        testData = new HomeControllerTestData(
+                locationRepository,
+                categoryRepository,
+                userRepository,
+                userRoleRepository,
+                offerRepository
+        );
+        testData.init();
+    }
 
-        offers = new ArrayList<>();
-        offers.add(offerView);
-        offers.add(offerView);
-        offers.add(offerView);
-
-        when(offerService.getListWithLastThreeOffers()).thenReturn(offers);
+    @AfterEach
+    void tearDown() {
+        testData.cleanUp();
     }
 
     @Test
@@ -50,9 +71,9 @@ class HomeControllerTest {
         mockMvc.perform(get("/about"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("about-page"))
-                .andExpect(model().attributeExists("firstThreeOffers"))
-                .andExpect(model().attribute("firstThreeOffers",
-                        offerService.getListWithLastThreeOffers()));
+                .andExpect(model().attributeExists("firstThreeOffers"));
+
+        Assertions.assertEquals(3, offerRepository.count());
     }
 
     @Test
@@ -60,8 +81,10 @@ class HomeControllerTest {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
-                .andExpect(model().attributeExists("firstThreeOffers"))
-                .andExpect(model().attribute("firstThreeOffers",
-                offerService.getListWithLastThreeOffers()));;
+                .andExpect(model().attributeExists("firstThreeOffers"));
+
+        Assertions.assertEquals(3, offerRepository.count());
     }
+
+
 }

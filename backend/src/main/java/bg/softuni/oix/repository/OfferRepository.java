@@ -17,4 +17,6 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
     List<OfferEntity> findAllBySellerIdEquals(long id);
 
     List<OfferEntity> findAllByTitle(String title);
+
+//    List<OfferEntity> findAllByBuyerIsNotNullLimit(int limit);
 }
