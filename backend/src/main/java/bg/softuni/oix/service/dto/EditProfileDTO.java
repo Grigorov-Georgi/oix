@@ -10,17 +10,16 @@ import javax.validation.constraints.Size;
 public class EditProfileDTO {
     private long id;
 
-    @NotBlank
-    @Size(min = 4, max = 20)
+    @NotBlank(message = "First name is required and should be between 4 and 20 symbols. ")
+    @Size(min = 4, max = 20, message = "First name is required and should be between 4 and 20 symbols. ")
     private String firstName;
 
-    @NotBlank
-    @Size(min = 4, max = 20)
+    @NotBlank(message = "Last name is required and should be between 4 and 20 symbols. ")
+    @Size(min = 4, max = 20, message = "Last name is required and should be between 4 and 20 symbols. ")
     private String lastName;
 
     @NotEmpty(message = "User email should be provided.")
     @Email(message = "User email should be valid.")
-    @UniqueUserEmail(message = "User email should be unique.")
     private String email;
 
     public long getId() {

@@ -108,4 +108,8 @@ public class UserService {
     public EditProfileDTO findEditProfileDTOById(long id) {
         return userMapper.userEntityToEditProfileDTO(findById(id));
     }
+
+    public boolean emailExistsInDB(String email) {
+        return userRepository.findByEmail(email).isPresent();
+    }
 }

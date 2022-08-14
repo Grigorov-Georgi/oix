@@ -48,9 +48,9 @@
                                     type="text"
                                     class="form-control form-control-lg"/>
                             <label class="form-label" for="firstName">First name</label>
-                            <p class="invalid-feedback errors alert alert-danger">
-                                First name is required and should be between 4 and 20 symbols.
-                            </p>
+<!--                            <p class="invalid-feedback errors alert alert-danger">-->
+<!--                                First name is required and should be between 4 and 20 symbols.-->
+<!--                            </p>-->
                         </div>
 
                         <div class="form-outline mb-4">
@@ -61,9 +61,9 @@
                                     type="text"
                                     class="form-control form-control-lg"/>
                             <label class="form-label" for="lastName">Last name</label>
-                            <p class="invalid-feedback errors alert alert-danger">
-                                Last name is required and should be between 4 and 20 symbols.
-                            </p>
+<!--                            <p class="invalid-feedback errors alert alert-danger">-->
+<!--                                Last name is required and should be between 4 and 20 symbols.-->
+<!--                            </p>-->
                         </div>
 
                         <div class="form-outline mb-4">
@@ -73,18 +73,38 @@
                                    type="text"
                                    class="form-control form-control-lg"/>
                             <label class="form-label" for="email">Email</label>
-                            <div class="invalid-feedback errors alert alert-danger">
-                                <div
-                                        th:each="err: ${#fields.errors('email')}"
-                                        th:text="${err}"
-                                ></div>
-                            </div>
+<!--                            <p th:if="${#fields.hasErrors('uniqueEmail')}" th:errors="*{email}">User email should be unique.</p>-->
+<!--                            <div class="invalid-feedback errors alert alert-danger">-->
+<!--                                <div-->
+<!--                                        th:each="err: ${#fields.errors('email')}"-->
+<!--                                        th:text="${err}"-->
+<!--                                ></div>-->
+<!--                            </div>-->
+                        </div>
+
+<!--                        <div th:if="${#fields.hasErrors('uniqueEmail')}"-->
+<!--                             style="margin-bottom: 50px;padding-block: inherit;text-align: center;height: 28px;">-->
+<!--                            Email is already used. Try another one!-->
+<!--                        </div>-->
+
+                        <div th:if="${#fields.hasAnyErrors()}" style="margin-bottom: 50px;">
+                            <p th:each="err : ${#fields.allErrors()}" th:text="${err}" class="alert alert-danger">...</p>
                         </div>
 
                         <div class="registerBtn">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block" value="Edit Profile">Edit Profile</button>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" value="Edit Profile">Edit
+                                Profile
+                            </button>
                         </div>
 
+<!--                        <div th:if="${#fields.hasErrors('uniqueEmail')}">-->
+<!--                            <p >-->
+<!--                                User email should be unique.-->
+<!--                            </p>-->
+<!--                        </div>-->
+
+                        <p class="text-center h3 fw-bold mb-5 mx-1 mx-md-4 mt-4">*For a better experience after editing
+                            your profile, sign out and back in!</p>
                     </form>
                 </div>
             </div>

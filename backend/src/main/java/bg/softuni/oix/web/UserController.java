@@ -10,10 +10,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
@@ -61,16 +63,19 @@ public class UserController {
     public String editProfile(@Valid EditProfileDTO editProfileDTO,
                               BindingResult bindingResult,
                               RedirectAttributes redirectAttributes,
-                              @PathVariable long id){
+                              @PathVariable long id,
+                              @AuthenticationPrincipal OixUserDetails oixUserDetails){
 
-        //TODO: Flashattributes cannot be passed to other controller
+        if (!editProfileDTO.getEmail().equals(oixUserDetails.getUsername())){
+            if (userService.emailExistsInDB(editProfileDTO.getEmail())) {
+                ObjectError emailError = new ObjectError("uniqueEmail", "Email is already used. Try another one!");
+                bindingResult.addError(emailError);
+            }
+        }
+
         if(bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("editProfileDTO", editProfileDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.editProfileDTO", bindingResult);
-//            model.addAttribute("errors", true);
-//            redirectAttributes.addAttribute("errors",
-//                    "All data entered is mandatory and must be longer than 4 and shorter than 20 characters." +
-//                            " If everything is fine, but you get this message, it means that the email provided has already been used.");
             return String.format("redirect:/users/profile/%d/edit", id);
         }
 
