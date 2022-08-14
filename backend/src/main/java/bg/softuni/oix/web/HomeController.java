@@ -19,7 +19,7 @@ public class HomeController {
 
     @ModelAttribute("firstThreeOffers")
     public List<OfferView> initThreeOffers() {
-        return this.offerService.getListWithLastThreeOffers();
+        return this.offerService.getListWithRandomThreeOffers();
     }
 
     @GetMapping("/")

@@ -12,11 +12,13 @@ import bg.softuni.oix.service.mapper.OfferMapper;
 import bg.softuni.oix.service.views.OfferView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,16 +60,29 @@ public class OfferService {
                 .collect(Collectors.toList());
     }
 
-    public List<OfferView> getListWithLastThreeOffers() {
+    public List<OfferView> getListWithRandomThreeOffers() {
         List<OfferView> offersForHomePage = new ArrayList<>();
 
-        long repoCount = this.offerRepository.count();
+        List<OfferEntity> allOffers = offerRepository.findAll();
+        Random random = new Random();
 
-        for (long id = repoCount; id > repoCount - 3; id--) {
-            OfferEntity offerEntity = this.offerRepository.findById(id)
-                    .orElseThrow(() -> new ObjectNotFoundException("Offer not found!"));
-            offersForHomePage.add(offerMapper.offerEntityToOfferView(offerEntity));
+        while (offersForHomePage.size() < 3){
+            OfferView offerView = offerMapper.offerEntityToOfferView(allOffers.get(random.nextInt(allOffers.size())));
+            if(offersForHomePage.isEmpty()) {
+                offersForHomePage.add(offerView);
+            } else {
+                boolean offerAdded = false;
+                for (OfferView offer : offersForHomePage) {
+                    if ((long) offer.getId() == (long) offerView.getId()){
+                        offerAdded = true;
+                    }
+                }
+                if (!offerAdded){
+                    offersForHomePage.add(offerView);
+                }
+            }
         }
+
         return offersForHomePage;
     }
 
