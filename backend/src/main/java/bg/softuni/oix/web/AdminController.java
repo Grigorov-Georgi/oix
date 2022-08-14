@@ -68,9 +68,9 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/user/delete")
+    @GetMapping("/user/makeAdmin")
     public String deleteUser(@RequestParam Long id){
-        this.userService.delete(id);
+        this.userService.makeAdmin(id);
         return "redirect:/admin";
     }
 

@@ -78,8 +78,8 @@
                     <ul class="list-group" th:each="user: ${users}">
                         <li class="list-group-item">
                             <label th:text="${user.getFullName()}"></label>
-                            <a class="btn btn-danger delete-btn-admin-panel" th:href="@{/admin/user/delete(id = ${user.id})}"
-                               role="button">DELETE</a>
+                            <a class="btn btn-danger delete-btn-admin-panel" th:href="@{/admin/user/makeAdmin(id = ${user.id})}"
+                               role="button">Make Admin</a>
                         </li>
                     </ul>
                     <h5 th:if="${users != null && users.size == 0}">There are no users!</h5>

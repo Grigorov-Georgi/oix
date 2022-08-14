@@ -112,4 +112,16 @@ public class UserService {
     public boolean emailExistsInDB(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
+
+    public void makeAdmin(Long id) {
+        UserRoleEntity adminRole = userRoleRepository.findByUserRole(UserRoleEnum.ADMIN);
+        UserRoleEntity userRole = userRoleRepository.findByUserRole(UserRoleEnum.USER);
+        List<UserRoleEntity> roles = new ArrayList<>();
+        roles.add(adminRole);
+        roles.add(userRole);
+
+        UserEntity byId = this.userRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("User not found!"));
+        byId.setUserRoles(roles);
+        userRepository.save(byId);
+    }
 }
