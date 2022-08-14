@@ -1,5 +1,6 @@
 package bg.softuni.oix.web;
 
+import bg.softuni.oix.service.StatService;
 import bg.softuni.oix.service.OfferService;
 import bg.softuni.oix.service.views.OfferView;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,7 @@ public class HomeController {
 
     private OfferService offerService;
 
-    public HomeController(OfferService offerService) {
+    public HomeController(OfferService offerService, StatService aboutService) {
         this.offerService = offerService;
     }
 
