@@ -38,7 +38,7 @@
                     <form
                             th:action="@{/users/profile/{id}/edit(id=${#authentication.principal.id})}"
                             th:method="patch"
-                            th:object="${user}">
+                            th:object="${editProfileDTO}">
 
                         <div class="form-outline mb-4">
                             <input
@@ -74,7 +74,10 @@
                                    class="form-control form-control-lg"/>
                             <label class="form-label" for="email">Email</label>
                             <div class="invalid-feedback errors alert alert-danger">
-<!--                                <h3 th:text="${errors}"></h3>-->
+                                <div
+                                        th:each="err: ${#fields.errors('email')}"
+                                        th:text="${err}"
+                                ></div>
                             </div>
                         </div>
 

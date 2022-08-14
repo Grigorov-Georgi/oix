@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
 import javax.validation.Valid;
 
 @Controller
@@ -49,8 +50,10 @@ public class UserController {
 
     @GetMapping("/profile/{id}/edit")
     public String getEditProfileView(@PathVariable long id, Model model){
-        EditProfileDTO editProfileDTO = userService.findEditProfileDTOById(id);
-        model.addAttribute("user", editProfileDTO);
+        if (!model.containsAttribute("editProfileDTO")) {
+            EditProfileDTO editProfileDTO = userService.findEditProfileDTOById(id);
+            model.addAttribute("editProfileDTO", editProfileDTO);
+        }
         return "edit-profile";
     }
 
@@ -58,18 +61,20 @@ public class UserController {
     public String editProfile(@Valid EditProfileDTO editProfileDTO,
                               BindingResult bindingResult,
                               RedirectAttributes redirectAttributes,
-                              Model model,
                               @PathVariable long id){
 
         //TODO: Flashattributes cannot be passed to other controller
         if(bindingResult.hasErrors()){
-            model.addAttribute("errors",
-                    "All data entered is mandatory and must be longer than 4 and shorter than 20 characters." +
-                            " If everything is fine, but you get this message, it means that the email provided has already been used.");
-            return String.format("redirect:users/profile/{%d}/edit", id);
+            redirectAttributes.addFlashAttribute("editProfileDTO", editProfileDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.editProfileDTO", bindingResult);
+//            model.addAttribute("errors", true);
+//            redirectAttributes.addAttribute("errors",
+//                    "All data entered is mandatory and must be longer than 4 and shorter than 20 characters." +
+//                            " If everything is fine, but you get this message, it means that the email provided has already been used.");
+            return String.format("redirect:/users/profile/%d/edit", id);
         }
 
         userService.update(editProfileDTO);
-        return "my-profile";
+        return "redirect:/";
     }
 }
