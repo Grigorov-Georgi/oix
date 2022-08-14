@@ -1,6 +1,0 @@
-Statistics:
-Total users count: 2
-Total offers count: 10
-Total number of offers for sale: 9
-Total number of sold offers: 1
-Total number of offers uploaded today: 0
