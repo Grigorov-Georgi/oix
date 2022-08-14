@@ -34,7 +34,7 @@
             <div class="card-text"><span><b>• Last Name: </b><th:block th:text="*{lastName}"></th:block></span></div>
         </li>
         <div>
-            <a class="btn btn-success" th:href="@{/offers/buy}" role="button">Edit Profile</a>
+            <a class="btn btn-success" th:href="@{/users/profile/{id}/edit(id=${#authentication.principal.id})}" role="button">Edit Profile</a>
             <a class="btn btn-primary btn-lg" href="/offers/my" role="button">My Offers</a>
             <a class="btn btn-primary btn-lg" href="/offers/bought-items" role="button">Bought Items</a>
         </div>

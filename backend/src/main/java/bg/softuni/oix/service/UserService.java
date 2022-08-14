@@ -6,6 +6,7 @@ import bg.softuni.oix.model.entity.UserRoleEntity;
 import bg.softuni.oix.model.enums.UserRoleEnum;
 import bg.softuni.oix.repository.UserRepository;
 import bg.softuni.oix.repository.UserRoleRepository;
+import bg.softuni.oix.service.dto.EditProfileDTO;
 import bg.softuni.oix.service.dto.UserRegistrationDto;
 import bg.softuni.oix.service.mapper.UserMapper;
 import bg.softuni.oix.service.views.UserView;
@@ -96,5 +97,15 @@ public class UserService {
         Optional<UserEntity> byId = userRepository.findById(userEntity.getId());
         UserRoleEntity byUserRole = userRoleRepository.findByUserRole(UserRoleEnum.ADMIN);
         return byId.get().getUserRoles().contains(byUserRole);
+    }
+
+    public void update(EditProfileDTO editProfileDTO) {
+        UserEntity userById = userRepository.findById(editProfileDTO.getId()).get();
+        userMapper.updateUserEntity(userById, editProfileDTO);
+        userRepository.save(userById);
+    }
+
+    public EditProfileDTO findEditProfileDTOById(long id) {
+        return userMapper.userEntityToEditProfileDTO(findById(id));
     }
 }

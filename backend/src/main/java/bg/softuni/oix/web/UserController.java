@@ -3,25 +3,27 @@ package bg.softuni.oix.web;
 import bg.softuni.oix.model.entity.UserEntity;
 import bg.softuni.oix.model.user.OixUserDetails;
 import bg.softuni.oix.service.UserService;
+import bg.softuni.oix.service.dto.EditProfileDTO;
+import bg.softuni.oix.service.mapper.UserMapper;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
     private UserService userService;
+    private UserMapper userMapper;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @GetMapping("/login")
@@ -42,6 +44,32 @@ public class UserController {
     public String myProfile(Model model, @AuthenticationPrincipal OixUserDetails oixUserDetails){
         UserEntity user = userService.findById(oixUserDetails.getId());
         model.addAttribute("user", user);
+        return "my-profile";
+    }
+
+    @GetMapping("/profile/{id}/edit")
+    public String getEditProfileView(@PathVariable long id, Model model){
+        EditProfileDTO editProfileDTO = userService.findEditProfileDTOById(id);
+        model.addAttribute("user", editProfileDTO);
+        return "edit-profile";
+    }
+
+    @PatchMapping("/profile/{id}/edit")
+    public String editProfile(@Valid EditProfileDTO editProfileDTO,
+                              BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes,
+                              Model model,
+                              @PathVariable long id){
+
+        //TODO: Flashattributes cannot be passed to other controller
+        if(bindingResult.hasErrors()){
+            model.addAttribute("errors",
+                    "All data entered is mandatory and must be longer than 4 and shorter than 20 characters." +
+                            " If everything is fine, but you get this message, it means that the email provided has already been used.");
+            return String.format("redirect:users/profile/{%d}/edit", id);
+        }
+
+        userService.update(editProfileDTO);
         return "my-profile";
     }
 }

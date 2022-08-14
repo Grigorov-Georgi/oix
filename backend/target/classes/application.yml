@@ -4,6 +4,10 @@ spring:
     url: jdbc:mysql://localhost:3306/oix?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
     username: root
     password: toor
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:

@@ -31,26 +31,26 @@
                             Admin
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" th:text="#{nav_make_special_offer}">Make Special Offer</a></li>
+                            <li><a class="dropdown-item" href="/offers/add" th:text="#{nav_make_special_offer}">Make Special Offer</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li><a class="dropdown-item" href="/admin" th:text="#{nav_admin_panel}">Admin Panel</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown" sec:authorize="hasRole('MODERATOR')">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                           aria-expanded="false"  th:text="#{nav_moderator}">
-                            Moderator
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" th:text="#{nav_my_offers}">Make Special Offer</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Delete Offer</a></li>
-                        </ul>
-                    </li>
+<!--                    <li class="nav-item dropdown" sec:authorize="hasRole('MODERATOR')">-->
+<!--                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"-->
+<!--                           aria-expanded="false"  th:text="#{nav_moderator}">-->
+<!--                            Moderator-->
+<!--                        </a>-->
+<!--                        <ul class="dropdown-menu">-->
+<!--                            <li><a class="dropdown-item" href="#" th:text="#{nav_my_offers}">Make Special Offer</a></li>-->
+<!--                            <li>-->
+<!--                                <hr class="dropdown-divider">-->
+<!--                            </li>-->
+<!--                            <li><a class="dropdown-item" href="#">Delete Offer</a></li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
                     <li class="nav-item">
                         <a class="nav-link" href="/offers" th:text="#{nav_offers}">Offers</a>
                     </li>
@@ -79,8 +79,11 @@
 
                 </ul>
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" th:placeholder="#{nav_search}" aria-label="Search">
-                    <button class="btn btn-outline-primary" type="submit" th:text="#{nav_search}">Search</button>
+                    <input id="searchInput" class="form-control me-2" type="search"
+                           th:placeholder="#{nav_search}" aria-label="Search">
+                    <button class="btn btn-outline-primary" type="submit" th:text="#{nav_search}">
+<!--                            onclick="loadOffer()"-->
+                    Search</button>
                 </form>
 
                 <form th:method="get">
@@ -92,6 +95,18 @@
                         <option value="bg_BG" th:selected="${#locale.toString()} == 'bg_BG'">Български</option>
                     </select>
                 </form>
+
+<!--                <script>-->
+<!--                    async function loadOffer(){-->
+<!--                        let inputField = document.getElementById('searchInput')-->
+<!--                        console.log('http://localhost:8080/offers/search?title=' + inputField.value)-->
+<!--                        console.log(inputField.value)-->
+
+<!--                        let response = await fetch('http://localhost:8080/offers/search?title=' + inputField.value')-->
+<!--                        let data = await response.text();-->
+<!--                        console.log(data)-->
+<!--                     }-->
+<!--                </script>-->
             </div>
         </div>
     </nav>
