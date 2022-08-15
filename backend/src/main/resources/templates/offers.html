@@ -52,7 +52,7 @@
                             th:text="*{description}"></th:block></span></div>
                 </li>
             </ul>
-            <div class="card-body">
+            <div class="card-body" sec:authorize="isAuthenticated()">
                 <a class="card-link" th:href="@{/offers/{offerId}/details(offerId=*{id})}">Details</a>
             </div>
         </div>
