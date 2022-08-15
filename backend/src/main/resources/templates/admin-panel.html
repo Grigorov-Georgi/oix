@@ -66,7 +66,8 @@
                     <ul class="list-group" th:each="location: ${locations}">
                         <li class="list-group-item">
                             <label th:text="${location.city}"></label>
-                            <a class="btn btn-danger delete-btn-admin-panel" th:href="@{/admin/location/delete(id = ${location.id})}"
+                            <a class="btn btn-danger delete-btn-admin-panel"
+                               th:href="@{/admin/location/delete(id = ${location.id})}"
                                role="button">DELETE</a>
                         </li>
                     </ul>
@@ -77,13 +78,22 @@
                     <h2>All users</h2>
                     <ul class="list-group" th:each="user: ${users}">
                         <li class="list-group-item">
-<!--                                th:if="${*{id} != ${#authentication.principal.id}}" -->
+                            <!--                                th:if="${*{id} != ${#authentication.principal.id}}" -->
                             <label th:text="${user.getFullName()}"></label>
-                            <a class="btn btn-danger delete-btn-admin-panel" th:href="@{/admin/user/makeAdmin(id = ${user.id})}"
+                            <a class="btn btn-danger delete-btn-admin-panel"
+                               th:href="@{/admin/user/makeAdmin(id = ${user.id})}"
                                role="button">Make Admin</a>
                         </li>
                     </ul>
                     <h5 th:if="${users != null && users.size == 0}">There are no users!</h5>
+
+                    <hr/>
+
+                    <h2>Categories</h2>
+                    <ul class="list-group" id="categoryList">
+<!--                        Fetch Api Request-->
+                    </ul>
+
                 </div>
             </div>
         </div>
@@ -94,5 +104,27 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
         crossorigin="anonymous"></script>
+<script>
+    let list = document.getElementById('categoryList')
+    list.classList.add('list-group')
+
+    window.addEventListener('load', (event) => {
+        fetch('http://localhost:8080/categories/fetch')
+        .then((response) => response.json())
+        .then((json) => json.forEach((value, key) => {
+        let liElement =  document.createElement('li')
+        liElement.classList.add('list-group-item')
+
+<!--        let labelElement =  document.createElement('label')-->
+<!--        labelElement.innerHTML = value.name-->
+<!--        liElement.appendChild(labelElement)-->
+
+        liElement.innerHTML = `<label>${value.name}</label>
+        <a class="btn btn-danger delete-btn-admin-panel" data-confirm="Are you sure?" data-method="delete" href="/categories/${value.id}/delete" rel="nofollow">DELETE</a>`
+
+        list.appendChild(liElement)
+        }))
+    })
+</script>
 </body>
 </html>
