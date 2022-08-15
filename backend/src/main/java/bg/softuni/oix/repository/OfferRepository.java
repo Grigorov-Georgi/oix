@@ -17,13 +17,11 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
 
     List<OfferEntity> findAllBySellerIdEquals(long id);
 
-    List<OfferEntity> findAllByTitle(String title);
+    List<OfferEntity> findAllByTitleContainingIgnoreCase(String title);
 
     List<OfferEntity> findAllByBuyerIsNull();
 
     List<OfferEntity> findAllByBuyerIsNotNull();
 
     List<OfferEntity> findAllByReleaseDateAfter(LocalDate date);
-
-//    List<OfferEntity> findAllByBuyerIsNotNullLimit(int limit);
 }

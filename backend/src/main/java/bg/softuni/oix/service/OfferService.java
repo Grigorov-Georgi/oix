@@ -111,4 +111,11 @@ public class OfferService {
         wantedOffer.setBuyer(buyer);
         offerRepository.save(wantedOffer);
     }
+
+    public List<OfferView> getAllByTitle(String title) {
+        return offerRepository.findAllByTitleContainingIgnoreCase(title)
+                .stream()
+                .map(offerMapper::offerEntityToOfferView)
+                .collect(Collectors.toList());
+    }
 }

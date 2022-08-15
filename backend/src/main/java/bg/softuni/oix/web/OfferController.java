@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/offers")
@@ -154,6 +155,14 @@ public class OfferController {
     public String comment(@Valid CommentDTO commentDTO, @PathVariable Long id, @AuthenticationPrincipal OixUserDetails userDetails) {
         this.commentService.save(commentDTO, userDetails.getId(), id);
         return "redirect:/offers/" + id + "/details";
+    }
+
+    @GetMapping("/search")
+    public String searchOffers(@RequestParam String title,
+                               Model model){
+        List<OfferView> allByTitle = this.offerService.getAllByTitle(title);
+        model.addAttribute("offers", allByTitle);
+        return "offer-search";
     }
 
 }

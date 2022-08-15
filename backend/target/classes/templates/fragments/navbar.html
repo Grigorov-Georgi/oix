@@ -78,8 +78,10 @@
                     </form>
 
                 </ul>
-                <form class="d-flex" role="search">
-                    <input id="searchInput" class="form-control me-2" type="search"
+                <form class="d-flex" role="search"
+                      th:action="@{/offers/search}"
+                      th:method="get">
+                    <input id="searchInput" class="form-control me-2" type="search" name="title"
                            th:placeholder="#{nav_search}" aria-label="Search">
                     <button class="btn btn-outline-primary" type="submit" th:text="#{nav_search}">
 <!--                            onclick="loadOffer()"-->

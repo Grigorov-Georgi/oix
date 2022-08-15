@@ -22,11 +22,11 @@ public class RestOfferController {
         this.offerMapper = offerMapper;
     }
 
-    @GetMapping("/search")
-    public List<OfferView> searchOffers(@RequestParam String title){
-        return offerRepository.findAllByTitle(title)
-                .stream()
-                .map(offerMapper::offerEntityToOfferView)
-                .collect(Collectors.toList());
-    }
+//    @GetMapping("/search")
+//    public List<OfferView> searchOffers(@RequestParam String title){
+//        return offerRepository.findAllByTitle(title)
+//                .stream()
+//                .map(offerMapper::offerEntityToOfferView)
+//                .collect(Collectors.toList());
+//    }
 }
