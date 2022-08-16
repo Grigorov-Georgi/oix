@@ -24,15 +24,19 @@
 <div th:replace="fragments/navbar">Navbar</div>
 
 <div id="container">
-    <h2 class="text-center text-black mt-5">Search Offers</h2>
+    <h2 class="text-center text-black mt-5" th:text="#{search_result}">Search Offers</h2>
     <div
-            class="offers row mx-auto d-flex flex-row justify-content-center">
+            class="offers row mx-auto d-flex flex-row justify-content-center" style="margin-bottom: 50px;">
         <div th:each="offer : ${offers}"
              th:object="${offer}"
-             class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
-            <div class="card-img-top-wrapper">
-                <!--                    <img class="card-img-top" th:src="*{imageUrl}" alt="Car image">-->
-                <img class="card-img-top" th:src="@{*{urlPicture}}" alt="Offer image">
+             class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0" style="height: min-content;">
+            <div class="card-img-top-wrapper" th:classappend="*{isAdminOffer} ? adminOffer">
+                <div th:if="*{urlPicture} != null">
+                    <img class="card-img-top" th:src="@{*{urlPicture}}" alt="Offer image" style="height: 400px;">
+                </div>
+                <div th:if="*{urlPicture} == null">
+                    <img class="card-img-top" src="/images/no-image-icon.png" style="height: 400px;">
+                </div>
             </div>
             <div class="card-body pb-1">
                 <h5 class="card-title">
@@ -41,17 +45,17 @@
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-                    <div class="card-text"><span><b>• Price </b><th:block th:text="*{price}"></th:block></span></div>
-                    <div class="card-text"><span><b>• Location </b><th:block th:text="*{location}"></th:block></span></div>
-                    <div class="card-text"><span><b>• Description </b><th:block th:text="*{description}"></th:block></span></div>
+                    <div class="card-text"><span><b th:text="#{offer_price}">• Price </b><th:block th:text="*{price}"></th:block></span></div>
+                    <div class="card-text"><span><b th:text="#{offer_location}">• Location </b><th:block th:text="*{location}"></th:block></span></div>
+                    <div class="card-text"><span><b th:text="#{offer_description}">• Description </b><th:block th:text="*{description}"></th:block></span></div>
                 </li>
             </ul>
             <div class="card-body" sec:authorize="isAuthenticated()">
-                <a class="card-link" th:href="@{/offers/{offerId}/details(offerId=*{id})}">Details</a>
+                <a class="card-link" th:href="@{/offers/{offerId}/details(offerId=*{id})}"  th:text="#{offer_details}">Details</a>
             </div>
         </div>
     </div>
-    <h5 th:if="${offers != null && offers.size == 0}" class="text-center text-black mt-5">There are no offers added!</h5>
+    <h5 th:if="${offers != null && offers.size == 0}" class="text-center text-black mt-5"  th:text="#{search_no_offers}">There are no offers added!</h5>
 </div>
 </div>
 

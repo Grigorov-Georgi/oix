@@ -100,9 +100,9 @@
                 <li class="page-item" th:classappend="${offers.isLast()} ? 'disabled' : ''">
                     <a th:unless="${offers.isLast()}"
                        th:href="@{/offers(size=${offers.getSize()},page=${offers.getTotalPages() - 1})}"
-                       class="page-link" style="margin: 230px;" th:text="#{offer_last}">Last</a>
+                       class="page-link" style="margin: 260px;" th:text="#{offer_last}">Last</a>
                     <a th:if="${offers.isLast()}"
-                       class="page-link" style="margin: 230px;" th:text="#{offer_last}">Last</a>
+                       class="page-link" style="margin: 260px;" th:text="#{offer_last}">Last</a>
                 </li>
             </ul>
         </nav>
