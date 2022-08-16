@@ -26,19 +26,17 @@
 
 <div id="container">
     <div class="homeHeader">
-        <h2>
+        <h2 >
             <span
                     sec:authorize="isAuthenticated()"
                     th:text="${#authentication.principal.fullName}">
             </span>
-            <span
-                    sec:authorize="!isAuthenticated()"
-            >Hey Buddy
+            <span sec:authorize="!isAuthenticated()" th:text="#{home_non_authenticated}">Hey Buddy
             </span>
-            , are you ready to buy new things and sell old ones?</h2>
+            <p th:text="#{home_title_message}">, are you ready to buy new things and sell old ones?</p></h2>
     </div>
     <div class="homeButtonForOffers">
-        <a class="btn btn-primary" href="/offers" role="button">Shop now!</a>
+        <a class="btn btn-primary" href="/offers" role="button" th:text="#{home_shop_now}">Shop now!</a>
     </div>
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false"
          th:if="${firstThreeOffers!=null and !firstThreeOffers.empty}">

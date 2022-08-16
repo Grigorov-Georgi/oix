@@ -120,7 +120,7 @@
 <!--        liElement.appendChild(labelElement)-->
 
         liElement.innerHTML = `<label>${value.name}</label>
-        <a class="btn btn-danger delete-btn-admin-panel" data-confirm="Are you sure?" data-method="delete" href="/categories/${value.id}/delete" rel="nofollow">DELETE</a>`
+        <a class="btn btn-danger delete-btn-admin-panel" data-method="delete" href="/categories/${value.id}/delete">DELETE</a>`
 
         list.appendChild(liElement)
         }))
