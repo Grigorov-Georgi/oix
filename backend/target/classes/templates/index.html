@@ -39,7 +39,7 @@
         <a class="btn btn-primary" href="/offers" role="button" th:text="#{home_shop_now}">Shop now!</a>
     </div>
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false"
-         th:if="${firstThreeOffers!=null and !firstThreeOffers.empty}" style="width: 500px;">
+         th:if="${firstThreeOffers!=null and !firstThreeOffers.empty}" style="width: 500px; margin: auto;">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
                     aria-current="true" aria-label="Slide 1"></button>
@@ -69,12 +69,12 @@
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
                 data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: black;"></span>
             <span class="visually-hidden">Previous</span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
                 data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: black;"></span>
             <span class="visually-hidden">Next</span>
         </button>
     </div>
