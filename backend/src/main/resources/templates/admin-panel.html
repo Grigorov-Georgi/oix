@@ -33,9 +33,9 @@
                 </div>
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
 
-                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">ADMIN PANEL</p>
+                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" th:text="#{admin_header}">ADMIN PANEL</p>
 
-                    <h2>Add city</h2>
+                    <h2 th:text="#{admin_add_city}">Add city</h2>
                     <form
                             th:action="@{/admin/location/add}"
                             th:method="post"
@@ -48,48 +48,48 @@
                                     th:errorclass="is-invalid"
                                     type="text"
                                     class="form-control form-control-lg"/>
-                            <label class="form-label" for="city">City</label>
-                            <p class="invalid-feedback errors alert alert-danger">
+                            <label class="form-label" for="city" th:text="#{admin_city}">City</label>
+                            <p class="invalid-feedback errors alert alert-danger" th:text="#{admin_city_error}">
                                 City name is required and should be between 4 and 20 symbols.
                             </p>
                         </div>
 
                         <div class="addLocationBtn">
-                            <button type="submit" class="btn btn-success btn-lg btn-block" value="add-location">Add city
+                            <button type="submit" class="btn btn-success btn-lg btn-block" value="add-location"  th:text="#{admin_add}">Add city
                             </button>
                         </div>
                     </form>
 
                     <hr/>
 
-                    <h2>All cities</h2>
+                    <h2  th:text="#{admin_all_cities}">All cities</h2>
                     <ul class="list-group" th:each="location: ${locations}">
                         <li class="list-group-item">
                             <label th:text="${location.city}"></label>
                             <a class="btn btn-danger delete-btn-admin-panel"
                                th:href="@{/admin/location/delete(id = ${location.id})}"
-                               role="button">DELETE</a>
+                               role="button" th:text="#{admin_delete_btn}">DELETE</a>
                         </li>
                     </ul>
                     <h5 th:if="${locations != null && locations.size == 0}">There are no location added!</h5>
 
                     <hr/>
 
-                    <h2>All users</h2>
+                    <h2 th:text="#{admin_all_users}">All users</h2>
                     <ul class="list-group" th:each="user: ${users}">
                         <li class="list-group-item">
                             <!--                                th:if="${*{id} != ${#authentication.principal.id}}" -->
                             <label th:text="${user.getFullName()}"></label>
                             <a class="btn btn-danger delete-btn-admin-panel"
                                th:href="@{/admin/user/makeAdmin(id = ${user.id})}"
-                               role="button">Make Admin</a>
+                               role="button" th:text="#{admin_make_admin}">Make Admin</a>
                         </li>
                     </ul>
                     <h5 th:if="${users != null && users.size == 0}">There are no users!</h5>
 
                     <hr/>
 
-                    <h2>Categories</h2>
+                    <h2 th:text="#{admin_all_categories}">Categories</h2>
                     <ul class="list-group" id="categoryList">
 <!--                        Fetch Api Request-->
                     </ul>
@@ -120,7 +120,7 @@
 <!--        liElement.appendChild(labelElement)-->
 
         liElement.innerHTML = `<label>${value.name}</label>
-        <a class="btn btn-danger delete-btn-admin-panel" data-method="delete" href="/categories/${value.id}/delete">DELETE</a>`
+        <a class="btn btn-danger delete-btn-admin-panel" data-method="delete" href="/categories/${value.id}/delete" th:text="#{admin_delete_btn}">DELETE</a>`
 
         list.appendChild(liElement)
         }))
