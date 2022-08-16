@@ -25,19 +25,20 @@
 
 
 <div id="container">
-    <div class="card" th:object="${user}">
-        <div style="font-weight: bold">My profile</div>
-        <img src="/images/no-user-icon.png" class="card-img-top" alt="image" height="500px" width="500px">
+    <h1 style="font-weight: bold" th:text="#{profile_header}">My profile</h1>
+    <div class="card" th:object="${user}" style="display: block ruby;">
+        <img src="/images/no-user-icon.png" class="card-img-top" alt="image" style="width: 600px;">
         <li class="list-group-item">
-            <div class="card-text"><span><b>• Email: </b><th:block th:text="*{email}"></th:block></span></div>
-            <div class="card-text"><span><b>• First Name: </b><th:block th:text="*{firstName}"></th:block></span></div>
-            <div class="card-text"><span><b>• Last Name: </b><th:block th:text="*{lastName}"></th:block></span></div>
+            <div class="card-text"><span><b th:text="#{profile_email}">• Email: </b><th:block th:text="*{email}"></th:block></span></div>
+            <div class="card-text"><span><b th:text="#{profile_first_name}">• First Name: </b><th:block th:text="*{firstName}"></th:block></span></div>
+            <div class="card-text"><span><b th:text="#{profile_last_name}">• Last Name: </b><th:block th:text="*{lastName}"></th:block></span></div>
+            <div>
+                <a class="btn btn-success btn-lg" th:href="@{/users/profile/{id}/edit(id=${#authentication.principal.id})}" role="button" th:text="#{profile_edit_profile}">Edit Profile</a>
+                <a class="btn btn-primary btn-lg" href="/offers/my" role="button" th:text="#{profile_my_offers}">My Offers</a>
+                <a class="btn btn-primary btn-lg" href="/offers/bought-items" role="button" th:text="#{profile_bought_items}">Bought Items</a>
+            </div>
         </li>
-        <div>
-            <a class="btn btn-success" th:href="@{/users/profile/{id}/edit(id=${#authentication.principal.id})}" role="button">Edit Profile</a>
-            <a class="btn btn-primary btn-lg" href="/offers/my" role="button">My Offers</a>
-            <a class="btn btn-primary btn-lg" href="/offers/bought-items" role="button">Bought Items</a>
-        </div>
+
     </div>
 </div>
 <div th:replace="fragments/footer">Footer</div>
