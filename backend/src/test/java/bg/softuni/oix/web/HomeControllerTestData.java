@@ -17,13 +17,17 @@ public class HomeControllerTestData {
     private UserRepository userRepository;
     private UserRoleRepository userRoleRepository;
     private OfferRepository offerRepository;
+    private CommentRepository commentRepository;
 
-    public HomeControllerTestData(LocationRepository locationRepository, CategoryRepository categoryRepository, UserRepository userRepository, UserRoleRepository userRoleRepository, OfferRepository offerRepository) {
+    public HomeControllerTestData(LocationRepository locationRepository, CategoryRepository categoryRepository,
+                                  UserRepository userRepository, UserRoleRepository userRoleRepository,
+                                  OfferRepository offerRepository, CommentRepository commentRepository) {
         this.locationRepository = locationRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
         this.offerRepository = offerRepository;
+        this.commentRepository = commentRepository;
     }
 
     public void init() {
@@ -99,6 +103,13 @@ public class HomeControllerTestData {
         offer_3.setReleaseDate(LocalDate.of(2022, 12,12));
         offer_3.setUrlPicture("dsadsa.com");
         offerRepository.save(offer_3);
+
+        //init comment
+        CommentEntity commentEntity = new CommentEntity();
+        commentEntity.setSender(userEntity);
+        commentEntity.setDescription("Comment");
+        commentEntity.setOffer(offer_1);
+        commentRepository.save(commentEntity);
     }
 
     void cleanUp(){

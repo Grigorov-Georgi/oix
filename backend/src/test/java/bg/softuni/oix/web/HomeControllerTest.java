@@ -47,6 +47,9 @@ class HomeControllerTest {
     @MockBean
     private OfferService offerService;
 
+    @MockBean
+    private CommentRepository commentRepository;
+
     private HomeControllerTestData testData;
 
     @BeforeEach
@@ -56,7 +59,8 @@ class HomeControllerTest {
                 categoryRepository,
                 userRepository,
                 userRoleRepository,
-                offerRepository
+                offerRepository,
+                commentRepository
         );
         testData.init();
     }
