@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeControllerTestData {
+public class GenericControllerTestData {
 
     private LocationRepository locationRepository;
     private CategoryRepository categoryRepository;
@@ -19,9 +19,9 @@ public class HomeControllerTestData {
     private OfferRepository offerRepository;
     private CommentRepository commentRepository;
 
-    public HomeControllerTestData(LocationRepository locationRepository, CategoryRepository categoryRepository,
-                                  UserRepository userRepository, UserRoleRepository userRoleRepository,
-                                  OfferRepository offerRepository, CommentRepository commentRepository) {
+    public GenericControllerTestData(LocationRepository locationRepository, CategoryRepository categoryRepository,
+                                     UserRepository userRepository, UserRoleRepository userRoleRepository,
+                                     OfferRepository offerRepository, CommentRepository commentRepository) {
         this.locationRepository = locationRepository;
         this.categoryRepository = categoryRepository;
         this.userRepository = userRepository;

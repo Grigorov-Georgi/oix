@@ -1,10 +1,7 @@
 package bg.softuni.oix.web;
 
-import bg.softuni.oix.exception.ObjectNotFoundException;
-import bg.softuni.oix.model.entity.OfferEntity;
 import bg.softuni.oix.repository.*;
 import bg.softuni.oix.service.OfferService;
-import bg.softuni.oix.service.views.OfferView;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,10 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -50,11 +43,11 @@ class HomeControllerTest {
     @MockBean
     private CommentRepository commentRepository;
 
-    private HomeControllerTestData testData;
+    private GenericControllerTestData testData;
 
     @BeforeEach
     void setUp() {
-        testData = new HomeControllerTestData(
+        testData = new GenericControllerTestData(
                 locationRepository,
                 categoryRepository,
                 userRepository,
