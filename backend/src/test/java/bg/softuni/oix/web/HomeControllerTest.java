@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -37,10 +38,7 @@ class HomeControllerTest {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
-    @MockBean
-    private OfferService offerService;
-
-    @MockBean
+    @Autowired
     private CommentRepository commentRepository;
 
     private GenericControllerTestData testData;
@@ -64,6 +62,7 @@ class HomeControllerTest {
     }
 
     @Test
+    @Transactional
     void getAboutPage() throws Exception {
         mockMvc.perform(get("/about"))
                 .andExpect(status().isOk())
@@ -74,6 +73,7 @@ class HomeControllerTest {
     }
 
     @Test
+    @Transactional
     void getHomePage() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())

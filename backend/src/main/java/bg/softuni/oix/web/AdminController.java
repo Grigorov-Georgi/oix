@@ -69,7 +69,7 @@ public class AdminController {
     }
 
     @GetMapping("/user/makeAdmin")
-    public String deleteUser(@RequestParam Long id){
+    public String makeUser(@RequestParam Long id){
         this.userService.makeAdmin(id);
         return "redirect:/admin";
     }
