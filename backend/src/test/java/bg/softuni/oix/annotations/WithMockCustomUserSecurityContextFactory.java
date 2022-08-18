@@ -30,11 +30,11 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
 
         OixUserDetails principal =
                 new OixUserDetails(
-                        1L, "password", "AAAAAA@AAAAAA", "AAAAAA", "AAAAAA",
+                        1L, "topsecret", "asen.asenov@gmail.com", "Asen", "Asenov",
                         roles.stream().map(this::map).collect(Collectors.toList()));
 
         Authentication auth =
-                new UsernamePasswordAuthenticationToken(principal, "password", principal.getAuthorities());
+                new UsernamePasswordAuthenticationToken(principal, "topsecret", principal.getAuthorities());
         context.setAuthentication(auth);
         return context;
     }

@@ -62,18 +62,6 @@ class OfferControllerTest {
 
     private GenericControllerTestData testData;
 
-//    @MockBean
-//    private OfferService offerService;
-//    @MockBean
-//    private LocationService locationService;
-//    @MockBean
-//    private CategoryService categoryService;
-//    @MockBean
-//    private CommentService commentService;
-//    @MockBean
-//    private OixUserDetailsService oixUserDetailsService;
-
-
     @BeforeEach
     void setUp() {
         testData = new GenericControllerTestData(
@@ -85,19 +73,6 @@ class OfferControllerTest {
                 commentRepository
         );
         testData.init();
-//        LocationView locationView = new LocationView();
-//        locationView.setCity("Aitos");
-//        List<LocationView> locationViews = new ArrayList<>();
-//        locationViews.add(locationView);
-//        locationViews.add(locationView);
-//        locationViews.add(locationView);
-//        when(locationService.getAllLocations()).thenReturn(locationViews);
-//
-//        CategoryEntity categoryEntity = new CategoryEntity();
-//        categoryEntity.setName(CategoryEnum.CAR);
-//        List<CategoryEntity> categoryEntities = new ArrayList<>();
-//        categoryEntities.add(categoryEntity);
-//        when(categoryService.getAllCategories()).thenReturn(categoryEntities);
     }
 
     @AfterEach
@@ -266,8 +241,9 @@ class OfferControllerTest {
     @WithMockCustomUser
     void deleteOfferTest() throws Exception {
         long beforeCount = offerRepository.count();
+        OfferEntity offerEntity = offerRepository.findAll().get(1);
 
-        mockMvc.perform(get("/offers/" + beforeCount + "/delete"))
+        mockMvc.perform(get("/offers/" + offerEntity.getId() + "/delete"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/offers"));
 
@@ -292,18 +268,27 @@ class OfferControllerTest {
     @Test
     @WithMockCustomUser
     void buyOfferTest() throws Exception {
-        long id = 1;
-        mockMvc.perform(get("/offers/1/buy"))
+        long count = offerRepository.count();
+        OfferEntity offerEntity = offerRepository.findAll().get(1);
+
+        mockMvc.perform(get("/offers/" + offerEntity.getId() + "/buy"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/offers"));
+
+        Optional<OfferEntity> byId = offerRepository.findById(offerEntity.getId());
+        assertNotNull(byId.get().getBuyer());
+    }
+
+    @Test
+    @WithMockCustomUser
+    void buyOfferWithInvalidIdTest() throws Exception {
+        mockMvc.perform(get("/offers/" + Long.MAX_VALUE + "/buy"))
+                .andExpect(status().isNotFound());
     }
 
     @Test
     @WithMockCustomUser
     void getMyOffersTest() throws Exception {
-        List<OfferView> offers = initOfferViewList();
-
-//        when(offerService.getMyOffers(1)).thenReturn(offers);
         mockMvc.perform(get("/offers/my"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("my-offers"))
@@ -313,52 +298,38 @@ class OfferControllerTest {
     @Test
     @WithMockCustomUser
     void getBoughtItemsTest() throws Exception {
-        List<OfferView> offers = initOfferViewList();
-
-//        when(offerService.getBoughtItems(1)).thenReturn(offers);
         mockMvc.perform(get("/offers/bought-items"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("bought-items"))
                 .andExpect(model().attributeExists("offers"));
-
-//        verify(offerService, times(1)).getBoughtItems(1);
-    }
-
-    List<OfferView> initOfferViewList() {
-        OfferView offerView = new OfferView();
-        offerView.setTitle("AAAAA");
-        offerView.setDescription("AAAAAAA");
-        offerView.setSellerId(1);
-        offerView.setSellerFullName("AAAAA");
-        offerView.setId(1L);
-        offerView.setCategory("AAAAA");
-        offerView.setLocation("AAAAA");
-        offerView.setPrice(BigDecimal.valueOf(123));
-        offerView.setUrlPicture("asdasd");
-
-        CommentView commentView = new CommentView();
-        commentView.setSenderFullName("ASDASD");
-        commentView.setDescription("SADASDASD");
-        List<CommentView> comments = new ArrayList<>();
-        comments.add(commentView);
-        comments.add(commentView);
-        comments.add(commentView);
-
-        offerView.setComments(comments);
-
-        List<OfferView> offers = new ArrayList<>();
-        offers.add(offerView);
-        offers.add(offerView);
-        return offers;
     }
 
     @Test
     @WithMockCustomUser
+    @Transactional
     void postCommentTest() throws Exception {
-        mockMvc.perform(post("/offers/1/comment")
+        OfferEntity offerEntity = offerRepository.findAll().get(0);
+        int sizeBefore = offerEntity.getComments().size();
+        long before = commentRepository.count();
+
+        mockMvc.perform(post("/offers/" + offerEntity.getId() + "/comment")
                 .param("description", "ADSASDASD")
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/offers/1/details"));
+                .andExpect(view().name("redirect:/offers/" + offerEntity.getId() + "/details"));
+
+        int sizeAfter = offerRepository.findById(offerEntity.getId()).get().getComments().size();
+        long after = commentRepository.count();
+        assertEquals(before + 1, after);
+    }
+
+    @Test
+    @WithMockCustomUser
+    @Transactional
+    void postCommentWithOfferIdTest() throws Exception {
+        mockMvc.perform(post("/offers/" + Long.MAX_VALUE + "/comment")
+                .param("description", "ADSASDASD")
+                .with(csrf()))
+                .andExpect(status().isNotFound());
     }
 }

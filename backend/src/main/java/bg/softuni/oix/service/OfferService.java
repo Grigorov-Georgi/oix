@@ -100,10 +100,8 @@ public class OfferService {
         offerRepository.deleteById(offerEntity.getId());
     }
 
-    public void buyOffer(long id, Long userDetailsId) {
-        OfferEntity wantedOffer = offerRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException("Offer with id " + id + " not found!"));
-
+    public void buyOffer(OfferEntity offerEntity, Long userDetailsId) {
+        OfferEntity wantedOffer = offerRepository.findById(offerEntity.getId()).get();
         UserEntity buyer = userService.findById(userDetailsId);
         wantedOffer.setBuyer(buyer);
         offerRepository.save(wantedOffer);

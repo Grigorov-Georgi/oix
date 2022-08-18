@@ -152,7 +152,7 @@ public class OfferController {
     public String buyOffer(@PathVariable long id,
                            @AuthenticationPrincipal OixUserDetails userDetails) {
         OfferEntity offerEntity = offerService.findById(id).orElseThrow(() -> new ObjectNotFoundException("Offer with id " + id + " not found!"));
-        offerService.buyOffer(id, userDetails.getId());
+        offerService.buyOffer(offerEntity, userDetails.getId());
         return "redirect:/offers";
     }
 
@@ -172,7 +172,9 @@ public class OfferController {
 
     @PostMapping("/{id}/comment")
     public String comment(@Valid CommentDTO commentDTO, @PathVariable Long id, @AuthenticationPrincipal OixUserDetails userDetails) {
-        this.commentService.save(commentDTO, userDetails.getId(), id);
+        OfferEntity offerEntity = offerService.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Offer with id " + id + " not found!"));
+        this.commentService.save(commentDTO, userDetails.getId(), offerEntity.getId());
         return "redirect:/offers/" + id + "/details";
     }
 

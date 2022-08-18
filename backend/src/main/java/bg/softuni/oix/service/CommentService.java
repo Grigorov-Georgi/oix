@@ -30,12 +30,10 @@ public class CommentService {
     public void save(CommentDTO commentDTO,  long senderId, long offerId){
         CommentEntity commentEntity = commentMapper.commentDTOToCommentEntity(commentDTO);
 
-        UserEntity sender = userRepository.findById(senderId)
-                .orElseThrow(() -> new ObjectNotFoundException("User not found!"));
+        UserEntity sender = userRepository.findById(senderId).get();
         commentEntity.setSender(sender);
 
-        OfferEntity offer = offerRepository.findById(offerId)
-                .orElseThrow(() -> new ObjectNotFoundException("Offer not found!"));
+        OfferEntity offer = offerRepository.findById(offerId).get();
         commentEntity.setOffer(offer);
 
         commentRepository.save(commentEntity);
