@@ -70,6 +70,7 @@ public class OfferController {
 
     @GetMapping("/add")
     public String addOfferPage(Model model) {
+        model.addAttribute("addOfferDTO", new AddOfferDTO());
         model.addAttribute("locations", locationService.getAllLocations());
         model.addAttribute("categories", categoryService.getAllCategories());
         return "add-offer";

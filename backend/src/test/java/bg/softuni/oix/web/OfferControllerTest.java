@@ -82,6 +82,7 @@ class OfferControllerTest {
 
     @Test
     @WithMockCustomUser
+    @Transactional
     void addOfferPostWithCorrectParamsTest() throws Exception {
         long countBefore = offerRepository.count();
 
@@ -90,7 +91,7 @@ class OfferControllerTest {
                 .param("location", "Sofia")
                 .param("category", "CAR")
                 .param("description", "description")
-                .param("price", "100")
+                .param("price", BigDecimal.valueOf(100).toString())
                 .param("urlPicture", "urlPicture")
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
@@ -170,10 +171,9 @@ class OfferControllerTest {
     @Test
     @WithMockCustomUser
     void getEditOfferPageTest() throws Exception {
-        long count = offerRepository.count();
-//        Optional<OfferEntity> byId = offerRepository.findById(count);
+        OfferEntity offerEntity = offerRepository.findAll().get(1);
 
-        mockMvc.perform(get("/offers/" + count + "/edit"))
+        mockMvc.perform(get("/offers/" + offerEntity.getId() + "/edit"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("edit-offer"))
                 .andExpect(model().attributeExists("addOfferDTO"))
@@ -192,15 +192,14 @@ class OfferControllerTest {
     @WithMockCustomUser
     @Transactional
     void postEditOfferWithCorrectFieldsTest() throws Exception {
-        long count = offerRepository.count();
-        OfferEntity oldEntity = offerRepository.findById(count).get();
+        OfferEntity oldEntity = offerRepository.findAll().get(0);
 
         oldEntity.setTitle("Changed");
         oldEntity.setDescription("Changed");
         oldEntity.setUrlPicture("Changed");
         oldEntity.setPrice(BigDecimal.valueOf(99999));
 
-        mockMvc.perform(patch("/offers/" + count + "/edit")
+        mockMvc.perform(patch("/offers/" + oldEntity.getId() + "/edit")
                 .param("title", oldEntity.getTitle())
                 .param("location", "Sofia")
                 .param("category", "CAR")
@@ -210,20 +209,27 @@ class OfferControllerTest {
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/offers"));
+
+        OfferEntity newEntity = offerRepository.findById(oldEntity.getId()).get();
+        Assertions.assertEquals(oldEntity.getTitle(), newEntity.getTitle());
+        Assertions.assertEquals(oldEntity.getDescription(), newEntity.getDescription());
+        Assertions.assertEquals(oldEntity.getUrlPicture(), newEntity.getUrlPicture());
+        Assertions.assertEquals(oldEntity.getLocation().getCity(), newEntity.getLocation().getCity());
+        Assertions.assertEquals(oldEntity.getCategory().getName(), newEntity.getCategory().getName());
+        Assertions.assertEquals(oldEntity.getPrice(), newEntity.getPrice());
     }
 
     @Test
     @WithMockCustomUser
     void postEditOfferWithIncorrectFieldsTest() throws Exception {
-        long count = offerRepository.count();
-        OfferEntity oldEntity = offerRepository.findById(count).get();
+        OfferEntity oldEntity = offerRepository.findAll().get(0);
 
         oldEntity.setTitle("a");
         oldEntity.setDescription("a");
         oldEntity.setUrlPicture("a");
         oldEntity.setPrice(BigDecimal.valueOf(-1));
 
-        mockMvc.perform(patch("/offers/" + count + "/edit")
+        mockMvc.perform(patch("/offers/" + oldEntity.getId() + "/edit")
                 .param("title", oldEntity.getTitle())
                 .param("location", "Varna")
                 .param("category", "Bike")
@@ -232,7 +238,7 @@ class OfferControllerTest {
                 .param("urlPicture", oldEntity.getUrlPicture())
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/offers/" + count + "/edit"))
+                .andExpect(view().name("redirect:/offers/" + oldEntity.getId() + "/edit"))
                 .andExpect(flash().attributeExists("addOfferDTO"))
                 .andExpect(flash().attributeExists("org.springframework.validation.BindingResult.addOfferDTO"));
     }
@@ -268,8 +274,7 @@ class OfferControllerTest {
     @Test
     @WithMockCustomUser
     void buyOfferTest() throws Exception {
-        long count = offerRepository.count();
-        OfferEntity offerEntity = offerRepository.findAll().get(1);
+        OfferEntity offerEntity = offerRepository.findAll().get(0);
 
         mockMvc.perform(get("/offers/" + offerEntity.getId() + "/buy"))
                 .andExpect(status().is3xxRedirection())
