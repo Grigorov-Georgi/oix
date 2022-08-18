@@ -22,10 +22,10 @@
 
 <body>
 <div th:replace="fragments/navbar">Navbar</div>
-<div>
-    <h2>Not found!</h2>
-    <a th:href="@{/offers}">Go back to offers</a>
-    <img src="/images/travolta.gif">
+<div style="display: grid; justify-content: center;">
+    <h2 style="justify-self: center;" th:text="#{error_404}">Resource not found!</h2>
+    <img src="/images/travolta.gif" style="justify-self: center; height: 500px;">
+    <a th:href="@{/offers}" style="justify-self: center; font-size: xx-large; color: black;" th:text="#{error_go_back}">Go back to offers</a>
 </div>
 </body>
 </html>

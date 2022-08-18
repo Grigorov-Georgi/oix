@@ -23,8 +23,8 @@
 <body>
 <div th:replace="fragments/navbar">Navbar</div>
 <div style="display: grid; justify-content: center;">
-    <h2 style="justify-self: center;" th:text="#{error_404}">Resource not found!</h2>
-    <img src="/images/travolta.gif" style="justify-self: center; height: 500px;">
+    <h2 th:text="#{error_500}">Our developers are working on the issue, please try again later!</h2>
+    <img src="/images/error-500.gif" style="justify-self: center; height: 500px;">
     <a th:href="@{/offers}" style="justify-self: center; font-size: xx-large; color: black;" th:text="#{error_go_back}">Go back to offers</a>
 </div>
 </body>
