@@ -86,10 +86,8 @@ public class OfferService {
         return offersForHomePage;
     }
 
-    public OfferView findViewById(long id) {
-        OfferEntity offerEntity = this.offerRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException("Offer with id " + id + " not found!"));
-        return offerMapper.offerEntityToOfferView(offerEntity);
+    public Optional<OfferEntity> findOfferEntityById(long id) {
+        return  this.offerRepository.findById(id);
     }
 
     public AddOfferDTO findDtoById(long id) {
@@ -117,5 +115,18 @@ public class OfferService {
                 .stream()
                 .map(offerMapper::offerEntityToOfferView)
                 .collect(Collectors.toList());
+    }
+
+    public Optional<OfferEntity> findById(long id) {
+        return offerRepository.findById(id);
+    }
+
+    public void update(AddOfferDTO addOfferDTO) {
+        OfferEntity offerEntity = offerRepository.findById(addOfferDTO.getId()).get();
+        offerMapper.updateOfferEntity(offerEntity, addOfferDTO);
+        offerRepository.save(offerEntity);
+//        UserEntity userById = userRepository.findById(editProfileDTO.getId()).get();
+//        userMapper.updateUserEntity(userById, editProfileDTO);
+//        userRepository.save(userById);
     }
 }

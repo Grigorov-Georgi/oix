@@ -1,11 +1,13 @@
 package bg.softuni.oix.service.mapper;
 
 import bg.softuni.oix.model.entity.OfferEntity;
+import bg.softuni.oix.model.entity.UserEntity;
 import bg.softuni.oix.model.enums.CategoryEnum;
 import bg.softuni.oix.service.CategoryService;
 import bg.softuni.oix.service.LocationService;
 import bg.softuni.oix.service.UserService;
 import bg.softuni.oix.service.dto.AddOfferDTO;
+import bg.softuni.oix.service.dto.EditProfileDTO;
 import bg.softuni.oix.service.views.OfferView;
 import org.mapstruct.*;
 
@@ -29,6 +31,9 @@ public interface OfferMapper {
     @Mapping(target = "category", source = "category.name")
     @Mapping(target = "comments", source = "comments")
     OfferView offerEntityToOfferView(OfferEntity offerEntity);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateOfferEntity(@MappingTarget OfferEntity offerEntity, AddOfferDTO addOfferDTO);
 
     @BeforeMapping
     default void setReleaseDate(@MappingTarget OfferEntity offerEntity) {

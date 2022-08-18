@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-15T22:54:15+0300",
+    date = "2022-08-18T09:34:38+0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -99,6 +99,35 @@ public class OfferMapperImpl implements OfferMapper {
         setAdditionalFieldsForView( offerView, offerEntity );
 
         return offerView;
+    }
+
+    @Override
+    public void updateOfferEntity(OfferEntity offerEntity, AddOfferDTO addOfferDTO) {
+        if ( addOfferDTO == null ) {
+            return;
+        }
+
+        setReleaseDate( offerEntity );
+
+        offerEntity.setId( addOfferDTO.getId() );
+        if ( addOfferDTO.getTitle() != null ) {
+            offerEntity.setTitle( addOfferDTO.getTitle() );
+        }
+        if ( addOfferDTO.getLocation() != null ) {
+            offerEntity.setLocation( locationService.findByCity( addOfferDTO.getLocation() ) );
+        }
+        if ( addOfferDTO.getPrice() != null ) {
+            offerEntity.setPrice( addOfferDTO.getPrice() );
+        }
+        if ( addOfferDTO.getDescription() != null ) {
+            offerEntity.setDescription( addOfferDTO.getDescription() );
+        }
+        if ( addOfferDTO.getUrlPicture() != null ) {
+            offerEntity.setUrlPicture( addOfferDTO.getUrlPicture() );
+        }
+        if ( addOfferDTO.getCategory() != null ) {
+            offerEntity.setCategory( categoryService.findByName( Enum.valueOf( CategoryEnum.class, addOfferDTO.getCategory() ) ) );
+        }
     }
 
     private CategoryEnum offerEntityCategoryName(OfferEntity offerEntity) {

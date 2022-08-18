@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
@@ -24,4 +25,6 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
     List<OfferEntity> findAllByBuyerIsNotNull();
 
     List<OfferEntity> findAllByReleaseDateAfter(LocalDate date);
+
+    Optional<OfferEntity> findByTitle(String title);
 }
