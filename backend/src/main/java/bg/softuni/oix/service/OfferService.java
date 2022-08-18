@@ -96,9 +96,8 @@ public class OfferService {
         return offerMapper.offerEntityToAddOfferDto(offerEntity);
     }
 
-    public void deleteOffer(long id) {
-        Optional<OfferEntity> byId = offerRepository.findById(id);
-        offerRepository.deleteById(id);
+    public void deleteOffer(OfferEntity offerEntity) {
+        offerRepository.deleteById(offerEntity.getId());
     }
 
     public void buyOffer(long id, Long userDetailsId) {

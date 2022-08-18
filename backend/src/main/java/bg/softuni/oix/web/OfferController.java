@@ -143,13 +143,15 @@ public class OfferController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}/delete")
     public String deleteOffer(@PathVariable long id) {
-        offerService.deleteOffer(id);
+        OfferEntity offerEntity = offerService.findById(id).orElseThrow(() -> new ObjectNotFoundException("Offer with id " + id + " not found!"));
+        offerService.deleteOffer(offerEntity);
         return "redirect:/offers";
     }
 
     @GetMapping("/{id}/buy")
     public String buyOffer(@PathVariable long id,
                            @AuthenticationPrincipal OixUserDetails userDetails) {
+        OfferEntity offerEntity = offerService.findById(id).orElseThrow(() -> new ObjectNotFoundException("Offer with id " + id + " not found!"));
         offerService.buyOffer(id, userDetails.getId());
         return "redirect:/offers";
     }

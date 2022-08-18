@@ -2,6 +2,7 @@ package bg.softuni.oix.web;
 
 import bg.softuni.oix.annotations.WithMockCustomUser;
 import bg.softuni.oix.model.entity.CategoryEntity;
+import bg.softuni.oix.model.entity.LocationEntity;
 import bg.softuni.oix.model.entity.OfferEntity;
 import bg.softuni.oix.model.enums.CategoryEnum;
 import bg.softuni.oix.repository.*;
@@ -194,46 +195,44 @@ class OfferControllerTest {
     @Test
     @WithMockCustomUser
     void getEditOfferPageTest() throws Exception {
-        AddOfferDTO offerDto = new AddOfferDTO();
-        offerDto.setTitle("AAAAA");
-        offerDto.setDescription("AAAAAAA");
-        offerDto.setId(1L);
-        offerDto.setCategory("AAAAA");
-        offerDto.setUrlPicture("AAAAAAA");
-        offerDto.setLocation("AAAAAAA");
-        offerDto.setPrice(BigDecimal.valueOf(1324));
+        long count = offerRepository.count();
+//        Optional<OfferEntity> byId = offerRepository.findById(count);
 
-//        when(offerService.findDtoById(1L)).thenReturn(offerDto);
-
-        mockMvc.perform(get("/offers/1/edit"))
+        mockMvc.perform(get("/offers/" + count + "/edit"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("edit-offer"))
-                .andExpect(model().attributeExists("updateOfferDTO"))
+                .andExpect(model().attributeExists("addOfferDTO"))
                 .andExpect(model().attributeExists("locations"))
                 .andExpect(model().attributeExists("categories"));
     }
 
     @Test
     @WithMockCustomUser
+    void getEditOfferPageWithInvalidIdTest() throws Exception {
+        mockMvc.perform(get("/offers/" + Long.MAX_VALUE + "/edit"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @WithMockCustomUser
+    @Transactional
     void postEditOfferWithCorrectFieldsTest() throws Exception {
-        AddOfferDTO offerDto = new AddOfferDTO();
-        offerDto.setTitle("AAAAA");
-        offerDto.setDescription("AAAAAAA");
-        offerDto.setCategory("AAAAA");
-        offerDto.setUrlPicture("AAAAAAA");
-        offerDto.setLocation("AAAAAAA");
-        offerDto.setPrice(BigDecimal.valueOf(1324));
+        long count = offerRepository.count();
+        OfferEntity oldEntity = offerRepository.findById(count).get();
 
-//        when(offerService.findDtoById(1L)).thenReturn(offerDto);
+        oldEntity.setTitle("Changed");
+        oldEntity.setDescription("Changed");
+        oldEntity.setUrlPicture("Changed");
+        oldEntity.setPrice(BigDecimal.valueOf(99999));
 
-        mockMvc.perform(post("/offers/1/edit")
-        .param("title", "AAAAAAA")
-        .param("location", "AAAAAAA")
-        .param("category", "AAAAAAA")
-        .param("description", "AAAAAAA")
-        .param("price", "1111")
-        .param("urlPicture", "AAAAAAA")
-        .with(csrf()))
+        mockMvc.perform(patch("/offers/" + count + "/edit")
+                .param("title", oldEntity.getTitle())
+                .param("location", "Sofia")
+                .param("category", "CAR")
+                .param("description", oldEntity.getDescription())
+                .param("price", oldEntity.getPrice().toString())
+                .param("urlPicture", oldEntity.getUrlPicture())
+                .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/offers"));
     }
@@ -241,38 +240,53 @@ class OfferControllerTest {
     @Test
     @WithMockCustomUser
     void postEditOfferWithIncorrectFieldsTest() throws Exception {
-        AddOfferDTO offerDto = new AddOfferDTO();
-        offerDto.setTitle("AAAAA");
-        offerDto.setDescription("AAAAAAA");
-        offerDto.setCategory("AAAAA");
-        offerDto.setUrlPicture("AAAAAAA");
-        offerDto.setLocation("AAAAAAA");
-        offerDto.setPrice(BigDecimal.valueOf(1324));
+        long count = offerRepository.count();
+        OfferEntity oldEntity = offerRepository.findById(count).get();
 
-//        when(offerService.findDtoById(1L)).thenReturn(offerDto);
+        oldEntity.setTitle("a");
+        oldEntity.setDescription("a");
+        oldEntity.setUrlPicture("a");
+        oldEntity.setPrice(BigDecimal.valueOf(-1));
 
-        mockMvc.perform(post("/offers/1/edit")
-                .param("title", "a")
-                .param("location", "AAAAAAA")
-                .param("category", "AAAAAAA")
-                .param("description", "AAAAAAA")
-                .param("price", "1111")
-                .param("urlPicture", "AAAAAAA")
+        mockMvc.perform(patch("/offers/" + count + "/edit")
+                .param("title", oldEntity.getTitle())
+                .param("location", "Varna")
+                .param("category", "Bike")
+                .param("description", oldEntity.getDescription())
+                .param("price", oldEntity.getPrice().toString())
+                .param("urlPicture", oldEntity.getUrlPicture())
                 .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/offers/1/edit"))
-        .andExpect(flash().attributeExists("updateOfferDTO"))
-        .andExpect(flash().attributeExists("org.springframework.validation.BindingResult.updateOfferDTO"));
+                .andExpect(view().name("redirect:/offers/" + count + "/edit"))
+                .andExpect(flash().attributeExists("addOfferDTO"))
+                .andExpect(flash().attributeExists("org.springframework.validation.BindingResult.addOfferDTO"));
     }
 
     @Test
     @WithMockCustomUser
     void deleteOfferTest() throws Exception {
-        long id = 1;
-        mockMvc.perform(get("/offers/1/delete"))
+        long beforeCount = offerRepository.count();
+
+        mockMvc.perform(get("/offers/" + beforeCount + "/delete"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/offers"));
-//        verify(offerService, times(1)).deleteOffer(id);
+
+        long afterCount = offerRepository.count();
+
+        assertEquals(beforeCount - 1, afterCount);
+    }
+
+    @Test
+    @WithMockCustomUser
+    void deleteOfferWithInvalidIdTest() throws Exception {
+        long beforeCount = offerRepository.count();
+
+        mockMvc.perform(get("/offers/" + Long.MAX_VALUE + "/delete"))
+                .andExpect(status().isNotFound());
+
+        long afterCount = offerRepository.count();
+
+        assertEquals(beforeCount, afterCount);
     }
 
     @Test
@@ -293,7 +307,7 @@ class OfferControllerTest {
         mockMvc.perform(get("/offers/my"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("my-offers"))
-        .andExpect(model().attributeExists("offers"));
+                .andExpect(model().attributeExists("offers"));
     }
 
     @Test
@@ -310,7 +324,7 @@ class OfferControllerTest {
 //        verify(offerService, times(1)).getBoughtItems(1);
     }
 
-    List<OfferView> initOfferViewList(){
+    List<OfferView> initOfferViewList() {
         OfferView offerView = new OfferView();
         offerView.setTitle("AAAAA");
         offerView.setDescription("AAAAAAA");
@@ -342,8 +356,8 @@ class OfferControllerTest {
     @WithMockCustomUser
     void postCommentTest() throws Exception {
         mockMvc.perform(post("/offers/1/comment")
-        .param("description", "ADSASDASD")
-        .with(csrf()))
+                .param("description", "ADSASDASD")
+                .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/offers/1/details"));
     }
