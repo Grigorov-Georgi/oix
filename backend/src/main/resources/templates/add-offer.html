@@ -29,7 +29,7 @@
             <div class="row d-flex align-items-center justify-content-center h-100">
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
 
-                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Make offer</p>
+                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" th:text="#{add_offer_header}">Make offer</p>
 
                     <form
                             th:action="@{/offers/add}"
@@ -43,8 +43,8 @@
                                     th:errorclass="is-invalid"
                                     type="text"
                                     class="form-control form-control-lg"/>
-                            <label class="form-label" for="title">Title</label>
-                            <p class="invalid-feedback errors alert alert-danger">
+                            <label class="form-label" for="title" th:text="#{add_offer_title}">Title</label>
+                            <p class="invalid-feedback errors alert alert-danger" th:text="#{add_offer_title_validation}">
                                 Title is required and should be between 4 and 20 symbols.
                             </p>
                         </div>
@@ -55,7 +55,7 @@
                                     name="location"
                                     th:errorclass="is-invalid"
                                     class="form-control form-control-lg">
-                                <option value="">- Select City -</option>
+                                <option value="" th:text="#{add_offer_select_city}">- Select City -</option>
                                 <option th:each="location : ${locations}"
                                         th:text="${location.city}"
                                         th:value="${location.city}"
@@ -63,8 +63,8 @@
                                     City
                                 </option>
                             </select>
-                            <label class="form-label" for="location">Location</label>
-                            <p class="invalid-feedback errors alert alert-danger">
+                            <label class="form-label" for="location" th:text="#{add_offer_location}">Location</label>
+                            <p class="invalid-feedback errors alert alert-danger" th:text="#{add_offer_city_validation}">
                                 Location is required!
                             </p>
                         </div>
@@ -75,7 +75,7 @@
                                     name="category"
                                     th:errorclass="is-invalid"
                                     class="form-control form-control-lg">
-                                <option value="">- Select Category -</option>
+                                <option value="" th:text="#{add_offer_select_category}">- Select Category -</option>
                                 <option th:each="category : ${categories}"
                                         th:text="${category.name}"
                                         th:value="${category.name}"
@@ -83,8 +83,8 @@
                                     Category
                                 </option>
                             </select>
-                            <label class="form-label" for="category">Category</label>
-                            <p class="invalid-feedback errors alert alert-danger">
+                            <label class="form-label" for="category" th:text="#{add_offer_category}">Category</label>
+                            <p class="invalid-feedback errors alert alert-danger" th:text="#{add_offer_category_validation}">
                                 Category is required!
                             </p>
                         </div>
@@ -95,8 +95,8 @@
                                    th:errorclass="is-invalid"
                                    type="text"
                                    class="form-control form-control-lg"/>
-                            <label class="form-label" for="description">Description</label>
-                            <p class="invalid-feedback errors alert alert-danger">
+                            <label class="form-label" for="description" th:text="#{add_offer_description}">Description</label>
+                            <p class="invalid-feedback errors alert alert-danger" th:text="#{add_offer_description_validation}">
                                 Description is required and should be between 4 and 200 symbols.
                             </p>
                         </div>
@@ -110,8 +110,8 @@
                                    step="1"
                                    value="10"
                                    class="form-control form-control-lg"/>
-                            <label class="form-label" for="price">Price (BGN)</label>
-                            <p class="invalid-feedback errors alert alert-danger">
+                            <label class="form-label" for="price" th:text="#{add_offer_price}">Price (BGN)</label>
+                            <p class="invalid-feedback errors alert alert-danger" th:text="#{add_offer_price_validation}">
                                 Price is required and should be positive number.
                             </p>
                         </div>
@@ -122,11 +122,11 @@
                                    placeholder="Optional"
                                    type="text"
                                    class="form-control form-control-lg"/>
-                            <label class="form-label" for="urlPicture">Picture URL</label>
+                            <label class="form-label" for="urlPicture" th:text="#{add_offer_picture}">Picture URL</label>
                         </div>
 
                         <div class="registerBtn">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block" value="Register">Add offer
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" value="Register" th:text="#{add_offer_button}">Add offer
                             </button>
                         </div>
 

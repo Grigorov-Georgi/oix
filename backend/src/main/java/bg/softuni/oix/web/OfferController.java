@@ -70,7 +70,9 @@ public class OfferController {
 
     @GetMapping("/add")
     public String addOfferPage(Model model) {
-        model.addAttribute("addOfferDTO", new AddOfferDTO());
+        if (!model.containsAttribute("addOfferDTO")){
+            model.addAttribute("addOfferDTO", new AddOfferDTO());
+        }
         model.addAttribute("locations", locationService.getAllLocations());
         model.addAttribute("categories", categoryService.getAllCategories());
         return "add-offer";
@@ -81,6 +83,7 @@ public class OfferController {
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes,
                            @AuthenticationPrincipal OixUserDetails userDetails) {
+
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("addOfferDTO", addOfferDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addOfferDTO",
