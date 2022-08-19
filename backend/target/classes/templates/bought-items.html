@@ -24,7 +24,7 @@
 <div th:replace="fragments/navbar">Navbar</div>
 
 <div id="container">
-    <h2 class="text-center text-black mt-5">Bought Items</h2>
+    <h2 class="text-center text-black mt-5" th:text="#{bought_items}">Bought Items</h2>
     <div
             class="offers row mx-auto d-flex flex-row justify-content-center">
         <div th:each="offer : ${offers}"
@@ -40,17 +40,17 @@
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-                    <div class="card-text"><span><b>• Price </b><th:block th:text="*{price}"></th:block></span></div>
-                    <div class="card-text"><span><b>• Location </b><th:block th:text="*{location}"></th:block></span></div>
-                    <div class="card-text"><span><b>• Description </b><th:block th:text="*{description}"></th:block></span></div>
+                    <div class="card-text"><span><b th:text="#{offer_price}">• Price </b><th:block th:text="*{price}"></th:block></span></div>
+                    <div class="card-text"><span><b th:text="#{offer_location}">• Location </b><th:block th:text="*{location}"></th:block></span></div>
+                    <div class="card-text"><span><b th:text="#{offer_description}">• Description </b><th:block th:text="*{description}"></th:block></span></div>
                 </li>
             </ul>
             <div class="card-body">
-                <a class="card-link" th:href="@{/offers/{offerId}/details(offerId=*{id})}">Details</a>
+                <a class="card-link" th:href="@{/offers/{offerId}/details(offerId=*{id})}" th:text="#{offer_details}">Details</a>
             </div>
         </div>
     </div>
-    <h5 th:if="${offers != null && offers.size == 0}" class="text-center text-black mt-5">No items purchased yet!</h5>
+    <h5 th:if="${offers != null && offers.size == 0}" class="text-center text-black mt-5" th:text="#{bought_items_empty}">No items purchased yet!</h5>
 </div>
 </div>
 

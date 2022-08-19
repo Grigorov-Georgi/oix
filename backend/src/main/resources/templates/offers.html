@@ -58,7 +58,7 @@
         </div>
     </div>
 
-    <h5 th:if="${offers != null && offers.size == 0}" class="text-center text-black mt-5">There are no offers
+    <h5 th:if="${offers != null && offers.size == 0}" class="text-center text-black mt-5" th:text="#{offers_empty}">There are no offers
         added!</h5>
 
     <div class="row justify-content-center" style="display: ruby-text; margin-top: 20px;">
