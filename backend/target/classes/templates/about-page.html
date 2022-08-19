@@ -27,17 +27,17 @@
     <section class="h-100">
 
         <div class="jumbotron" style="margin: 40px;">
-            <h1 class="display-4">About Us</h1>
-            <p class="lead">Our site was created to help people sell their old unwanted items and buy new ones they need.</p>
+            <h1 class="display-4" th:text="#{about_header}">About Us</h1>
+            <p class="lead" th:text="#{about_description}">Our site was created to help people sell their old unwanted items and buy new ones they need.</p>
             <div class="col-md-8 col-lg-7 col-xl-6">
                 <img src="/images/team.png"
                      class="img-fluid" alt="Login image" height="500" width="500">
             </div>
             <hr class="my-4">
-            <p>Need help? Contact us!</p>
-            <p>Telephone: 089-999-7878</p>
-            <p>Email: contact@oix.com</p>
-            <a class="btn btn-primary btn-lg" href="/offers" role="button" style="margin-bottom: 50px;">Go Back To Offers</a>
+            <p th:text="#{about_p1}">Need help? Contact us!</p>
+            <p th:text="#{about_p2}">Telephone: 089-999-7878</p>
+            <p th:text="#{about_p3}">Email: contact@oix.com</p>
+            <a class="btn btn-primary btn-lg" href="/offers" role="button" style="margin-bottom: 50px;" th:text="#{about_button}">Go Back To Offers</a>
         </div>
 
     </section>
