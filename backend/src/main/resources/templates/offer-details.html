@@ -34,21 +34,21 @@
             <img class="card-img-top" src="/images/no-image-icon.png">
         </div>
         <li class="list-group-item">
-            <div class="card-text"><span><b>• Price: </b><th:block th:text="*{price}"></th:block></span></div>
-            <div class="card-text"><span><b>• Seller: </b><th:block th:text="*{sellerFullName}"></th:block></span></div>
-            <div class="card-text"><span><b>• Location: </b><th:block th:text="*{location}"></th:block></span></div>
-            <div class="card-text"><span><b>• Category: </b><th:block th:text="*{category}"></th:block></span></div>
-            <div class="card-text"><span><b>• Description: </b><th:block th:text="*{description}"></th:block></span>
+            <div class="card-text"><span><b th:text="#{offer_details_price}">• Price: </b><th:block th:text="*{price}"></th:block></span></div>
+            <div class="card-text"><span><b th:text="#{offer_details_seller}">• Seller: </b><th:block th:text="*{sellerFullName}"></th:block></span></div>
+            <div class="card-text"><span><b th:text="#{offer_details_location}">• Location: </b><th:block th:text="*{location}"></th:block></span></div>
+            <div class="card-text"><span><b th:text="#{offer_details_category}">• Category: </b><th:block th:text="*{category}"></th:block></span></div>
+            <div class="card-text"><span><b th:text="#{offer_details_description}">• Description: </b><th:block th:text="*{description}"></th:block></span>
             </div>
         </li>
 
         <div>
             <span th:if="*{sellerId} == ${#authentication.principal.id}">
-                <a class="btn btn-primary" th:href="@{/offers/{offerId}/edit(offerId=*{id})}" role="button">Edit</a>
-                <a class="btn btn-danger" th:href="@{/offers/{offerId}/delete(offerId=*{id})}" role="button">Delete</a>
+                <a class="btn btn-primary" th:href="@{/offers/{offerId}/edit(offerId=*{id})}" role="button" th:text="#{offer_details_edit}">Edit</a>
+                <a class="btn btn-danger" th:href="@{/offers/{offerId}/delete(offerId=*{id})}" role="button" th:text="#{offer_details_delete}">Delete</a>
             </span>
             <span th:unless="*{sellerId} == ${#authentication.principal.id}">
-                <a class="btn btn-success" th:href="@{/offers/{offerId}/buy(offerId=*{id})}" role="button">Buy</a>
+                <a class="btn btn-success" th:href="@{/offers/{offerId}/buy(offerId=*{id})}" role="button" th:text="#{offer_details_buy}">Buy</a>
             </span>
         </div>
 
@@ -68,9 +68,9 @@
                                max="200"
                                type="text"
                                class="form-control addtxt"
-                               placeholder="+ Add a comment" >
+                               th:placeholder="#{offer_details_add_comment_message}" >
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" value="Comment">Comment</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" value="Comment" th:text="#{offer_details_comment}">Comment</button>
                 </form>
 
             <div th:each="comment : *{comments}"
