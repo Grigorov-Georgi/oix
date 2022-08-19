@@ -24,16 +24,16 @@
 <div th:replace="fragments/navbar">Navbar</div>
 
 
-<div id="container">
-    <div class="card" th:object="${offer}">
-        <div th:text="*{title}" style="font-weight: bold"></div>
+<div id="container" style="display: flex; justify-content: center;">
+    <div class="card" th:object="${offer}" style="margin-bottom: 50px;">
+        <div th:text="*{title}" style="font-weight: bold; font-size: xx-large;margin: auto;"></div>
         <div th:if="*{urlPicture} != null">
-            <img class="card-img-top" th:src="@{*{urlPicture}}" alt="Offer image">
+            <img class="card-img-top" th:src="@{*{urlPicture}}" alt="Offer image" style="width: 500px;">
         </div>
         <div th:if="*{urlPicture} == null">
             <img class="card-img-top" src="/images/no-image-icon.png">
         </div>
-        <li class="list-group-item">
+        <li class="list-group-item" style="margin: 0 0 10px 20px;">
             <div class="card-text"><span><b th:text="#{offer_details_price}">• Price: </b><th:block th:text="*{price}"></th:block></span></div>
             <div class="card-text"><span><b th:text="#{offer_details_seller}">• Seller: </b><th:block th:text="*{sellerFullName}"></th:block></span></div>
             <div class="card-text"><span><b th:text="#{offer_details_location}">• Location: </b><th:block th:text="*{location}"></th:block></span></div>
@@ -42,7 +42,7 @@
             </div>
         </li>
 
-        <div>
+        <div style="margin-left: 20px;">
             <span th:if="*{sellerId} == ${#authentication.principal.id}">
                 <a class="btn btn-primary" th:href="@{/offers/{offerId}/edit(offerId=*{id})}" role="button" th:text="#{offer_details_edit}">Edit</a>
                 <a class="btn btn-danger" th:href="@{/offers/{offerId}/delete(offerId=*{id})}" role="button" th:text="#{offer_details_delete}">Delete</a>
@@ -52,7 +52,7 @@
             </span>
         </div>
 
-        <div class="container justify-content-center mt-5 border-left border-right">
+        <div class="container justify-content-center mt-5 border-left border-right" style="margin-bottom: 10px;">
 
                 <form
                         th:action="@{/offers/{id}/comment(id = ${offer.id})}"
