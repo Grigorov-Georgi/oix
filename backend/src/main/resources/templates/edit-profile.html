@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
 
-                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Edit Profile</p>
+                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4" th:text="#{edit_profile_header}">Edit Profile</p>
 
                     <form
                             th:action="@{/users/profile/{id}/edit(id=${#authentication.principal.id})}"
@@ -47,7 +47,7 @@
                                     th:errorclass="is-invalid"
                                     type="text"
                                     class="form-control form-control-lg"/>
-                            <label class="form-label" for="firstName">First name</label>
+                            <label class="form-label" for="firstName" th:text="#{edit_profile_first_name}">First name</label>
 <!--                            <p class="invalid-feedback errors alert alert-danger">-->
 <!--                                First name is required and should be between 4 and 20 symbols.-->
 <!--                            </p>-->
@@ -60,7 +60,7 @@
                                     th:errorclass="is-invalid"
                                     type="text"
                                     class="form-control form-control-lg"/>
-                            <label class="form-label" for="lastName">Last name</label>
+                            <label class="form-label" for="lastName" th:text="#{edit_profile_last_name}">Last name</label>
 <!--                            <p class="invalid-feedback errors alert alert-danger">-->
 <!--                                Last name is required and should be between 4 and 20 symbols.-->
 <!--                            </p>-->
@@ -72,7 +72,7 @@
                                    th:errorclass="is-invalid"
                                    type="text"
                                    class="form-control form-control-lg"/>
-                            <label class="form-label" for="email">Email</label>
+                            <label class="form-label" for="email" th:text="#{edit_profile_email}">Email</label>
 <!--                            <p th:if="${#fields.hasErrors('uniqueEmail')}" th:errors="*{email}">User email should be unique.</p>-->
 <!--                            <div class="invalid-feedback errors alert alert-danger">-->
 <!--                                <div-->
@@ -92,7 +92,7 @@
                         </div>
 
                         <div class="registerBtn">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block" value="Edit Profile">Edit
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" value="Edit Profile" th:text="#{edit_profile_button}">Edit
                                 Profile
                             </button>
                         </div>
@@ -103,7 +103,7 @@
 <!--                            </p>-->
 <!--                        </div>-->
 
-                        <p class="text-center h3 fw-bold mb-5 mx-1 mx-md-4 mt-4">*For a better experience after editing
+                        <p class="text-center h3 fw-bold mb-5 mx-1 mx-md-4 mt-4" th:text="#{edit_profile_message}">*For better experience after editing
                             your profile, sign out and back in!</p>
                     </form>
                 </div>
